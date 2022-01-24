@@ -6,6 +6,7 @@ Voici ce qu'il faut faire pour installer son environnement de travail :
         La deuxième est de l'installer en global (donc de le dossier de nodejs), on va choisir cette façon car le dossier "node_modules" n'a pas a se retrouver sur le git.
     - Pour ce faire on va installer les modules : typescript et jest (test unitaire) -> "npm install -g typescript jest"
     - Une fois fait copier le dossier Ressources/VsCodeIntegration dans Code/ et pour compiler il faut faire CTRL+MAJ+B ou tout en haut "Terminal->Executer la tache de build"
+    - Une fois build les fichier .js sont créer dans /out, il ne suffit plus qu'a lancer l'application avec F5 ou "Executer -> Démarrer le débogage"
     - Pour l'instant ce n'est config que pour windows, si vous voulez le faire linux et que vous n'y arriver pas, on verra ensemble.
 
 Lukas
