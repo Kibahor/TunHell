@@ -1,23 +1,31 @@
-import {Type} from "./Type"
+import { TypeCarte } from './typeCarte'
+import { TypeNain } from './TypeNain';
 
 export class Carte { 
    public name:string;
+   public typeCarte:TypeCarte;
+   public typeNain:TypeNain;
    public valeur1:number;
-   public valeur2:number;
-   public type:Type;
+   public upSymbol:boolean;
+   public stopSymbol:boolean;
 
-   constructor(name:string, valeur1:number, valeur2:number, type:Type){
+   public constructor(name:string, typeCarte:TypeCarte, typeNain:TypeNain, valeur1:number, upSymbol:boolean, stopSymbol:boolean){
       this.name=name;
+      this.typeCarte=typeCarte;
+      this.typeNain=typeNain;
       this.valeur1=valeur1;
-      this.valeur2=valeur2;
-      this.type=type;
+      this.upSymbol=upSymbol;
+      this.stopSymbol=stopSymbol;
    }
 
-   public printCarte(){
-      console.log("Name: "+this.name);
-      console.log("Valeur1: "+this.valeur1);
-      console.log("Valeur2: "+this.valeur2);
-      console.log("Type: "+this.type);
+   public printCarte() : void {
+      console.log('=============Carte=============');
+      console.log('Name: ' + this.name);
+      console.log('Valeur1: ' + this.valeur1);
+      console.log('typeCarte: ' + this.typeCarte);
+      console.log('typeNain: ' + this.typeNain);
+      console.log('Up Symbole: ' + this.upSymbol);
+      console.log('Stop Symbole: ' + this.stopSymbol);
    }
 
 }; 
