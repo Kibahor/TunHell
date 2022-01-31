@@ -1,5 +1,5 @@
 import {Carte} from './Carte'
-import {CarteWithBonus} from './CarteWIthBonus'
+import {CarteWithBonus} from './CarteWithBonus'
 import {TypeCarte} from './TypeCarte'
 import { TypeNain } from './TypeNain';
 

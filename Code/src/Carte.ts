@@ -22,8 +22,8 @@ export class Carte {
       console.log('=============Carte=============');
       console.log('Name: ' + this.name);
       console.log('Valeur1: ' + this.valeur1);
-      console.log('typeCarte: ' + this.typeCarte);
-      console.log('typeNain: ' + this.typeNain);
+      console.log('Type Carte: ' + this.typeCarte);
+      console.log('Type Nain: ' + this.typeNain);
       console.log('Up Symbole: ' + this.upSymbol);
       console.log('Stop Symbole: ' + this.stopSymbol);
    }
