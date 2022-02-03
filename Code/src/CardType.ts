@@ -1,6 +1,7 @@
 export const enum CardType {
-    NAIN = "Nain",
+    DWARF = "Dwarf",
+    MONSTER = "Monster",
     MINE = "Mine",
-    BOSS = "Boss",
-    TROPHEE = "Trophee"
+    ENDMINE = "Endmine",
+    TROPHY = "Trophy"
 }
