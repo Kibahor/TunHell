@@ -1,4 +1,4 @@
-export const enum TypeNain {
+export const enum SubType {
     GUERRIER = 'Guerrier',
     PIOCHEUR = 'Piocheur',
     ECLAIREUR = 'Eclaireur',

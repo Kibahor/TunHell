@@ -1,4 +1,4 @@
-export const enum TypeCarte {
+export const enum CardType {
     NAIN = "Nain",
     MINE = "Mine",
     BOSS = "Boss",
