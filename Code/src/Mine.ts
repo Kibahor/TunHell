@@ -1,9 +1,8 @@
-import { Card } from './Card'
+import { Stack } from './Stack'
 
 export class Mine {
     public name:string;
-    public combatValue:number = 0;
-    public cardList:Array<Card> = [];
+    public stackList:Array<Stack> = [];
 
     public constructor(name:string) {
         this.name = name;
