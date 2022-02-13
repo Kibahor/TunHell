@@ -1,8 +1,8 @@
 import { CardFactory } from "./CardFactory";
-import { Card } from "./Card";
-import { Enemy } from "./Enemy";
+import { Card } from "../Card";
+import { Trophy } from "../Trophy";
 
-export class EnemyFactory extends CardFactory {
+export class TrophyFactory extends CardFactory {
 
     public CreateCard(receipe:JSON, nb:number) : Array<Card> {
 
@@ -11,19 +11,15 @@ export class EnemyFactory extends CardFactory {
         }
         let cards : Array<Card> = [];
         for (let i = 0; i < nb; i++) {
-            cards.push(new Enemy('Enemy', receipe['fight_value'], receipe['gold_value'], receipe['end_mine']));
+            cards.push(new Trophy('Trophy', receipe['gold_value']));
         }
         return cards;
     }
 
     public verify_receipe(receipe:JSON) : boolean {
         try {
-            if (!(
-                receipe['fight_value'] === Number &&
-                receipe['gold_value'] === Number &&
-                receipe['end_mine'] === Boolean
-            )) {
-                throw "Invalid !";
+            if (!(receipe['gold_value'] === Number)) {
+                throw "Invalid!";
             }      
         }
         catch (err) {
