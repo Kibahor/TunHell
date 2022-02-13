@@ -4,7 +4,7 @@ class ViewController{
 
     public function __construct(){
         //variables globales
-
+        global $rep, $vues;
         //tableau des messages d'erreur
 
         try{

@@ -2,6 +2,7 @@
 class FrontController{
 
     function __construct(){
+        global $rep, $vues;
         $listeActions_Visiteur = array("creerCompte", "connection", "reinit");
 
         try{
