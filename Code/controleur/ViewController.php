@@ -28,12 +28,8 @@ class ViewController{
                 //gestion d'erreurs
                     break;
             }
-        } catch (PDOException $e){
-            $tabErreur[] = $e->getMessage();
-            require ($rep.$vues['erreur']);
-        } catch (Exception $e2){
-            $tabErreur[] = $e->getMessage();
-            require ($rep.$vues['erreur']);
+        } catch (Exception $e){
+            //gestion des erreurs
         }
         exit(0);
     }
