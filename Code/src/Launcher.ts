@@ -1,4 +1,6 @@
 import { Dwarf } from './Card/Dwarf'
+import { Card } from './Card/Card'
+import { DwarfFactory } from './Card/DwarfFactory';
 const fs = require('fs');
 
 //Je ne veux pas voir un seul "" car contrairement au '', il y a une interpretation par JS (=> donc execution plus longue)
@@ -22,5 +24,11 @@ let warrior = `{
     }
 }`
 //console.log(JSON.parse(fs.readFileSync('./Card/Receipe/test1.json')))
-console.log(JSON.parse(warrior))
+let parseWarrior = JSON.parse(warrior)
+let cardFactory = new DwarfFactory();
+let result:Array<Card> = cardFactory.CreateCard(parseWarrior["Warrior1"],3)
+for(let card of result) {
+    card.printCard();
+}
+
 

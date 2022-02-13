@@ -2,7 +2,7 @@ import { CardFactory } from "./CardFactory";
 import { Card } from "./Card";
 import { Trophy } from "./Trophy";
 
-export class DwarfFactory extends CardFactory {
+export class TrophyFactory extends CardFactory {
 
     public CreateCard(receipe:JSON, nb:number) : Array<Card> {
 
