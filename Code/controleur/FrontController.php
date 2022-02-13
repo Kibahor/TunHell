@@ -2,17 +2,22 @@
 class FrontController{
 
     function __construct(){
-        $listeActions_Visiteur = array("creerCompte", "connection");
-
+        global $rep, $vues;
+        $listeActions_Visiteur = array("creerCompte", "connection", "reinit");
 
         try{
-            $action = $_REQUEST['action'];
+            isset($_REQUEST['action'])  ?  $action = Validation::validateString($_REQUEST['action'])  :  $action = "reinit";
             if (in_array($action, $listeActions_Visiteur)){
                 $ctrV = new ViewController();
             }
         }
+        catch(PDOException $e){
+            $tabErreur[] = $e->getMessage();
+            require ($rep.$vues['error']);
+        }
         catch(Exception $e){
-            //gestion des erreurs
+            $tabErreur[] = $e->getMessage();
+            require ($rep.$vues['error']);
         }
 
     }
