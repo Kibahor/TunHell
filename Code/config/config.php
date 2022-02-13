@@ -11,5 +11,6 @@ $mdp = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; //voir lors la phase de pe
 $vues = array(
     'acceuil' => 'views/acceuil.php',
     'login' => 'views/login.php',
-    'sign' => 'views/signup.php'
-)
+    'sign' => 'views/signup.php',
+    'index' => 'index.php'
+);
