@@ -1,5 +1,5 @@
-import { Card } from "./Card/Card"
-import { Stack } from "./Stack"
+import { Card } from "../Card/Card"
+import { Stack } from "../Stack"
 
 export class CardMover {
 

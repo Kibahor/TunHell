@@ -3,12 +3,12 @@
     <head>
         <meta charset="utf-8">
         <title>Acceuil</title>
-        <link rel="stylesheet" href="css/master.css">
+        <link rel="stylesheet" href="views/css/master.css">
     </head>
     <body>
         <header>
             <a id="logo" href="#">
-                <img src="css/img/logo.png" alt="Logo du site" title="Retour à l'acceuil du site" width="150">
+                <img src="views/css/img/logo.png" alt="Logo du site" title="Retour à l'acceuil du site" width="150">
             </a>
             <div class="header_div">
                 <a href="#">Create a game room &#10024;</a>
@@ -16,8 +16,8 @@
                 <a href="#">Hand code &#9995;</a>
             </div>
             <div class="header_div">
-                <a class="header_button" href="login.php">Log in</a>
-                <a class="header_button" href="#">Sign up</a>
+                <a class="header_button" href="index.php?action=connection">Log in</a>
+                <a class="header_button" href="index.php?action=creerCompte">Sign up</a>
             </div>
         </header>
         <section id="main-body">
@@ -37,11 +37,11 @@
                 </div>
             </div>
             <div class="body-right">
-                <img id="body-photo" src="css/img/main-image.png" alt="Carte troll" width="700">
+                <img id="body-photo" src="views/css/img/main-image.png" alt="Carte troll" width="700">
             </div>
         </section>
         <footer>
-                <p>Create by Imbert Antoine, Mezquita Fernandez Pedro, Blouin Lukas, Clergue Valentin, Morel Mathieu</p>
+                <p>Create by Imbert Antoine, Mezquita Fernández Pedro, Blouin Lukas, Clergue Valentin, Morel Mathieu</p>
                 <a href="#">Contact</a>
                 <a href="#">Terms of service</a>
                 <a href="#">Credits</a>
