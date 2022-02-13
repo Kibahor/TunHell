@@ -11,13 +11,8 @@ class FrontController{
                 $ctrV = new ViewController();
             }
         }
-        catch(PDOException $e){
-            $tabErreur[] = $e->getMessage();
-            #require ($rep.$vues['erreur']);
-        }
         catch(Exception $e){
-            $tabErreur[] = $e->getMessage();
-            #require ($rep.$vues['erreur']);
+            //gestion des erreurs
         }
 
     }
