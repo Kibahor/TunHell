@@ -17,7 +17,7 @@ export class Stack {
 
     public addCollection(collection:Array<Card>):void {
         for(let card in collection) {
-            this.collection.push((card as unknown as Card));
+            this.collection.push((card as unknown as Card)); //Chelou le for le met en string au lieu de Card
         }
     }
 }

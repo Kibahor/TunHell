@@ -1,10 +1,10 @@
 import { Card } from './Card'
 
 export class Dwarf extends Card {
-    first_value:number = 0;
-    second_value:number = 0;
-    up_symbol:boolean = false;
-    stop_symbol:boolean = false;
+    public first_value:number;
+    public second_value:number;
+    public up_symbol:boolean;
+    public stop_symbol:boolean;
 
     public constructor(name:string, first_value:number, second_value:number, up_symbol:boolean, stop_symbol:boolean) {
         super(name);
@@ -12,6 +12,7 @@ export class Dwarf extends Card {
         this.second_value = second_value;
         this.up_symbol = up_symbol;
         this.stop_symbol = stop_symbol;
+        //Mettre exception si le nom ne contient pas "Dwarf"
     }
 
     public printCard(): void {

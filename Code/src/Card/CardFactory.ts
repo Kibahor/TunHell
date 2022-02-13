@@ -1,7 +1,7 @@
 import { Card } from "./Card";
-export interface  CardFactory{
-    verify_receipe():boolean;
-    CreateCard(receipe:JSON, nb:number):Array<Card>;
+export abstract class CardFactory{
+    abstract verify_receipe():boolean;
+    abstract CreateCard(receipe:JSON, nb:number):Array<Card>;
     /*public cardsStack = new Map<string, Card>();
     
     public generateWarriorsCards() : Array<Card> {

@@ -5,11 +5,3 @@ console.log('Hello World !');
 let carte1 = new Dwarf('Dwarf',5,0,false,false);
 carte1.printCard();
 
-/*publicexport const enum CardType {
-    DWARF = "Dwarf",
-    MONSTER = "Monster",
-    MINE = "Mine",
-    ENDMINE = "Endmine",
-    TROPHY = "Trophy"
-}
-*/
