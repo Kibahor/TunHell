@@ -10,8 +10,13 @@ class FrontController{
                 $ctrV = new ViewController();
             }
         }
+        catch(PDOException $e){
+            $tabErreur[] = $e->getMessage();
+            require ($rep.$vues['error']);
+        }
         catch(Exception $e){
-            //gestion des erreurs
+            $tabErreur[] = $e->getMessage();
+            require ($rep.$vues['error']);
         }
 
     }
