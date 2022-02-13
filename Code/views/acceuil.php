@@ -16,8 +16,8 @@
                 <a href="#">Hand code &#9995;</a>
             </div>
             <div class="header_div">
-                <a class="header_button" href="login.php">Log in</a>
-                <a class="header_button" href="#">Sign up</a>
+                <a class="header_button" href="index.php?action=connection">Log in</a>
+                <a class="header_button" href="index.php?action=creerCompte">Sign up</a>
             </div>
         </header>
         <section id="main-body">
