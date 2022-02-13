@@ -2,7 +2,7 @@
 class FrontController{
 
     function __construct(){
-        $listeActions_Visiteur = array("creerCompte", "connection", NULL);
+        $listeActions_Visiteur = array("creerCompte", "connection");
         
 
         try{
