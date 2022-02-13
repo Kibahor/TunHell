@@ -15,9 +15,25 @@ export class Stack {
         this.collection.push(card);
     }
 
+    public removeCard(card : Card) : void {
+        const index = this.collection.indexOf(card, 0);
+        if (index > -1) {
+            this.collection.splice(index, 1);
+        }
+    }
+
     public addCollection(collection:Array<Card>):void {
         for(let card in collection) {
             this.collection.push((card as unknown as Card)); //Chelou le for le met en string au lieu de Card
         }
+    }
+
+    public getCardByName(name : String) : Card {
+        this.collection.forEach(element => {
+            if (name == element.name) {
+                return element;
+            }
+        });
+        return null;
     }
 }
