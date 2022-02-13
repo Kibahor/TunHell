@@ -37,15 +37,21 @@ class ViewController{
     }
 
     function Reinit(){
+        global $rep, $vues;
         //vue principale
+        require ($rep.$vues['index']);
     }
 
     function vueCreationCompte(){
+        global $rep, $vues;
         //vue creation compte
+        require ($rep.$vues['sign']);
     }
 
     function vueConnection(){
+        global $rep, $vues;
         //vue connection
+        require ($rep.$vues['login']);
     }
 
 
