@@ -10,6 +10,6 @@ $vues['acceuil'] = 'views/acceuil.php';
 $vues['login'] = 'views/login.php';
 $vues['sign'] = 'views/sign.php';
 
-$vues['index'] = 'views/index.php'; //index
+$vues['index'] = 'index.php'; //index
 
 

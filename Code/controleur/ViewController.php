@@ -39,7 +39,7 @@ class ViewController{
     function Reinit(){
         global $rep, $vues;
         //vue principale
-        require ($rep.$vues['index']);
+        require ($rep.$vues['acceuil']);
     }
 
     function vueCreationCompte(){
