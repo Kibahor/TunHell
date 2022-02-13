@@ -16,6 +16,18 @@ export class EnemyFactory extends CardFactory {
     }
 
     public verify_receipe(receipe:JSON) : boolean {
-        return false;
+        try {
+            if (!(
+                receipe['fight_value'] === Number &&
+                receipe['gold_value'] === Number &&
+                receipe['end_mine'] === Boolean
+            )) {
+                throw "Invalid!";
+            }      
+        }
+        catch (err) {
+            return false;
+        }
+        return true;
     }
 }

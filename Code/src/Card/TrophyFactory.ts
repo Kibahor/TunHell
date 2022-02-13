@@ -17,6 +17,14 @@ export class TrophyFactory extends CardFactory {
     }
 
     public verify_receipe(receipe:JSON) : boolean {
-        return false;
+        try {
+            if (!(receipe['gold_value'] === Number)) {
+                throw "Invalid!";
+            }      
+        }
+        catch (err) {
+            return false;
+        }
+        return true;
     }
 }
