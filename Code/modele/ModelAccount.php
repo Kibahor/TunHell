@@ -1,5 +1,4 @@
 <?php
-
 Class ModelAccount
 {
     protected $AccountGateway;
@@ -10,7 +9,7 @@ Class ModelAccount
     }
 
     public static function createAUser(){
-        $pseudo = Validation::validateMail($_POST["pseudo"]);
+        $pseudo = Validation::validateName($_POST["pseudo"]);
         if($AccountGateway->FindByPseudo($pseudo) != NULL) throw new Exception("Le pseudo est déjà existant");
         $password = Validation::validatePassword($_POST["password"]);
         $passwordconfirm = Validation::validateConfirmPassword($password, $_POST["secondpassword"]);
@@ -20,7 +19,7 @@ Class ModelAccount
     }
 
     public static function logUser(){
-		$pseudo = Validation::validateMail($_POST["pseudo"]);
+		$pseudo = Validation::validateName($_POST["pseudo"]);
 		$password = Validation::validatePassword($_POST["password"]);
 		$utilisateur = $AccountGateway->getUser($pseudo);
 		if($utilisateur == NULL) throw new Exception("L'utilisateur n'existe pas");
