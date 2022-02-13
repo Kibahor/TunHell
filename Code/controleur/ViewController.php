@@ -4,15 +4,15 @@ class ViewController{
 
     public function __construct(){
         //variables globales
-        global $rep, $vues;
+
         //tableau des messages d'erreur
 
         try{
-            $action=$_REQUEST['action'];
+            isset($_REQUEST['action'])  ?  $action = Validation::validateString($_REQUEST['action'])  :  $action = "reinit";
 
             switch ($action){
 
-                case NULL:
+                case "reinit":
                     $this->Reinit();
                     break;
 
@@ -25,7 +25,7 @@ class ViewController{
                     break;
 
                 default:
-                //gestion d'erreurs
+                    //gestion d'erreurs
                     break;
             }
         } catch (Exception $e){
@@ -35,16 +35,19 @@ class ViewController{
     }
 
     function Reinit(){
+        global $rep, $vues;
         //vue principale
         require ($rep.$vues['acceuil']);
     }
 
     function vueCreationCompte(){
+        global $rep, $vues;
         //vue creation compte
         require ($rep.$vues['sign']);
     }
 
     function vueConnection(){
+        global $rep, $vues;
         //vue connection
         require ($rep.$vues['login']);
     }
