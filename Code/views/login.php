@@ -2,7 +2,7 @@
 <html lang="fr" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Acceuil</title>
+        <title>Login</title>
         <link rel="stylesheet" href="css/master.css">
     </head>
     <body>
@@ -16,28 +16,28 @@
                 <a href="#">Hand code &#9995;</a>
             </div>
             <div class="header_div">
-                <a class="header_button" href="login.php">Log in</a>
+                <a class="header_button" href="#">Log in</a>
                 <a class="header_button" href="#">Sign up</a>
             </div>
         </header>
-        <section id="main-body">
-            <div class="body-left">
-                <div id="left-content">
-                    <h1 class="main-text">You too embark on the adventure and join a
-                        <a href="#">game of TunHell!</a>
-                    </h1>
-                    <p>Just enter the
-                        <a href="#">game code</a>
-                        in the field below.
-                    </p>
-                    <form class="" action="acceuil.html" method="post">
-                        <input class="field" type="text" name="game_code" value="">
-                        <input class="header_button" type="submit" name="" value="Join">
-                    </form>
-                </div>
-            </div>
-            <div class="body-right">
-                <img id="body-photo" src="css/img/main-image.png" alt="Carte troll" width="700">
+        <section class="form_login_sign">
+            <div class="div_login">
+                <form class="form_log" action="index.php?action=login" method="POST">
+                    <h1>Log-in</h1>
+                    <div class ="log_field">
+                        <input class="field" type="email" name="mail" placeholder="Your email" required autofocus>
+                    </div>
+                    <div class ="log_field">
+                        <input class="field" type="password" name="password" placeholder="Password" required>
+                    </div>
+                    <div class ="log_field">
+                        <input class="header_button" type="submit" value="Se connecter" name="subbutton">
+                    </div>
+                </form>
+                <p>
+                    Don't have an account ?
+                    <a href="index.php?action=signup">Sign up</a>
+                </p>
             </div>
         </section>
         <footer>
