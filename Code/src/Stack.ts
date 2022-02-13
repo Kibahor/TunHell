@@ -1,11 +1,23 @@
-import { Card } from './Card'
+import { Card } from './Card/Card'
+import { StackType} from './StackType'
 
 export class Stack {
     public name:string;
-    public combatValue:number = 0;
-    public cardList:Array<Card> = [];
+    public type:StackType;
+    public collection:Array<Card> = [];
 
-    public constructor(name:string) {
+    public constructor(name:string, type:StackType) {
         this.name = name;
+        this.type = type;
+    }
+
+    public addCard(card:Card):void {
+        this.collection.push(card);
+    }
+
+    public addCollection(collection:Array<Card>):void {
+        for(let card in collection) {
+            this.collection.push((card as unknown as Card));
+        }
     }
 }

@@ -1,9 +1,9 @@
 import { Card } from "./Card";
-import { CardType } from "./CardType";
-import {CardWithBonus} from "./CardWithBonus";
-export class CardFactory{
-    public cardsStack = new Map<string, Card>();
-
+export interface  CardFactory{
+    verify_receipe():boolean;
+    CreateCard(receipe:JSON, nb:number):Array<Card>;
+    /*public cardsStack = new Map<string, Card>();
+    
     public generateWarriorsCards() : Array<Card> {
         let warriors = new Array<Card>();
         for(let i = 0; i < 7; i++){
@@ -48,5 +48,5 @@ export class CardFactory{
             scouts.push(new Card("Scout",CardType.DWARF,3,true,false))
         }
         return scouts;
-    }
+    }*/
 }

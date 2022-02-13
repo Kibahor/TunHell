@@ -1,6 +1,5 @@
-import { GameBoard } from './GameBoard'
+/*import { GameBoard } from './GameBoard'
 import { CardMover } from './CardMover';
-import { Player } from './Player/Player'
 
 export class GameManager {
     public gameBoardList:Array<GameBoard> = [];
@@ -13,4 +12,4 @@ export class GameManager {
     public addPlayerToBoard(player:Player, gameBoard:GameBoard) {
 
     }
-}
+}*/
