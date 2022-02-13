@@ -11,7 +11,7 @@ export class DwarfFactory extends CardFactory {
         }
         let cards : Array<Card> = [];
         for (let i = 0; i < nb; i++) {
-            cards.push(new Dwarf(receipe['name'], receipe['first_value'], receipe['second_value'], receipe['up_symbol'], receipe['stop_symbol']));
+            cards.push(new Dwarf('Warrior', receipe['first_value'], receipe['second_value'], receipe['up_symbol'], receipe['stop_symbol']));
         }
         return cards;
     }

@@ -11,7 +11,7 @@ export class TrophyFactory extends CardFactory {
         }
         let cards : Array<Card> = [];
         for (let i = 0; i < nb; i++) {
-            cards.push(new Trophy(receipe['name'], receipe['gold_value']));
+            cards.push(new Trophy('Trophy', receipe['gold_value']));
         }
         return cards;
     }
