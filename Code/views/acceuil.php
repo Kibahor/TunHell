@@ -23,7 +23,7 @@
         <section id="main-body">
             <div class="body-left">
                 <div id="left-content">
-                    <h1 class="main-text">You too embark on the adventure and join a
+                    <h1 class="main-text">Embark on the adventure and join a
                         <a href="#">game of TunHell!</a>
                     </h1>
                     <p>Just enter the

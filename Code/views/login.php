@@ -36,7 +36,7 @@
                 </form>
                 <p>
                     Don't have an account ?
-                    <a href="index.php?action=signup">Sign up</a>
+                    <a href="index.php?action=creerCompte">Sign up</a>
                 </p>
             </div>
         </section>

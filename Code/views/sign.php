@@ -38,8 +38,8 @@
                     </div>
                 </form>
                 <p>
-                    Don't have an account ?
-                    <a href="index.php?action=signup">Sign up</a>
+                    Already have an account ?
+                    <a href="index.php?action=connection">Log in</a>
                 </p>
             </div>
         </section>

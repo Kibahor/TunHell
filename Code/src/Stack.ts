@@ -23,14 +23,14 @@ export class Stack {
     }
 
     public addCollection(collection:Array<Card>):void {
-        for(let card of collection) {
-            this.collection.push(card);
+        for(let card in collection) {
+            this.collection.push((card as unknown as Card)); //Chelou le for le met en string au lieu de Card
         }
     }
 
     public getCardByName(name : String) : Card {
         this.collection.forEach(element => {
-            if (name === element.name) {
+            if (name == element.name) {
                 return element;
             }
         });
