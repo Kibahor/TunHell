@@ -13,11 +13,11 @@ class FrontController{
         }
         catch(PDOException $e){
             $tabErreur[] = $e->getMessage();
-            require ($rep.$vues['erreur']);
+            #require ($rep.$vues['erreur']);
         }
         catch(Exception $e){
             $tabErreur[] = $e->getMessage();
-            require ($rep.$vues['erreur']);
+            #require ($rep.$vues['erreur']);
         }
 
     }
