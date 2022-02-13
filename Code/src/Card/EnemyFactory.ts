@@ -2,9 +2,10 @@ import { CardFactory } from "./CardFactory";
 import { Card } from "./Card";
 import { Enemy } from "./Enemy";
 
-export class EnemyFactory extends CardFactory {
+export class DwarfFactory extends CardFactory {
 
     public CreateCard(receipe:JSON, nb:number) : Array<Card> {
+
         if (!this.verify_receipe(receipe)) {
             throw new TypeError("La recette donnée n'est pas compatible !");
         }
