@@ -1,10 +1,10 @@
 <?php
 
 class ViewController{
-    
+
     public function __construct(){
         //variables globales
-
+        global $rep, $vues;
         //tableau des messages d'erreur
 
         try{
@@ -15,7 +15,7 @@ class ViewController{
                 case NULL:
                     $this->Reinit();
                     break;
-                
+
                 case "creerCompte":
                     $this->vueCreationCompte();
                     break;
@@ -29,27 +29,26 @@ class ViewController{
                     break;
             }
         } catch (PDOException $e){
-            //gestion exceptions PDO
+            $tabErreur[] = $e->getMessage();
+            require ($rep.$vues['erreur']);
         } catch (Exception $e2){
-            //gestion autres exceptions
+            $tabErreur[] = $e->getMessage();
+            require ($rep.$vues['erreur']);
         }
         exit(0);
     }
 
     function Reinit(){
-        global $rep, $vues;
         //vue principale
         require ($rep.$vues['acceuil']);
     }
 
     function vueCreationCompte(){
-        global $rep, $vues;
         //vue creation compte
         require ($rep.$vues['sign']);
     }
 
     function vueConnection(){
-        global $rep, $vues;
         //vue connection
         require ($rep.$vues['login']);
     }
