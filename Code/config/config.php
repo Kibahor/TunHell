@@ -8,10 +8,8 @@ $mdp = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; //voir lors la phase de pe
 //$user = 'root';
 //$mdp = 'root';
 
-$vues['acceuil'] = 'views/acceuil.php';
-$vues['login'] = 'views/login.php';
-$vues['sign'] = 'views/sign.php';
-
-$vues['index'] = 'index.php'; //index
-
-
+$vues = array(
+    'acceuil' => 'views/acceuil.php',
+    'login' => 'views/login.php',
+    'sign' => 'views/signup.php'
+);
