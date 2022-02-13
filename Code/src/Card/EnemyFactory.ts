@@ -23,7 +23,7 @@ export class EnemyFactory extends CardFactory {
                 receipe['gold_value'] === Number &&
                 receipe['end_mine'] === Boolean
             )) {
-                throw "Invalid!";
+                throw "Invalid !";
             }      
         }
         catch (err) {

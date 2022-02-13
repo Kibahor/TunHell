@@ -151,7 +151,7 @@ function generateDwarf(warrior:JSON, picker:JSON, scout:JSON, blaster:JSON):Stac
     cards.addCollection(generateWarrior(warrior).collection);
     cards.addCollection(generatePicker(picker).collection);
     cards.addCollection(generateScout(scout).collection);
-    cards.addCollection(cardFactory.CreateCard(blaster,2));
+    cards.addCollection(cardFactory.CreateCard(blaster['Blaster1'],2));
 
     return cards;
 }
