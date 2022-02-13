@@ -17,6 +17,38 @@ export class DwarfFactory extends CardFactory {
     }
 
     public verify_receipe(receipe:JSON) : boolean {
-        return false;
+        try {
+            if (!(
+                receipe['first_value'] === Number &&
+                receipe['second_value'] === Number &&
+                receipe['up_symbol'] === Boolean &&
+                receipe['stop_symbol'] === Boolean
+            )) {
+                throw "Invalid type!";
+            }
+            // Règle :
+            // Si les 2 valeurs sont supérieures à 0 alors les symboles sont forcéments faux 
+            if (!(
+                (receipe['first_value'] > 0 && receipe['second_value'] > 0)
+                && !receipe['up_symbol'] && !receipe['stop_symbol']
+            )) {
+                throw "Invalid logic!";
+            }
+            // Règle :
+            // 2 symboles ne peuvent être vrais à la fois
+            if (!(
+                (receipe['up_symbol'] && !receipe['stop_symbol'])
+                ||
+                (!receipe['up_symbol'] && receipe['stop_symbol'])
+                ||
+                (receipe['up_symbol'] && receipe['stop_symbol'])
+            )) {
+                throw "Invalid logic! (2)";
+            }
+        }
+        catch (err) {
+            return false;
+        }
+        return true;
     }
 }

@@ -2,7 +2,7 @@ import { CardFactory } from "./CardFactory";
 import { Card } from "./Card";
 import { Trophy } from "./Trophy";
 
-export class DwarfFactory extends CardFactory {
+export class TrophyFactory extends CardFactory {
 
     public CreateCard(receipe:JSON, nb:number) : Array<Card> {
 
@@ -17,6 +17,14 @@ export class DwarfFactory extends CardFactory {
     }
 
     public verify_receipe(receipe:JSON) : boolean {
-        return false;
+        try {
+            if (!(receipe['gold_value'] === Number)) {
+                throw "Invalid!";
+            }      
+        }
+        catch (err) {
+            return false;
+        }
+        return true;
     }
 }
