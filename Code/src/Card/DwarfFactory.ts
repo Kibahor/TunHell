@@ -5,7 +5,6 @@ import { Dwarf } from "./Dwarf";
 export class DwarfFactory extends CardFactory {
 
     public CreateCard(receipe:JSON, nb:number) : Array<Card> {
-
         if (!this.verify_receipe(receipe)) {
             throw new TypeError("La recette donnée n'est pas compatible !");
         }
@@ -17,6 +16,6 @@ export class DwarfFactory extends CardFactory {
     }
 
     public verify_receipe(receipe:JSON) : boolean {
-        return false;
+        return true;
     }
 }
