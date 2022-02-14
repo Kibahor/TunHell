@@ -26,7 +26,7 @@ export class Stack {
         this.collection=this.collection.concat(collection);
     }
 
-    public getCardByName(name : String) : Card {
+    public getCardByName(name : string) : Card {
         this.collection.forEach(element => {
             if (name == element.name) {
                 return element;
