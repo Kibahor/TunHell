@@ -4,14 +4,14 @@ import { Dwarf } from "../Dwarf";
 
 export class DwarfFactory extends CardFactory {
 
-    public CreateCard(receipe:JSON, nb:number) : Array<Card> {
+    public CreateCard(typeName:string, receipe:JSON, nb:number) : Array<Card> {
 
         if (!this.verify_receipe(receipe)) {
             throw `Problème création de la carte Dwarf (nb:${nb})`;
         }
         let cards : Array<Card> = [];
         for (let i = 0; i < nb; i++) {
-            cards.push(new Dwarf('ACHANGER', receipe['first_value'], receipe['second_value'], receipe['up_symbol'], receipe['stop_symbol']));
+            cards.push(new Dwarf(typeName, receipe['first_value'], receipe['second_value'], receipe['up_symbol'], receipe['stop_symbol']));
         }
         return cards;
     }
@@ -28,6 +28,7 @@ export class DwarfFactory extends CardFactory {
         return true;
     }
 
+    //Test Unitaire (convertir pour utiiser avec jest)
     private assertType(receipe:JSON):void { // Vérification des clés et des types
           if (!(
             typeof receipe['first_value'] === 'number' &&
@@ -37,12 +38,12 @@ export class DwarfFactory extends CardFactory {
           )) throw 'Invalid type : une ou plusieurs valeurs du json ne contiennent pas le bon type ou il manque une clé';
     }
 
-    assertSymbole(receipe:JSON):void {
+    private assertSymbole(receipe:JSON):void {
         if ((receipe['up_symbol'] && receipe['stop_symbol']) === true)
             throw "Invalid logic : une carte peut pas avoir les deux symboles en même temps"
     }
 
-    assertValueAndSymbole(receipe:JSON):void {
+    private assertValueAndSymbole(receipe:JSON):void {
         if (
             (receipe['first_value'] > 0 && receipe['second_value'] > 0) &&
             (receipe['up_symbol'] || receipe['stop_symbol'])

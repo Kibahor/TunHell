@@ -4,7 +4,7 @@ import { Enemy } from "../Enemy";
 
 export class EnemyFactory extends CardFactory {
 
-    public CreateCard(receipe:JSON, nb:number) : Array<Card> {
+    public CreateCard(typename:string, receipe:JSON, nb:number) : Array<Card> {
 
         if (!this.verify_receipe(receipe)) {
             throw new TypeError("La recette donnée n'est pas compatible !");

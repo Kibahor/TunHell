@@ -4,7 +4,7 @@ import { Trophy } from "../Trophy";
 
 export class TrophyFactory extends CardFactory {
 
-    public CreateCard(receipe:JSON, nb:number) : Array<Card> {
+    public CreateCard(typeName:string, receipe:JSON, nb:number) : Array<Card> {
 
         if (!this.verify_receipe(receipe)) {
             throw new TypeError("La recette donnée n'est pas compatible !");
