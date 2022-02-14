@@ -4,14 +4,14 @@ import { Enemy } from "../Enemy";
 
 export class EnemyFactory extends CardFactory {
 
-    public CreateCard(typename:string, receipe:JSON, nb:number) : Array<Card> {
+    public CreateCard(typeName:string, receipe:JSON, nb:number) : Array<Card> {
 
         if (!this.verify_receipe(receipe)) {
             throw new TypeError("La recette donnée n'est pas compatible !");
         }
         let cards : Array<Card> = [];
         for (let i = 0; i < nb; i++) {
-            cards.push(new Enemy('Enemy', receipe['fight_value'], receipe['gold_value'], receipe['end_mine']));
+            cards.push(new Enemy(typeName, receipe['fight_value'], receipe['gold_value'], receipe['end_mine']));
         }
         return cards;
     }

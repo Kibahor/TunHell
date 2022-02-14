@@ -7,11 +7,12 @@ export class InitializeDeck{
     private receipes:Map<string,JSON>;
     private cardFactory:DwarfFactory;
     private deckName:string = "Default";
-    private path_json:string = path.resolve(path.join(__dirname, '/Receipe/'));
+    private path_json:string = path.resolve(path.join('./res','/Receipe/'));
 
     public constructor(){
         this.cardFactory = new DwarfFactory();
         this.receipes = new Map();
+        console.log(this.path_json);
         for(let file of fs.readdirSync(this.path_json)){
             if(path.posix.extname(file) == '.json'){
                 let key = path.posix.basename(file,'.json');
@@ -22,7 +23,7 @@ export class InitializeDeck{
     }
 
     private generateDwarf():Array<Card>{
-        let receipeDeck = this.receipes.get('Deck')[this.deckName];
+        let receipeDeck = this.receipes.get('Deck')[this.deckName]['Dwarf'];
         if(receipeDeck == null)
             throw new SyntaxError(`Le deck ${this.deckName} n'existe pas !`);
         let result:Array<Card> = [];
