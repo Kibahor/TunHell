@@ -1,0 +1,32 @@
+- Node JS SSH : Ne marche pas: - certificats SSL qui bloquent (?)
+- PHP : Reverse-Shell Marche pas : - firewall potentiel qui bloque
+				   - Les requetes sont envoyées, ordinateur en ecoute ne reçoit pas, WSL Kali et Windows avec netcat en ecoute ne reçoivent pas, posibilité de LFI
+
+- "Local File Inclusion" appel au shell depuis php: -Succes
+			 			    - Lis le code bash dans le imput de la page et l'execute, 2> pour avoir la sortie d'erreur, > pour avoir une sortie standart vers fichier propre
+
+						    - Donne accees au repertoire de tout le hebergeur
+						    - Acces a certains données de tous les utilisateurs de la plateforme: A se mefier
+
+Test des ressources de la machine:
+	- Absence de ssh (ou non repertorié)
+	- Presence de git (http et ssh, preferable html)
+	- tunhell -> root
+	- possibilité de clone, commit, pull, push
+	- Plesk, Nginx
+
+
+no sudo (Commande sudo non presente)
+
+automatic git pull lors de l'actualisation du repos: mauvaise idée: Perte de control sur le deploiement de la page web
+								    Risque de securité lors qu'on pull des erreurs
+
+git pull semiautomatique : - données de mes identifiants (en cas de commit/push) token pour le reste
+			   - Script accessible a tous
+
+Outils prefaits : On ne trouve quasiment pas des programmes qui nous permettent de pull automatiquement du repertoire car c'est consideré comme une mauvaise idée et une mauvaise practique
+		- Programmes existants ont besoin d'un access total au terminal de la machine (si bien on a reussi a avoir l'acces sur un shell en exploitant php, cela nous donne pas un acces totale vers le bash)
+
+
+
+Fin: script pull et commit fait, decision: mauvaise decision, script pull, commit et LFI finalisés

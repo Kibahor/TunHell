@@ -1,0 +1,11 @@
+{
+  "name": "tunhell",
+  "version": "1.0.0",
+  "description": "Online card game",
+  "main": "launch.js",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^17.0.17"
+  }
+}
