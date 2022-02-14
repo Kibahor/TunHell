@@ -1,0 +1,7 @@
+{
+    "Gobelin1":{
+        "fight_value":2,
+        "gold_value":2,
+        "public end_mine":false
+    }
+}

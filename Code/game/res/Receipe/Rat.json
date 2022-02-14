@@ -1,0 +1,7 @@
+{
+    "Rat1":{
+        "fight_value":1,
+        "gold_value":0,
+        "public end_mine":false
+    }
+}

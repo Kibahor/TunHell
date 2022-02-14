@@ -23,6 +23,29 @@
             "Blaster":{
                 "Blaster1":2
             }
+        },
+        "Enemy":{
+            "Dirt":{
+                "Dirt1":18
+            },
+            "Treasure":{
+                "Treasure1":10
+            },
+            "Rat":{
+                "Rat1":7
+            },
+            "Gobelin":{
+                "Gobelin1":4
+            },
+            "Orc":{
+                "Orc1":4
+            },
+            "Troll":{
+                "Troll1":3
+            },
+            "Dragon":{
+                "Dragon1":3
+            }
         }
     }
 }

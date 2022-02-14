@@ -1,0 +1,7 @@
+{
+    "Dragon1":{
+        "fight_value":6,
+        "gold_value":6,
+        "public end_mine":false
+    }
+}
