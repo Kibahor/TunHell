@@ -2,6 +2,6 @@
     "Troll1":{
         "fight_value":3,
         "gold_value":3,
-        "public end_mine":false
+        "end_mine":false
     }
 }

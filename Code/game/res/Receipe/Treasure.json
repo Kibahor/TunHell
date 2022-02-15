@@ -2,6 +2,6 @@
     "Treasure1":{
         "fight_value":0,
         "gold_value":1,
-        "public end_mine":false
+        "end_mine":false
     }
 }

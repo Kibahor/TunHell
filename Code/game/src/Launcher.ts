@@ -4,9 +4,9 @@ import { InitializeDeck } from './Card/Factory/InitializeDeck';
 
 let initDeck = new InitializeDeck();
 let deck = initDeck.generateDeck();
-console.log(deck.length)
+console.debug(deck.length)
 for(let card of deck){
-    console.log(card);
+    console.debug(card);
 }
 
 

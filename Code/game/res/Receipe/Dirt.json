@@ -2,6 +2,6 @@
     "Dirt1":{
         "fight_value":0,
         "gold_value":0,
-        "public end_mine":false
+        "end_mine":false
     }
 }

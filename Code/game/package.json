@@ -5,7 +5,13 @@
   "main": "launch.js",
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
-    "@types/node": "^17.0.17"
+    "@types/jest": "^27.4.0",
+    "@types/node": "^17.0.17",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.3"
   }
 }
