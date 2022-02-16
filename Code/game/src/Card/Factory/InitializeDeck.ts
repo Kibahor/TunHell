@@ -15,14 +15,21 @@ export class InitializeDeck{
     
     public constructor(){
         this.receipes = new Map();
-        for(let file of fs.readdirSync(this.path_json)){
-            if(path.posix.extname(file) == '.json'){
-                let key = path.posix.basename(file,'.json');
-                let value = JSON.parse(fs.readFileSync(path.join(this.path_json,file)));
+        this.addReceipes(this.path_json);
+    }    
+
+    private addReceipes(folder:string){
+        for(let file of fs.readdirSync(folder)){
+            let path_file = path.join(folder,file);
+            if(fs.lstatSync(path_file).isDirectory()){
+                this.addReceipes(path_file);
+            }else if(path.posix.extname(path_file) == '.json'){
+                let key = path.posix.basename(path_file,'.json');
+                let value = JSON.parse(fs.readFileSync(path_file));
                 this.receipes.set(key, value);
             }
         }
-    }    
+    }
     
     private createCard(factoryType:string, typename:string, receipe:JSON, number:number):Array<Card>{
         return this.factoryMatch[factoryType].CreateCard(typename,receipe,number);

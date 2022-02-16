@@ -1,0 +1,86 @@
+const fs = require('fs');
+const path = require('path');
+
+function loadReceipes(map:Map<string,JSON>,folder:string){
+    for(let file of fs.readdirSync(folder)){
+        let path_file = path.join(folder,file);
+        if(fs.lstatSync(path_file).isDirectory()){
+            map=loadReceipes(map,path_file);
+        }else if(path.posix.extname(path_file) == '.json'){
+            let key = path.posix.basename(path_file,'.json');
+            let value = JSON.parse(fs.readFileSync(path_file));
+            map.set(key, value);
+        }
+    }
+    return map
+}
+
+function sortReceipes(receipes:Map<string,JSON>,deckName:string):Map<string,JSON>{
+    let result = new Map();
+    for(let [factoryType,type] of Object.entries(receipes.get('Deck')[deckName])){ // "Dwarf" et {}
+      for(let [name,number] of Object.entries(type)){
+        if (!result.has(factoryType))
+            result.set(factoryType,[receipes.get(name)])
+        else
+            result.set(factoryType,result.get(factoryType).concat(receipes.get(name)))
+      }
+    }
+    return result;
+}
+
+let path_json:string = path.resolve(path.join('./res','/Receipe/'));
+let receipes:Map<string,JSON> = new Map();
+receipes = loadReceipes(receipes,path_json);
+receipes = sortReceipes(receipes,'Default');
+
+//Dwarf
+let receipesDwarf = receipes.get('Dwarf')
+
+for(let [type,name] of Object.entries(receipesDwarf)){
+  for(let [value,receipe]of Object.entries(name)){
+    describe(`check type of value for ${value}`, () => {
+      it("first_value should be number", () => {
+        expect(typeof receipe['first_value']).toBe('number');
+      });
+
+      it("second_value should be number", () => {
+        expect(typeof receipe['second_value']).toBe('number');
+      });
+
+      it("up_symbol should be boolean", () => {
+        expect(typeof receipe['up_symbol']).toBe('boolean');
+      });
+
+      it("stop_symbol should be boolean", () => {
+        expect(typeof receipe['stop_symbol']).toBe('boolean');
+      });
+    });
+  }
+}
+
+
+/*
+//Test Unitaire (convertir pour utiiser avec jest)
+function assertType(receipe:JSON):void { // Vérification des clés et des types
+    if (!(
+      typeof receipe['first_value'] === 'number' &&
+      typeof receipe['second_value'] === 'number' &&
+      typeof receipe['up_symbol'] === 'boolean' &&
+      typeof receipe['stop_symbol'] === 'boolean'
+    )) throw 'Invalid type : une ou plusieurs valeurs du json ne contiennent pas le bon type ou il manque une clé';
+}
+
+function assertSymbole(receipe:JSON):void {
+  if ((receipe['up_symbol'] && receipe['stop_symbol']) === true)
+      throw "Invalid logic : une carte peut pas avoir les deux symboles en même temps"
+}
+
+function assertValueAndSymbole(receipe:JSON):void {
+  if (
+      (receipe['first_value'] > 0 && receipe['second_value'] > 0) &&
+      (receipe['up_symbol'] || receipe['stop_symbol'])
+  ) throw 'Invalid logic : si une carte a deux valeurs, il ne peut pas avoir de symboles !';
+}*/
+
+
+
