@@ -1,38 +1,7 @@
-const fs = require('fs');
-const path = require('path');
+import {receipes, sortReceipes, getDeck } from '../Card/Factory/ReceipeFunctions';
 
-function loadReceipes(map:Map<string,JSON>,folder:string){
-    for(let file of fs.readdirSync(folder)){
-        let path_file = path.join(folder,file);
-        if(fs.lstatSync(path_file).isDirectory()){
-            map=loadReceipes(map,path_file);
-        }else if(path.extname(path_file) == '.json'){
-            let key = path.basename(path_file,'.json');
-            let value = JSON.parse(fs.readFileSync(path_file));
-            map.set(key, value);
-        }
-    }
-    return map
-}
-
-function sortReceipes(receipes:Map<string,JSON>,deckName:string):Map<string,Map<string,JSON>>{
-    let result = new Map();
-    for(let [factoryType,type] of Object.entries(receipes.get('Deck')[deckName])){ // "Warrior" et {}
-      for(let [name,number] of Object.entries(type)){
-        if (!result.has(factoryType))
-            result.set(factoryType,new Map([[name,receipes.get(name)]]))
-        else
-            result.get(factoryType).set(name,receipes.get(name))
-      }
-    }
-    return result;
-}
-
-let path_json:string = path.resolve(path.join('./res','/Receipe/'));
-let receipes:Map<string,JSON> = loadReceipes(new Map(),path_json); //Récursive d'où le new Map()
-let sortedReceipes:Map<string,Map<string,JSON>> = sortReceipes(receipes,'Default');
-
-//Dwarf
+let deck=getDeck('Default');
+let sortedReceipes = sortReceipes(receipes,deck);
 let receipesDwarf:Map<string,JSON> = sortedReceipes.get('Dwarf')
 describe(`Check Dwarf cards`, () => {
   for(let [type,map] of receipesDwarf.entries()){
