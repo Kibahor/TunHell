@@ -1,0 +1,7 @@
+{
+    "Treasure1":{
+        "fight_value":0,
+        "gold_value":1,
+        "end_mine":false
+    }
+}
