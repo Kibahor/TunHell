@@ -8,7 +8,7 @@ Class ModelAccount
         $this->AccountGateway = new AccountGateway
     }
 
-    public static function createAUser(){
+    public function createAUser(){
         $pseudo = Validation::validateName($_POST["pseudo"]);
         if($AccountGateway->FindByPseudo($pseudo) != NULL) throw new Exception("Le pseudo est déjà existant");
         $password = Validation::validatePassword($_POST["password"]);
@@ -18,12 +18,14 @@ Class ModelAccount
         $AccountGateway->insertUser($pseudo, "default", $hash, $date);
     }
 
-    public static function logUser(){
+    public function logUser(){
 		$pseudo = Validation::validateName($_POST["pseudo"]);
 		$password = Validation::validatePassword($_POST["password"]);
 		$utilisateur = $AccountGateway->getUser($pseudo);
 		if($utilisateur == NULL) throw new Exception("L'utilisateur n'existe pas");
 		password_verify($password,$utilisateur->get_password());
 		$_SESSION['userid'] = $utilisateur->get_id();
+    }
+
 }
 ?>

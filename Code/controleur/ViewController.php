@@ -8,12 +8,12 @@ class ViewController{
         //tableau des messages d'erreur
 
         try{
-            isset($_REQUEST['action'])  ?  $action = Validation::validateString($_REQUEST['action'])  :  $action = "reinit";
+            isset($_REQUEST['action'])  ?  $action = Validation::validateString($_REQUEST['action'])  :  $action = "afficherAcceuil";
 
             switch ($action){
 
-                case "reinit":
-                    $this->Reinit();
+                case "afficherAcceuil":
+                    $this->AfficherAcceuil();
                     break;
 
                 case "creerCompte":
@@ -41,7 +41,7 @@ class ViewController{
         exit(0);
     }
 
-    function Reinit(){
+    function AfficherAcceuil(){
         global $rep, $vues;
         //vue principale
         require ($rep.$vues['acceuil']);
@@ -57,6 +57,11 @@ class ViewController{
         global $rep, $vues;
         //vue connection
         require ($rep.$vues['login']);
+    }
+
+    function login(){
+        $mdlAccount = new ModelAccount();
+        $mdlAccount->logUser();
     }
 
 

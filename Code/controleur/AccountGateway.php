@@ -4,7 +4,7 @@ class AccountGateway extends Connection
 {
     public function insert(Account $admin): int
     {
-        $query = 'INSERT INTO adminn VALUES(:id, :pseudo, :avatar, :passwrd, :creationDate, :numberGames, :numberVictoires)';
+        $query = 'INSERT INTO account VALUES(:id, :pseudo, :avatar, :passwrd, :creationDate, :numberGames, :numberVictoires)';
         $this->executeQuery($query, array(':id' => array($admin->getId(), PDO::PARAM_INT), ':pseudo' => array($admin->getPseudo(), PDO::PARAM_STR), ':avatar' => array($admin->getAvatar(), PDO::PARAM_STR), ':creationDate' => array($admin->getCreationDate(), PDO::PARAM_STR), ':numberGames' => array($admin->getNumberGames(), PDO::PARAM_INT), ':numberVictoires' => array($admin->getNumberVictoires(), PDO::PARAM_INT)));
         return $this->lastInsertId();
     }
@@ -19,7 +19,7 @@ class AccountGateway extends Connection
     public function FindByPseudo(string $pseudo): Account
     {
         //preparation et execution de la requete sql (A APPRENDRE)
-        $query = 'SELECT * FROM adminn WHERE pseudo=:pseudo';
+        $query = 'SELECT * FROM account WHERE pseudo=:pseudo';
         $this->executeQuery($query, array(':pseudo' => array($pseudo, PDO::PARAM_STR)));
 
         //conversion en objets
