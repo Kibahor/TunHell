@@ -1,11 +1,10 @@
 <?php
 Class ModelAccount
 {
-    protected $AccountGateway;
 
-    public function __construct($AccountGateway)
+    public function __construct()
     {
-        $this->AccountGateway = new AccountGateway
+
     }
 
     public function createAUser(){
@@ -21,11 +20,37 @@ Class ModelAccount
     public function logUser(){
 		$pseudo = Validation::validateName($_POST["pseudo"]);
 		$password = Validation::validatePassword($_POST["password"]);
-		$utilisateur = $AccountGateway->getUser($pseudo);
-		if($utilisateur == NULL) throw new Exception("L'utilisateur n'existe pas");
-		password_verify($password,$utilisateur->get_password());
-		$_SESSION['userid'] = $utilisateur->get_id();
+
+        $AccountGateway = new AccountGateway();
+		$utilisateur = $AccountGateway->FindByPseudo($pseudo);
+
+		if($utilisateur == NULL) return null;
+
+		if(password_verify($password,$utilisateur->getPasswordHash()))
+        {
+            $_SESSION['role'] = "user";
+    		$_SESSION['userid'] = $utilisateur->getId();
+            return $utilisateur;
+        }
+        else
+        {
+            return null;
+        }
     }
+
+    public function isLogin()                                               //renvoie true si l'utilisateur actuel est connecté sinon false
+	{
+		if (isset($_SESSION['userid']) && isset($_SESSION['role'])) {
+			$userid = Validation::validateString($_SESSION['userid']);
+			$role = Validation::validateString($_SESSION['role']);
+            $AccountGateway = new AccountGateway();
+			return $AccountGateway->FindById($userid);
+		}
+		else
+		{
+			return null;
+		}
+	}
 
 }
 ?>

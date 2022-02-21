@@ -26,7 +26,7 @@ class Autoload
     private static function _autoload($class){
         global $rep;
         $fileName = $class.'.php';
-        $dir = array('modeles/','./','config/','controleur/','vues');
+        $dir = array('modele/','./','config/','controleur/','vues');
         foreach ($dir as $d){
             $file = $rep.$d.$fileName;
             if(file_exists($file)){

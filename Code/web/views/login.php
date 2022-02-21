@@ -17,7 +17,7 @@
             </div>
             <div class="header_div">
                 <a class="header_button" href="#">Log in</a>
-                <a class="header_button" href="index.php?action=creerCompte">Sign up</a>
+                <a class="header_button" href="index.php?action=vueCreationCompte">Sign up</a>
             </div>
         </header>
         <section class="form_login_sign">
@@ -25,7 +25,7 @@
                 <form class="form_log" action="index.php?action=login" method="POST">
                     <h1>Log-in</h1>
                     <div class ="log_field">
-                        <input class="field" type="email" name="mail" placeholder="Your email" required autofocus>
+                        <input class="field" type="text" name="pseudo" placeholder="Pseudo" required autofocus>
                     </div>
                     <div class ="log_field">
                         <input class="field" type="password" name="password" placeholder="Password" required>

@@ -16,7 +16,7 @@
                 <a href="#">Hand code &#9995;</a>
             </div>
             <div class="header_div">
-                <a class="header_button" href="index.php?action=connection">Log in</a>
+                <a class="header_button" href="index.php?action=vueConnection">Log in</a>
                 <a class="header_button" href="#">Sign up</a>
             </div>
         </header>

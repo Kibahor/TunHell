@@ -1,27 +1,29 @@
 <?php
 
-class ViewController{
+class VisiteurController{
 
-    public function __construct(){
+    public function __construct($action){
         //variables globales
         global $rep, $vues;
         //tableau des messages d'erreur
 
         try{
-            isset($_REQUEST['action'])  ?  $action = Validation::validateString($_REQUEST['action'])  :  $action = "afficherAcceuil";
-
             switch ($action){
 
                 case "afficherAcceuil":
                     $this->AfficherAcceuil();
                     break;
 
-                case "creerCompte":
+                case "vueCreationCompte":
                     $this->vueCreationCompte();
                     break;
 
-                case "connection":
+                case "vueConnection":
                     $this->vueConnection();
+                    break;
+
+                case "login":
+                    $this->login();
                     break;
 
                 default:
@@ -44,6 +46,8 @@ class ViewController{
     function AfficherAcceuil(){
         global $rep, $vues;
         //vue principale
+        if(isset($_SESSION)) print_r($_SESSION);
+        if(isset($isLogin)) print_r($isLogin);
         require ($rep.$vues['acceuil']);
     }
 
@@ -60,8 +64,22 @@ class ViewController{
     }
 
     function login(){
+        global $rep, $vues;
+
         $mdlAccount = new ModelAccount();
-        $mdlAccount->logUser();
+        $utilisateur = $mdlAccount->logUser();
+
+        if($utilisateur == null)
+        {
+            $isLogin = 0;
+            $tabErreur = ["pseudo ou mdp incorrecte"];
+            require ($rep.$vues['error']);
+        }
+        else
+        {
+            $isLogin = 1;
+            new VisiteurController("afficherAcceuil");
+        }
     }
 
 

@@ -4,17 +4,20 @@ class Account{
     private $id;
     private $pseudo;
     private $avatar;
-    private $password;
+    private $passwordHash;
     private $creationDate;
     private $numberGames;
     private $numberVictoires;
 
 
-    public function __construct($id, $pseudo, $avatar, $password){
+    public function __construct($id, $pseudo, $avatar, $passwordHash, $creationDate, $numberGames, $numberVictoires){
         $this->id = $id;
         $this->pseudo = $pseudo;
         $this->avatar = $avatar;
-        $this->password = $password;
+        $this->passwordHash = $passwordHash;
+        $this->creationDate = $creationDate;
+        $this->numberGames = $numberGames;
+        $this->numberVictoires = $numberVictoires;
     }
 
 
@@ -42,12 +45,12 @@ class Account{
         $this->avatar = $avatar;
     }
 
-    public function getPassword(){
-        return $this->password;
+    public function getPasswordHash(){
+        return $this->passwordHash;
     }
 
-    public function setPassword($password){
-        $this->password = $password;
+    public function setPasswordHash($passwordHash){
+        $this->passwordHash = $passwordHash;
     }
 
     public function getCreationDate(){
