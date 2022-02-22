@@ -14,3 +14,4 @@ $vues = array(
     'sign' => 'views/sign.php',
     'error' => 'views/error.php'
 );
+?>
