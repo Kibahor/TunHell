@@ -25,7 +25,10 @@
                 <form class="form_log" action="index.php?action=login" method="POST">
                     <h1>Create Account</h1>
                     <div class ="log_field">
-                        <input class="field" type="email" name="mail" placeholder="Your email" required autofocus>
+                        <input class="field" type="text" name="pseudo" placeholder="Your pseudo" required autofocus>
+                    </div>
+                    <div class ="log_field">
+                        <input class="field" type="mail" name="mail" placeholder="Your email" required>
                     </div>
                     <div class ="log_field">
                         <input class="field" type="password" name="password" placeholder="Password" required>
