@@ -8,6 +8,7 @@ Class ModelVisiteur
     }
 
     public function createAUser(){
+        $AccountGateway = new AccountGateway;
         $pseudo = Validation::validateName($_POST["pseudo"]);
         if($AccountGateway->FindByPseudo($pseudo) != NULL) throw new Exception("Le pseudo est déjà existant");
         $password = Validation::validatePassword($_POST["password"]);
@@ -15,6 +16,7 @@ Class ModelVisiteur
         $hash = password_hash($password, PASSWORD_DEFAULT);
         $date = date("d.m.y");
         $AccountGateway->insertUser($pseudo, "default", $hash, $date);
+
     }
 
     public function logUser(){

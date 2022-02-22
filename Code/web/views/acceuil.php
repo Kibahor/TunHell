@@ -2,7 +2,7 @@
 <html lang="fr" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Acceuil</title>
+        <title>&#127968; Homepage</title>
         <link rel="stylesheet" href="views/css/master.css">
     </head>
     <body>
@@ -24,10 +24,9 @@
                 </div>
             </div>
             <div class="body-right">
-                <img id="body-photo" src="views/css/img/main-image.png" alt="Carte troll" width="700">
+                <img id="body-photo" src="views/css/img/main-image.png" alt="Lot de cartes" width="700">
             </div>
         </section>
         <?php require("footer.php") ?>
-
     </body>
 </html>

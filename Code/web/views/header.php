@@ -8,7 +8,7 @@
         <a href="#">Hand code &#9995;</a>
     </div>
     <div class="header_div">
-        <a class="header_button" href="index.php?action=VueConnection">Log in</a>
-        <a class="header_button" href="index.php?action=vueCreationCompte">Sign up</a>
+        <a class="header_button" href="index.php?action=viewSign">Log in / Sign up</a>
+        <a class="header_button" href="index.php?action=viewDocumentation">Getting started</a>
     </div>
 </header>

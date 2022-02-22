@@ -15,15 +15,23 @@ class VisiteurController{
                     break;
 
                 case "viewSign":
-                    $this->vueCreationCompte();
+                    $this->viewSign();
                     break;
 
                 case "viewLog":
-                    $this->vueConnection();
+                    $this->viewLog();
+                    break;
+
+                case 'viewDocumentation':
+                    $this->viewDocumentation();
                     break;
 
                 case "login":
                     $this->login();
+                    break;
+
+                case 'signup':
+                    $this-> signup();
                     break;
 
                 default:
@@ -63,6 +71,12 @@ class VisiteurController{
         require ($rep.$vues['login']);
     }
 
+    function viewDocumentation(){
+        global $rep, $vues;
+        // vue règles et informations
+        require($rep.$vues['documentation']);
+    }
+
     function login(){
         global $rep, $vues;
 
@@ -82,5 +96,10 @@ class VisiteurController{
         }
     }
 
+    function signup(){
+        global $rep, $vues;
 
+        $mdlVisiteur = new ModelVisiteur();
+        $mdlVisiteur->createAUser();
+    }
 }

@@ -2,7 +2,7 @@
 <html lang="fr" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Login</title>
+        <title>&#128273; Login</title>
         <link rel="stylesheet" href="views/css/master.css">
     </head>
     <body>
@@ -23,7 +23,7 @@
                 </form>
                 <p>
                     Don't have an account ?
-                    <a href="index.php?action=creerCompte">Sign up</a>
+                    <a href="index.php?action=viewSign">Sign up</a>
                 </p>
             </div>
         </section>
