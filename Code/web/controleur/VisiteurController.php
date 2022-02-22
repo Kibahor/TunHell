@@ -22,8 +22,20 @@ class VisiteurController{
                     $this->viewLog();
                     break;
 
-                case 'viewDocumentation':
+                case "viewDocumentation":
                     $this->viewDocumentation();
+                    break;
+
+                case "viewHand":
+                    $this->viewHand();
+                    break;
+
+                case "viewTerms":
+                    $this->viewTerms();
+                    break;
+
+                case "viewContact":
+                    $this->viewContact();
                     break;
 
                 case "login":
@@ -75,6 +87,21 @@ class VisiteurController{
         global $rep, $vues;
         // vue règles et informations
         require($rep.$vues['documentation']);
+    }
+
+    function viewContact(){
+        global $rep, $vues;
+        require($rep.$vues['contact']);
+    }
+
+    function viewHand(){
+        global $rep, $vues;
+        require($rep.$vues['hand']);
+    }
+
+    function viewTerms(){
+        global $rep, $vues;
+        require($rep.$vues['rgpd']);
     }
 
     function login(){

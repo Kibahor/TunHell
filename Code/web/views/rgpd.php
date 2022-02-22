@@ -2,7 +2,7 @@
 <html lang="fr" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>&#10068; Documentation</title>
+        <title>&#128221; Terms & Credits</title>
         <link rel="stylesheet" href="views/css/master.css">
     </head>
     <body>

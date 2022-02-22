@@ -12,6 +12,10 @@ $vues = array(
     'acceuil' => 'views/acceuil.php',
     'login' => 'views/login.php',
     'sign' => 'views/sign.php',
-    'error' => 'views/error.php'
+    'error' => 'views/error.php',
+    'documentation' => 'views/documentation.php',
+    'contact' => 'views/contact.php',
+    'hand' => 'views/handCode.php',
+    'rgpd' => 'views/rgpd.php'
 );
 ?>

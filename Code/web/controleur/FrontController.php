@@ -4,7 +4,9 @@ class FrontController{
     function __construct(){
         global $rep, $vues;
 
-        $listeActions_Visiteur = array("viewAcceuil", "viewSign", "viewLog", "viewDocumentation", "login", "signup");
+        $listeActions_Visiteur = array("viewAcceuil", "viewSign",
+        "viewLog", "viewDocumentation", "viewHand", "viewTerms",
+        "viewContact", "login", "signup");
         $listeActions_Utilisateur = array("deconnexion");
 
         try{

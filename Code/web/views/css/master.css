@@ -82,11 +82,9 @@ footer {
     left: 0;
     right: 0;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
     font-family: 'JetBrains Mono', monospace;
-    text-align: center;
 }
 
 
@@ -179,4 +177,20 @@ footer {
 
 .log_field {
     margin: 10px;
+}
+
+/* contact.php */
+
+#contact h1 {
+    display: flex;
+    justify-content: center;
+}
+
+.contact_link {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+
 }
