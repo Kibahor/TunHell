@@ -1,12 +1,23 @@
 <?php
 class Validation{
 
+    public static function validateMail($mail){
+		if ($mail == NULL) {
+			throw new Exception("Le mail ne peut être vide");
+		} else {
+			if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+				throw new Exception("L'email '".$mail."' n'est pas valide");
+			}
+		}
+		return $mail;
+	}
+
     public static function validateName(string $username){
 		if ($username == NULL){
 			throw new Exception("Le nom ne peut être vide");
 		} else {
 			if (!preg_match('/[a-zA-Z0-9].{1,25}/', $username)){
-				throw new Exception("Le nom ".$username." n'est pas valide il faut au minimum 1 caractère et au maximum 25 caractères");
+				throw new Exception("Le nom '".$username."' n'est pas valide il faut au minimum 1 caractère et au maximum 25 caractères");
 			}
 			return Validation::validateString($username);
 		}
@@ -33,6 +44,11 @@ class Validation{
     public static function validateString(string $chaine){
         if(filter_var($chaine, FILTER_SANITIZE_STRING) != $chaine) throw new Exception("La chaine '".$chaine."' n'est pas valide.");
         return $chaine;
+    }
+
+    public static function validateInt(string $int){
+        if(filter_var($int, FILTER_SANITIZE_NUMBER_INT) != $int) throw new Exception("La valeur ''".$int."'' n'est pas valide.");
+        return $int;
     }
 }
 ?>

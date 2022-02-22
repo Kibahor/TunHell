@@ -10,15 +10,15 @@ class VisiteurController{
         try{
             switch ($action){
 
-                case "afficherAcceuil":
-                    $this->AfficherAcceuil();
+                case "viewAcceuil":
+                    $this->viewAcceuil();
                     break;
 
-                case "vueCreationCompte":
+                case "viewSign":
                     $this->vueCreationCompte();
                     break;
 
-                case "vueConnection":
+                case "viewLog":
                     $this->vueConnection();
                     break;
 
@@ -43,7 +43,7 @@ class VisiteurController{
         exit(0);
     }
 
-    function AfficherAcceuil(){
+    function viewAcceuil(){
         global $rep, $vues;
         //vue principale
         if(isset($_SESSION)) print_r($_SESSION);
@@ -51,13 +51,13 @@ class VisiteurController{
         require ($rep.$vues['acceuil']);
     }
 
-    function vueCreationCompte(){
+    function viewSign(){
         global $rep, $vues;
         //vue creation compte
         require ($rep.$vues['sign']);
     }
 
-    function vueConnection(){
+    function viewLog(){
         global $rep, $vues;
         //vue connection
         require ($rep.$vues['login']);
@@ -66,13 +66,13 @@ class VisiteurController{
     function login(){
         global $rep, $vues;
 
-        $mdlAccount = new ModelAccount();
+        $mdlAccount = new ModelVisiteur();
         $utilisateur = $mdlAccount->logUser();
 
         if($utilisateur == null)
         {
             $isLogin = 0;
-            $tabErreur = ["pseudo ou mdp incorrecte"];
+            $tabErreur = ["Le pseudo ou le mot de passe est incorrect !"];
             require ($rep.$vues['error']);
         }
         else

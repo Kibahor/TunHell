@@ -4,24 +4,24 @@ class FrontController{
     function __construct(){
         global $rep, $vues;
 
-        $listeActions_Visiteur = array("vueCreationCompte", "vueConnection", "afficherAcceuil", "login");
+        $listeActions_Visiteur = array("viewAcceuil", "viewSign", "viewLog", "login");
         $listeActions_Utilisateur = array("deconnexion");
 
         try{
-            $MdlAccount = new ModelAccount();
+            $MdlAccount = new ModelVisiteur();
 			$utilisateur = $MdlAccount->isLogin();
             if($utilisateur != null)
                 $isLogin = 1;
             else
                 $isLogin = 0;
 
-            isset($_REQUEST['action'])  ?  $action = Validation::validateString($_REQUEST['action'])  :  $action = "afficherAcceuil";
+            isset($_REQUEST['action'])  ?  $action = Validation::validateString($_REQUEST['action'])  :  $action = "viewAcceuil";
 
             if (in_array($action, $listeActions_Utilisateur))
             {
                 if($utilisateur == null)
                 {
-                    $ctrV = new VisiteurController("vueConnection");
+                    $ctrV = new VisiteurController("viewLog");
                 }
                 else
                 {
@@ -43,7 +43,4 @@ class FrontController{
         }
 
     }
-
-
-
 }

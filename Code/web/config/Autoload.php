@@ -1,5 +1,4 @@
 <?php
-//Le bon autoload donné par le prof
 class Autoload
 {
     private static $_instance = NULL;
@@ -35,3 +34,4 @@ class Autoload
         }
     }
 }
+?>
