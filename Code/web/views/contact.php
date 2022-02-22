@@ -2,7 +2,7 @@
 <html lang="fr" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>&#9995; Code de main</title>
+        <title>&#128101; Contact</title>
         <link rel="stylesheet" href="views/css/master.css">
     </head>
     <body>

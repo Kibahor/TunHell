@@ -12,7 +12,7 @@
                 <form class="form_log" action="index.php?action=login" method="POST">
                     <h1>Log-in</h1>
                     <div class ="log_field">
-                        <input class="field" type="text" name="mail" placeholder="Pseudo" required autofocus>
+                        <input class="field" type="text" name="pseudo" placeholder="Pseudo" required autofocus>
                     </div>
                     <div class ="log_field">
                         <input class="field" type="password" name="password" placeholder="Password" required>
