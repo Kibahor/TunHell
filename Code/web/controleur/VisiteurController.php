@@ -5,7 +5,6 @@ class VisiteurController{
     public function __construct($action){
         //variables globales
         global $rep, $vues;
-        //tableau des messages d'erreur
 
         try{
             switch ($action){
@@ -66,8 +65,6 @@ class VisiteurController{
     function viewAcceuil(){
         global $rep, $vues;
         //vue principale
-        if(isset($_SESSION)) print_r($_SESSION);
-        if(isset($isLogin)) print_r($isLogin);
         require ($rep.$vues['acceuil']);
     }
 
@@ -112,14 +109,12 @@ class VisiteurController{
 
         if($utilisateur == null)
         {
-            $isLogin = 0;
             $tabErreur = ["Le pseudo ou le mot de passe est incorrect !"];
             require ($rep.$vues['error']);
         }
         else
         {
-            $isLogin = 1;
-            new VisiteurController("afficherAcceuil");
+            require ($rep.$vues['acceuil']);
         }
     }
 
@@ -127,6 +122,16 @@ class VisiteurController{
         global $rep, $vues;
 
         $mdlVisiteur = new ModelVisiteur();
-        $mdlVisiteur->createAUser();
+        $utilisateur = $mdlVisiteur->createAUser();
+
+        if($utilisateur == null)
+        {
+            $tabErreur = ["Erreur lors de l'authentification"];
+            require ($rep.$vues['error']);
+        }
+        else
+        {
+            require ($rep.$vues['acceuil']);
+        }
     }
 }

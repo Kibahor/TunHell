@@ -7,8 +7,25 @@
         <a href="index.php?action=viewDocumentation">How it works</a>
         <a href="index.php?action=viewHand">Hand code &#9995;</a>
     </div>
-    <div class="header_div">
-        <a class="header_button" href="index.php?action=viewSign">Log in / Sign up</a>
-        <a class="header_button" href="index.php?action=viewDocumentation">Getting started</a>
-    </div>
+    <?php
+    if(isset($_SESSION['role']) && $_SESSION['role'] == 'user')
+    {
+        echo '
+        <div class="header_div">
+            <a class="header_button" href="index.php?action=logout">Log out</a>
+            <a class="header_button" href="index.php?action=viewDocumentation">Getting started</a>
+        </div>
+        ';
+    }
+    else
+    {
+        echo '
+        <div class="header_div">
+            <a class="header_button" href="index.php?action=viewSign">Log in / Sign up</a>
+            <a class="header_button" href="index.php?action=viewDocumentation">Getting started</a>
+        </div>
+        ';
+    }
+     ?>
+
 </header>

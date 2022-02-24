@@ -6,17 +6,16 @@ class AccountGateway extends Connection
         parent::__construct();
     }
 
-    public function insert(Account $user): int
+    public function insert($pseudo, $avatar, $passwrd, $creationDate, $numberGames, $numberVictoires)
     {
         $query = 'INSERT INTO account (Pseudo, Avatar, Password, CreationDate, NumberGames, NumberVictoires) VALUES(:pseudo, :avatar, :passwrd, :creationDate, :numberGames, :numberVictoires)';
-        $param = array(':pseudo' => array($user->getPseudo(), PDO::PARAM_STR),
-                       ':avatar' => array($user->getAvatar(), PDO::PARAM_STR),
-                       ':passwrd' => array($user->getPasswordHash(), PDO::PARAM_STR),
-                       ':creationDate' => array($user->getCreationDate(), PDO::PARAM_STR),
-                       ':numberGames' => array($user->getNumberGames(), PDO::PARAM_INT),
-                       ':numberVictoires' => array($user->getNumberVictoires(), PDO::PARAM_INT));
+        $param = array(':pseudo' => array($pseudo, PDO::PARAM_STR),
+                       ':avatar' => array($avatar, PDO::PARAM_STR),
+                       ':passwrd' => array($passwrd, PDO::PARAM_STR),
+                       ':creationDate' => array($creationDate, PDO::PARAM_STR),
+                       ':numberGames' => array($numberGames, PDO::PARAM_INT),
+                       ':numberVictoires' => array($numberVictoires, PDO::PARAM_INT));
         $this->executeQuery($query, $param);
-        return $this->idByPseudo($user->getPseudo());
     }
 
     public function idByPseudo($pseudo)
@@ -24,7 +23,8 @@ class AccountGateway extends Connection
         $query = 'SELECT ID FROM account WHERE Pseudo=:pseudo';
         $param = array(':pseudo' => array($pseudo, PDO::PARAM_STR));
         $this->executeQuery($query, $param);
-        return $this->getResults();
+        $results = $this->getResults();
+        return $results[0]['ID'];
     }
 
     public function delete(int $id): int

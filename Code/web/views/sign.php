@@ -20,7 +20,7 @@
                         <input class="field" type="password" name="password" placeholder="Password" required>
                     </div>
                     <div class ="log_field">
-                        <input class="field" type="password" name="password" placeholder="Password" required>
+                        <input class="field" type="password" name="confirmpassword" placeholder="Password" required>
                     </div>
                     <div class ="log_field">
                         <input class="header_button" type="submit" value="Create an account" name="subbutton">

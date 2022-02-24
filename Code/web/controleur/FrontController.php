@@ -7,17 +7,15 @@ class FrontController{
         $listeActions_Visiteur = array("viewAcceuil", "viewSign",
         "viewLog", "viewDocumentation", "viewHand", "viewTerms",
         "viewContact", "login", "signup");
-        $listeActions_Utilisateur = array("deconnexion");
+        $listeActions_Utilisateur = array("logout");
 
         try{
             $MdlAccount = new ModelVisiteur();
 			$utilisateur = $MdlAccount->isLogin();
-            if($utilisateur != null)
-                $isLogin = 1;
-            else
-                $isLogin = 0;
+
 
             isset($_REQUEST['action'])  ?  $action = Validation::validateString($_REQUEST['action'])  :  $action = "viewAcceuil";
+            if(!in_array($action, $listeActions_Visiteur) && !in_array($action, $listeActions_Utilisateur)) $action = "viewAcceuil";
 
             if (in_array($action, $listeActions_Utilisateur))
             {
