@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 21-02-2022 a las 16:37:19
--- Versión del servidor: 10.3.31-MariaDB-0+deb10u1
--- Versión de PHP: 7.4.27
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 24-02-2022 a las 19:34:24
+-- Versión del servidor: 5.7.31
+-- Versión de PHP: 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,79 +18,58 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `DB_Tunhell_Accounts`
+-- Base de datos: `db_tunhell_accounts`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Account`
+-- Estructura de tabla para la tabla `account`
 --
 
-CREATE TABLE `Account` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE IF NOT EXISTS `account` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Pseudo` varchar(16) NOT NULL,
   `Avatar` varchar(16) NOT NULL,
-  `Password` varchar(32) NOT NULL,
+  `Password` varchar(60) NOT NULL,
   `CreationDate` date NOT NULL,
   `NumberGames` int(11) NOT NULL,
-  `NumberVictoires` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `NumberVictoires` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `account`
+--
+
+INSERT INTO `account` (`ID`, `Pseudo`, `Avatar`, `Password`, `CreationDate`, `NumberGames`, `NumberVictoires`) VALUES
+(1, 'Pedro', 'avatar1', '$2y$10$ALcW2L3knFkPlqNzKrc5LuRfA10V065EfaBYbVkHo0.z4swnsjCmK', '2022-02-24', 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Games`
+-- Estructura de tabla para la tabla `games`
 --
 
-CREATE TABLE `Games` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `games`;
+CREATE TABLE IF NOT EXISTS `games` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Date` date NOT NULL,
-  `IdHostAccount` int(11) NOT NULL
+  `IdHostAccount` int(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Games` (`IdHostAccount`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `Account`
---
-ALTER TABLE `Account`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indices de la tabla `Games`
---
-ALTER TABLE `Games`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `Games` (`IdHostAccount`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `Account`
---
-ALTER TABLE `Account`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `Games`
---
-ALTER TABLE `Games`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `Games`
+-- Filtros para la tabla `games`
 --
-ALTER TABLE `Games`
-  ADD CONSTRAINT `Games` FOREIGN KEY (`IdHostAccount`) REFERENCES `Account` (`ID`);
+ALTER TABLE `games`
+  ADD CONSTRAINT `Games` FOREIGN KEY (`IdHostAccount`) REFERENCES `account` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
