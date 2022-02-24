@@ -1,4 +1,5 @@
-Voici ce qu'il faut faire pour installer son environnement de travail :
+# Voici ce qu'il faut faire pour installer son environnement de travail :
+
 - Installer VSCode et NodeJS  
 - Une fois installé sur vscode, vous allez installer l'extension *JavaScript and TypeScript Nightly* (celle de microsoft) et je vous conseille d'installer aussi *Gitlens* ou *Git History*
 - Pour ce qui est de nodejs, il va falloir installer les modules nécessaire, il existe deux moyen d'utiliser les modules,
@@ -9,5 +10,3 @@ Voici ce qu'il faut faire pour installer son environnement de travail :
 - Pour l'instant ce n'est config que pour windows, si vous voulez le faire linux et que vous n'y arriver pas, on verra ensemble.
 
 Lukas
-
-
