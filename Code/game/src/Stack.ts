@@ -2,16 +2,16 @@ import { Card } from './Card/Card'
 import { StackType} from './StackType'
 
 export class Stack {
-    public name:string;
-    public type:StackType;
-    public collection:Array<Card> = [];
+    public name : string;
+    public type : StackType;
+    public collection : Array<Card> = [];
 
-    public constructor(name:string, type:StackType) {
+    public constructor(name : string, type : StackType) {
         this.name = name;
         this.type = type;
     }
 
-    public addCard(card:Card):void {
+    public addCard(card : Card) : void {
         this.collection.push(card);
     }
 
@@ -22,8 +22,8 @@ export class Stack {
         }
     }
 
-    public addCollection(collection:Array<Card>):void {
-        this.collection=this.collection.concat(collection);
+    public addCollection(collection : Array<Card>) : void {
+        this.collection = this.collection.concat(collection);
     }
 
     public getCardByName(name : string) : Card {
@@ -33,5 +33,10 @@ export class Stack {
             }
         });
         return null;
+    }
+
+    public moveCardToStack(card : Card, stack : Stack) : void {
+        this.removeCard(card);
+        stack.addCard(card);
     }
 }

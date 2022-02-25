@@ -1,4 +1,4 @@
-import { Card } from "../Card/Card"
+/*import { Card } from "../Card/Card"
 import { Stack } from "../Stack"
 
 export class CardMover {
@@ -7,4 +7,4 @@ export class CardMover {
         // ..
         // Revoir la logique sur le déplacement des cartes
     }
-}
+}*/
