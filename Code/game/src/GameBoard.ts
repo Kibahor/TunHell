@@ -1,3 +1,4 @@
+import { cpuUsage } from 'process';
 import { Card } from './Card/Card'
 import { Stack } from './Stack'
 import { StackType } from './StackType'
@@ -12,15 +13,16 @@ export class GameBoard {
     public discardStack : Array<Stack> = [];
     public recruitCenter : Stack;
 
-    public unUsedCards : Array<Card> = [];
+    public trophy : Array<Card> = [];
+    public unUsedCards : Stack;
 
 
-    public constructor(id : number, nbPlayers : number, dwarfs : Array<Card>, enemyAndbonus : Array<Card>, trophy : Array<Card>) {
+    public constructor(id : number, nbPlayers : number, dwarfs : Array<Card>, enemyAndbonus : Array<Card>, endMine : Array<Card>, trophy : Array<Card>) {
         this.id = id;
         this.nbPlayers = nbPlayers;
-        this.mineStack = this.divideBy(3, this.fisherYatesShuffle(enemyAndbonus));
-        this.playerHandStack = null;
-
+        this.playerHandStack = this.giveToPlayers(this.fisherYatesShuffle(dwarfs));
+        this.mineStack = this.divideBy(3, this.fisherYatesShuffle(enemyAndbonus), this.fisherYatesShuffle(endMine));
+        this.trophy = trophy;
     }
 
     public fisherYatesShuffle(cards : Array<Card>) : Array<Card> {
@@ -31,21 +33,45 @@ export class GameBoard {
         return cards;
     }
 
-    public divideBy(nb : number, cards : Array<Card>) : Array<Stack> {
+    public divideBy(nb : number, cards : Array<Card>, endMine : Array<Card>) : Array<Stack> {
         const n = Math.floor(cards.length / nb);
         let tmpArr = [];
-        for (let i = 0; i <= nb ; i++) {
-            let s = new Stack("Mine " + i, StackType.Mine);
-            s.addCollection(cards.slice(n*i, n*(i + 1) - 1));            // A tester mais normalement correct
+        for (let i = 0; i <= nb; i++) {
+            let s = new Stack("Mine" + i, StackType.Mine);
+            s.addCard(endMine[i]);
+            s.addCollection(cards.slice(n*i, n*(i+1)-1));               // A tester mais normalement correct
             tmpArr[i] = s;
         }
         if (nb % n != 0) {
-            this.unUsedCards = cards.slice(n*nb, cards.length);         // A tester mais normalement correct
+            this.unUsedCards.addCollection(cards.slice(n*nb, cards.length));
+        }
+        if (endMine.length > nb) {
+            this.unUsedCards.addCollection(cards.slice(nb, endMine.length));
         }
         return tmpArr;
     }
 
     public giveToPlayers(card : Array<Card>) : Array<Stack> {
-        return null;
+        let tmpArr = [];
+        for (let i = 0; i <= this.nbPlayers; i++) {
+            let s = new Stack("PlayerHand" + i, StackType.PlayerHand);
+            s.addCollection(card.slice(4*i, 4*(i+1)-1));                // A tester mais normalement correct
+            tmpArr[i] = s;
+        }
+        if (card.length > this.nbPlayers * 4) {
+            this.recruitCenter.addCollection(card.slice(this.nbPlayers * 4, card.length));
+        }
+        return tmpArr;
+    }
+
+    public comptAllCards() : void {
+        console.log('=== Number of cards ===');
+
+        console.log('Mine ' + this.mineStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr));
+        console.log('PlayerHands ' + this.playerHandStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr));
+        console.log('Discard ' + this.discardStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr));
+        console.log('RecuitCenter ' + this.recruitCenter.collection.length);
+        console.log('Trophy ' + this.trophy.length);
+        console.log('Unused ' + this.unUsedCards.collection.length);
     }
 }
