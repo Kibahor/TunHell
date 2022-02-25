@@ -4,10 +4,10 @@ import { Treasure } from "../Treasure";
 
 export class TreasureFactory extends CardFactory {
 
-    public CreateCard(typeName:string, receipe:JSON, nb:number) : Array<Card> {
+    public CreateCard(name:string, typeName:string, receipe:JSON, nb:number) : Array<Card> {
         let cards : Array<Card> = [];
         for (let i = 0; i < nb; i++) {
-            cards.push(new Treasure(typeName, receipe['gold_value']));
+            cards.push(new Treasure(name, typeName, receipe['gold_value']));
         }
         return cards;
     }
