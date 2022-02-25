@@ -101,16 +101,31 @@ class VisiteurController{
         require($rep.$vues['rgpd']);
     }
 
+
     function login(){
         global $rep, $vues;
 
-        $mdlAccount = new ModelVisiteur();
-        $utilisateur = $mdlAccount->logUser();
+        try {
+            $mdlAccount = new ModelVisiteur();
+            $utilisateur = $mdlAccount->logUser();
+        }
+        catch(Exception $e){
+            switch($e->getMessage()){
+                case "empty username": $empty_username = true; break;
+                case "invalid username": $invalid_username = true; break;
+                case "empty password" : $empty_password = true; break;
+                case "invalid password" : $invalid_password = true; break;
+                default: break;
+            }
+            require ($rep.$vues['login']);
+            exit;
+        }
+
 
         if($utilisateur == null)
         {
-            $tabErreur = ["Le pseudo ou le mot de passe est incorrect !"];
-            require ($rep.$vues['error']);
+            $err = "err auth";
+            require ($rep.$vues['login']);
         }
         else
         {
@@ -118,16 +133,33 @@ class VisiteurController{
         }
     }
 
+
     function signup(){
         global $rep, $vues;
 
-        $mdlVisiteur = new ModelVisiteur();
-        $utilisateur = $mdlVisiteur->createAUser();
+        try {
+            $mdlVisiteur = new ModelVisiteur();
+            $utilisateur = $mdlVisiteur->createAUser();
+        }
+        catch(Exception $e) {
+            switch($e->getMessage()){
+                case "empty username": $empty_username = true; break;
+                case "invalid username": $invalid_username = true; break;
+                case "exist username": $exist_username = true; break;
+                case "empty password" : $empty_password = true; break;
+                case "invalid password" : $invalid_password = true; break;
+                case "wrong confirmpassord" : $w_cpassword = true; break;
+                default: break;
+            }
+            require ($rep.$vues['sign']);
+            exit;
+        }
+
 
         if($utilisateur == null)
         {
-            $tabErreur = ["Erreur lors de l'authentification"];
-            require ($rep.$vues['error']);
+            $err = "err auth";
+            require ($rep.$vues['sign']);
         }
         else
         {

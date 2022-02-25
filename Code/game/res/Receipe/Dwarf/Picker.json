@@ -34,5 +34,11 @@
     "second_value": 5,
     "up_symbol": false,
     "stop_symbol": false
+  },
+  "Machin":{
+    "first_value": 4,
+    "second_value": 0,
+    "up_symbol": false,
+    "stop_symbol": false
   }
 }

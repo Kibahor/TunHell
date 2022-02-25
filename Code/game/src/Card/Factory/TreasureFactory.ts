@@ -1,21 +1,17 @@
 import { CardFactory } from "./CardFactory";
 import { Card } from "../Card";
-import { Trophy } from "../Trophy";
+import { Treasure } from "../Treasure";
 
-export class TrophyFactory extends CardFactory {
+export class TreasureFactory extends CardFactory {
 
     public CreateCard(typeName:string, receipe:JSON, nb:number) : Array<Card> {
-
-        if (!this.verify_receipe(receipe)) {
-            throw new TypeError("La recette donnée n'est pas compatible !");
-        }
         let cards : Array<Card> = [];
         for (let i = 0; i < nb; i++) {
-            cards.push(new Trophy('Trophy', receipe['gold_value']));
+            cards.push(new Treasure(typeName, receipe['gold_value']));
         }
         return cards;
     }
-
+    /*
     public verify_receipe(receipe:JSON) : boolean {
         try {
             if (!(receipe['gold_value'] === Number)) {
@@ -26,5 +22,5 @@ export class TrophyFactory extends CardFactory {
             return false;
         }
         return true;
-    }
+    }*/
 }

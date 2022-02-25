@@ -11,7 +11,7 @@ Class ModelVisiteur
         $AccountGateway = new AccountGateway;
 
         $pseudo = Validation::validateName($_POST["pseudo"]);
-        if($AccountGateway->FindByPseudo($pseudo) != NULL) throw new Exception("Le pseudo est déjà existant");
+        if($AccountGateway->FindByPseudo($pseudo) != NULL) throw new Exception("exist username");
 
         $password = Validation::validatePassword($_POST["password"]);
         $passwordconfirm = Validation::validateConfirmPassword($password, $_POST["confirmpassword"]);

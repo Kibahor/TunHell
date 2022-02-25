@@ -6,7 +6,8 @@
                 "Warrior2":5,
                 "Warrior3":4,
                 "Warrior4":1,
-                "Warrior5":1
+                "Warrior5":1,
+                "Dwarf_the_dog":1
             },
             "Picker":{
                 "Picker1":4,
@@ -14,7 +15,8 @@
                 "Picker3":4,
                 "Picker4":4,
                 "Picker5":1,
-                "Picker6":1
+                "Picker6":1,
+                "Machin":1
             },
             "Scout":{
                 "Scout1":2,
@@ -45,6 +47,46 @@
             },
             "Dragon":{
                 "Dragon1":3
+            },
+            "Big_spider":{
+                "Big_spider":1
+            },
+            "Demon_of_the_depths":{
+                "Demon_of_the_depths":1
+            }
+        },
+        "Bonus":{
+            "Beer_of_bravery":{
+                "Beer_of_bravery":2
+            },            
+            "Nawak_sword":{
+                "Nawak_sword":1
+            },
+            "Old_pickaxe":{
+                "Old_pickaxe":1
+            }
+        },
+        "Treasure":{
+            "Behind_door":{
+                "Behind_door":1
+            },
+            "Employee_of_the_month":{
+                "Employee_of_the_month":1
+            },
+            "Exterminator":{
+                "Exterminator":1
+            },
+            "Grödur_ghost":{
+                "Grödur_ghost":2
+            },
+            "Hearth_gold":{
+                "Hearth_gold":1
+            },
+            "Throne_room":{
+                "Throne_room":1
+            },
+            "Unique_rings":{
+                "Unique_rings":2
             }
         }
     }
