@@ -1,4 +1,7 @@
 {
+    "Behind_door":{
+        "gold_value": 1
+    },
     "Throne_room":{
         "gold_value": 3
     }

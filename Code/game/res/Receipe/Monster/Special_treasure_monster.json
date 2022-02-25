@@ -1,4 +1,9 @@
 {
+    "Big_spider":{
+        "fight_value":5,
+        "gold_value":5,
+        "end_mine":false
+    },
     "Demon_of_the_depths":{
         "fight_value":7,
         "gold_value":7,

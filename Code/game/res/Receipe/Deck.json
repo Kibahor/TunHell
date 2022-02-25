@@ -28,30 +28,20 @@
         },
         "Enemy":{
             "Dirt":{
-                "Dirt1":18
+                "Dirt":18
             },
             "Treasure":{
-                "Treasure1":10
+                "Treasure":10
             },
-            "Rat":{
-                "Rat1":7
+            "Meetings":{
+                "Rat":7,
+                "Gobelin":4,
+                "Orc":4,
+                "Troll":3,
+                "Dragon":3
             },
-            "Gobelin":{
-                "Gobelin1":4
-            },
-            "Orc":{
-                "Orc1":4
-            },
-            "Troll":{
-                "Troll1":3
-            },
-            "Dragon":{
-                "Dragon1":3
-            },
-            "Big_spider":{
-                "Big_spider":1
-            },
-            "Demon_of_the_depths":{
+            "Special_treasure_monster":{
+                "Big_spider":1,
                 "Demon_of_the_depths":1
             }
         },
@@ -67,26 +57,18 @@
             }
         },
         "Treasure":{
-            "Behind_door":{
-                "Behind_door":1
-            },
-            "Employee_of_the_month":{
-                "Employee_of_the_month":1
-            },
-            "Exterminator":{
-                "Exterminator":1
-            },
-            "Grödur_ghost":{
-                "Grödur_ghost":2
-            },
-            "Hearth_gold":{
-                "Hearth_gold":1
-            },
-            "Throne_room":{
+            "End_mine":{
+                "Behind_door":1,
                 "Throne_room":1
             },
-            "Unique_rings":{
-                "Unique_rings":2
+            "Special_treasure":{
+                "Unique_rings":2,
+                "Grödur_ghost":2,
+                "Hearth_gold":1
+            },
+            "Trophy":{
+                "Employee_of_the_month":1,
+                "Exterminator":1
             }
         }
     }

@@ -1,4 +1,7 @@
 {
+    "Exterminator":{
+        "gold_value": 2
+    },
     "Employee_of_the_month":{
         "gold_value": 1
     }

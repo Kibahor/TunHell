@@ -29,7 +29,7 @@ export class InitializeDeck{
         for(let [factoryType,value] of Object.entries(this.deck)){ // "Dwarf" et {}
             for(let [typename,receipe] of Object.entries(value)) { // "Warrior" et {}
                 for(let [name, number] of Object.entries(receipe)){ // "Warrior1" et 7
-                    result=result.concat(this.createCard(factoryType, typename, this.receipes.get(factoryType).get(typename)[name], number as number));
+                    result=result.concat(this.createCard(factoryType, name, this.receipes.get(factoryType).get(typename)[name], number as number));
                 }
             }
         }

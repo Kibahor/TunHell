@@ -1,0 +1,11 @@
+{
+    "Unique_rings":{
+        "gold_value": 2
+    },
+    "Hearth_gold":{
+        "gold_value": 2
+    },
+    "Grödur_ghost":{
+        "gold_value": 0
+    }
+}

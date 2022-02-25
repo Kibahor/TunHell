@@ -1,0 +1,27 @@
+{
+    "Rat":{
+        "fight_value":1,
+        "gold_value":0,
+        "end_mine":false
+    },
+    "Gobelin":{
+        "fight_value":2,
+        "gold_value":2,
+        "end_mine":false
+    },
+    "Orc":{
+        "fight_value":2,
+        "gold_value":2,
+        "end_mine":false
+    },
+    "Troll":{
+        "fight_value":3,
+        "gold_value":3,
+        "end_mine":false
+    },
+    "Dragon":{
+        "fight_value":6,
+        "gold_value":6,
+        "end_mine":false
+    }
+}

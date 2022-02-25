@@ -11,6 +11,7 @@ export class TreasureFactory extends CardFactory {
         }
         return cards;
     }
+    
     /*
     public verify_receipe(receipe:JSON) : boolean {
         try {
