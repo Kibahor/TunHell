@@ -67,11 +67,24 @@ export class GameBoard {
     public comptAllCards() : void {
         console.log('=== Number of cards ===');
 
-        console.log('Mine ' + this.mineStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr));
-        console.log('PlayerHands ' + this.playerHandStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr));
-        console.log('Discard ' + this.discardStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr));
-        console.log('RecuitCenter ' + this.recruitCenter.collection.length);
-        console.log('Trophy ' + this.trophy.length);
-        console.log('Unused ' + this.unUsedCards.collection.length);
+        let a = this.mineStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+        console.log('Mine ' + a);
+
+        let b = this.playerHandStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+        console.log('PlayerHand ' + b);
+
+        let c = this.discardStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+        console.log('Discard ' + c);
+
+        let d = this.recruitCenter.collection.length;
+        console.log('RecuitCenter ' + d);
+
+        let e = this.trophy.length;
+        console.log('Trophy ' + e);
+
+        let f = this.unUsedCards.collection.length;
+        console.log('Unused ' + f);
+
+        console.log('Total ' + a+b+c+d+e+f);
     }
 }
