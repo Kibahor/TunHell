@@ -40,7 +40,7 @@
                 "Troll":3,
                 "Dragon":3
             },
-            "Special_treasure_monster":{
+            "End_mine1":{
                 "Big_spider":1,
                 "Demon_of_the_depths":1
             }
@@ -57,7 +57,7 @@
             }
         },
         "Treasure":{
-            "End_mine":{
+            "End_mine2":{
                 "Behind_door":1,
                 "Throne_room":1
             },
