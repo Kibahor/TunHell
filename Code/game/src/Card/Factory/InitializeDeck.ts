@@ -2,13 +2,17 @@ import { DwarfFactory } from './DwarfFactory';
 import { Card } from '../Card';
 import { EnemyFactory } from './EnemyFactory';
 import { receipes, sortReceipes, getDeck  } from './ReceipeFunctions';
+import { BonusFactory } from './BonusFactory';
+import { TreasureFactory } from './TreasureFactory';
 
 export class InitializeDeck{
     private receipes:Map<string,Map<string,JSON>>;
     private deck:JSON;
     private factoryMatch = { 
         "Dwarf": new DwarfFactory(),
-        "Enemy": new EnemyFactory()
+        "Enemy": new EnemyFactory(),
+        "Treasure": new TreasureFactory(),
+        "Bonus": new BonusFactory(),
     };
 
     public constructor(deckName:string){

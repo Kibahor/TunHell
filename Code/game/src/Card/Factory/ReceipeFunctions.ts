@@ -9,6 +9,7 @@ function loadReceipes(map:Map<string,JSON>,folder:string){
             map=loadReceipes(map,path_file);
         }else if(path.extname(path_file) == '.json'){
             let key = path.basename(path_file,'.json');
+            console.debug(path_file)
             let value = JSON.parse(fs.readFileSync(path_file));
             map.set(key, value);
         }

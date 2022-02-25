@@ -1,13 +1,13 @@
 import { CardFactory } from "./CardFactory";
 import { Card } from "../Card";
-import { Trophy } from "../Trophy";
+import { Treasure } from "../Treasure";
 
-export class TrophyFactory extends CardFactory {
+export class TreasureFactory extends CardFactory {
 
     public CreateCard(typeName:string, receipe:JSON, nb:number) : Array<Card> {
         let cards : Array<Card> = [];
         for (let i = 0; i < nb; i++) {
-            cards.push(new Trophy('Trophy', receipe['gold_value']));
+            cards.push(new Treasure(typeName, receipe['gold_value']));
         }
         return cards;
     }
