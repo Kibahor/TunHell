@@ -5,8 +5,8 @@ export class Enemy extends Card {
     public gold_value:number;
     public end_mine:boolean;
 
-    public constructor(name:string, fight_value:number, gold_value:number, end_mine:boolean){
-        super(name);
+    public constructor(name:string, typeName:string, fight_value:number, gold_value:number, end_mine:boolean){
+        super(name, typeName);
         this.fight_value = fight_value;
         this.gold_value = gold_value;
         this.end_mine = end_mine;

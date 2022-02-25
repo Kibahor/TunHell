@@ -4,10 +4,10 @@ import { Enemy } from "../Enemy";
 
 export class EnemyFactory extends CardFactory {
 
-    public CreateCard(typeName:string, receipe:JSON, nb:number) : Array<Card> {
+    public CreateCard(name:string, typeName:string, receipe:JSON, nb:number) : Array<Card> {
         let cards : Array<Card> = [];
         for (let i = 0; i < nb; i++) {
-            cards.push(new Enemy(typeName, receipe['fight_value'], receipe['gold_value'], receipe['end_mine']));
+            cards.push(new Enemy(name, typeName, receipe['fight_value'], receipe['gold_value'], receipe['end_mine']));
         }
         return cards;
     }

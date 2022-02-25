@@ -4,8 +4,8 @@ export class Bonus extends Card {
     public fight_value:number;
     public pickaxe_value:number;
 
-    public constructor(name:string, fight_value:number, pickaxe_value:number){
-        super(name);
+    public constructor(name:string, typeName:string, fight_value:number, pickaxe_value:number){
+        super(name,typeName);
         this.fight_value = fight_value;
         this.pickaxe_value = pickaxe_value;
     }

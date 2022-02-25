@@ -20,8 +20,8 @@ export class InitializeDeck{
         this.receipes = sortReceipes(receipes,this.deck);
     }
     
-    private createCard(factoryType:string, typename:string, receipe:JSON, number:number):Array<Card>{
-        return this.factoryMatch[factoryType].CreateCard(typename,receipe,number);
+    private createCard(factoryType:string, name:string, receipe:JSON, number:number):Array<Card>{
+        return this.factoryMatch[factoryType].CreateCard(name,factoryType,receipe,number);
     }
 
     public generateDeck():Array<Card>{

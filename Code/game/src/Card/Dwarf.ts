@@ -6,8 +6,8 @@ export class Dwarf extends Card {
     public up_symbol:boolean;
     public stop_symbol:boolean;
 
-    public constructor(name:string, first_value:number, second_value:number, up_symbol:boolean, stop_symbol:boolean) {
-        super(name);
+    public constructor(name:string, typeName:string, first_value:number, second_value:number, up_symbol:boolean, stop_symbol:boolean) {
+        super(name,typeName);
         this.first_value = first_value;
         this.second_value = second_value;
         this.up_symbol = up_symbol;
