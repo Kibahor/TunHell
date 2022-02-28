@@ -24,12 +24,13 @@ export class InitializeDeck{
         return this.factoryMatch[factoryType].CreateCard(name,factoryType,receipe,number);
     }
 
-    public generateDeck():Array<Card>{
-        let result:Array<Card> = [];
+    public generateDeck():Map<string,Array<Card>>{
+        let result:Map<string,Array<Card>> = new Map();
         for(let [factoryType,value] of Object.entries(this.deck)){ // "Dwarf" et {}
             for(let [typename,receipe] of Object.entries(value)) { // "Warrior" et {}
                 for(let [name, number] of Object.entries(receipe)){ // "Warrior1" et 7
-                    result=result.concat(this.createCard(factoryType, name, this.receipes.get(factoryType).get(typename)[name], number as number));
+                    let card:Card[] = this.createCard(factoryType, name, this.receipes.get(factoryType).get(typename)[name], number as number);
+                    result.has(factoryType) ? result.set(factoryType,result.get(factoryType).concat(card)) : result.set(factoryType,card)
                 }
             }
         }

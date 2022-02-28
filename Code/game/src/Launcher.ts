@@ -4,11 +4,12 @@ import { InitializeDeck } from './Card/Factory/InitializeDeck';
 
 let initDeck = new InitializeDeck('Default');
 let deck = initDeck.generateDeck();
-console.debug(deck.length)
-for(let card of deck){
+let i =0
+for(let [type,card] of deck.entries()){
     console.debug(card);
+    i+=card.length;
 }
-
+console.debug(i)
 
 
 
