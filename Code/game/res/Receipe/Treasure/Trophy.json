@@ -1,8 +1,12 @@
 {
     "Exterminator":{
-        "gold_value": 2
+        "gold_value": 2,
+        "end_mine":false,
+        "trophy":true
     },
     "Employee_of_the_month":{
-        "gold_value": 1
+        "gold_value": 1,
+        "end_mine":false,
+        "trophy":true
     }
 }

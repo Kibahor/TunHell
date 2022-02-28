@@ -1,6 +1,7 @@
 {
     "Nawak_sword":{
         "fight_value":2,
-        "pickaxe_value":0
+        "pickaxe_value":0,
+        "end_mine":false
     }
 }

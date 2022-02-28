@@ -1,11 +1,17 @@
 {
     "Unique_rings":{
-        "gold_value": 2
+        "gold_value": 2,
+        "end_mine":false,
+        "trophy":false
     },
     "Hearth_gold":{
-        "gold_value": 2
+        "gold_value": 2,
+        "end_mine":false,
+        "trophy":false
     },
     "Grödur_ghost":{
-        "gold_value": 0
+        "gold_value": 0,
+        "end_mine":false,
+        "trophy":false
     }
 }

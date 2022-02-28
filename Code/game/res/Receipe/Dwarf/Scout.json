@@ -3,12 +3,14 @@
     "first_value":5,
     "second_value":0,
     "up_symbol":false,
-    "stop_symbol":false
+    "stop_symbol":false,
+    "end_mine":false
   },    
   "Scout2":{
     "first_value":3,
     "second_value":0,
     "up_symbol":true,
-    "stop_symbol":false
+    "stop_symbol":false,
+    "end_mine":false
   }
 }

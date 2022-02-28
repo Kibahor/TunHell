@@ -4,6 +4,9 @@ import { EnemyFactory } from './EnemyFactory';
 import { receipes, sortReceipes, getDeck  } from './ReceipeFunctions';
 import { BonusFactory } from './BonusFactory';
 import { TreasureFactory } from './TreasureFactory';
+import { Enemy } from '../Enemy';
+import { Treasure } from '../Treasure';
+import { CreateReadStreamOptions } from 'fs/promises';
 
 export class InitializeDeck{
     private receipes:Map<string,Map<string,JSON>>;
@@ -29,12 +32,13 @@ export class InitializeDeck{
         for(let [factoryType,value] of Object.entries(this.deck)){ // "Dwarf" et {}
             for(let [typename,receipe] of Object.entries(value)) { // "Warrior" et {}
                 for(let [name, number] of Object.entries(receipe)){ // "Warrior1" et 7
-                    let card:Card[] = this.createCard(factoryType, name, this.receipes.get(factoryType).get(typename)[name], number as number);
-                    result.has(factoryType) ? result.set(factoryType,result.get(factoryType).concat(card)) : result.set(factoryType,card)
+                    let cards:Card[] = this.createCard(factoryType, name, this.receipes.get(factoryType).get(typename)[name], number as number);   
+                    if(result.has(factoryType))
+                        cards=result.get(factoryType).concat(cards)
+                    result.set(factoryType,cards)
                 }
             }
         }
         return result;
     }
 }
-
