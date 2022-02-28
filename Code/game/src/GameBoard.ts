@@ -20,9 +20,13 @@ export class GameBoard {
     public constructor(id: number, nbPlayers: number, dwarfs: Array<Card>, enemyAndbonus: Array<Card>, endMine: Array<Card>, trophy: Array<Card>) {
         this.id = id;
         this.nbPlayers = nbPlayers;
+        this.trophy = trophy;
+
+        this.recruitCenter = new Stack("RecuitCenter", StackType.RecruitCenter);
+        this.unUsedCards = new Stack("UnUsedCards", StackType.unUsedCards);
+
         this.playerHandStack = this.giveToPlayers(this.fisherYatesShuffle(dwarfs));
         this.mineStack = this.divideBy(3, this.fisherYatesShuffle(enemyAndbonus), this.fisherYatesShuffle(endMine));
-        this.trophy = trophy;
     }
 
     public fisherYatesShuffle(cards: Array<Card>): Array<Card> {
@@ -39,7 +43,7 @@ export class GameBoard {
         for (let i = 0; i <= nb; i++) {
             let s = new Stack("Mine" + i, StackType.Mine);
             s.addCard(endMine[i]);
-            s.addCollection(cards.slice(n * i, n * (i + 1) - 1));               // A tester mais normalement correct
+            s.addCollection(cards.slice(n * i, n * (i + 1) - 1));               // Transfert le nombre de carte total (- reste) / nombre de joueur pour chacun des joueurs
             tmpArr[i] = s;
         }
         if (nb % n != 0) {
@@ -55,7 +59,7 @@ export class GameBoard {
         let tmpArr = [];
         for (let i = 0; i <= this.nbPlayers; i++) {
             let s = new Stack("PlayerHand" + i, StackType.PlayerHand);
-            s.addCollection(card.slice(4 * i, 4 * (i + 1) - 1));                // A tester mais normalement correct
+            s.addCollection(card.slice(4 * i, 4 * (i + 1) - 1));                // Transfert 4 carte à chaque joueur
             tmpArr[i] = s;
         }
         if (card.length > this.nbPlayers * 4) {
