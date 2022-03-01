@@ -40,10 +40,10 @@ export class GameBoard {
     public divideBy(nb: number, cards: Array<Card>, endMine: Array<Card>): Array<Stack> {
         const n = Math.floor(cards.length / nb);
         let tmpArr = [];
-        for (let i = 0; i <= nb; i++) {
+        for (let i = 0; i < nb; i++) {
             let s = new Stack("Mine" + i, StackType.Mine);
             s.addCard(endMine[i]);
-            s.addCollection(cards.slice(n * i, n * (i + 1) - 1));               // Transfert le nombre de carte total (- reste) / nombre de joueur pour chacun des joueurs
+            s.addCollection(cards.slice(n * i, n * (i + 1)));               // Transfert le nombre de carte total (- reste) / nombre de joueur pour chacun des joueurs
             tmpArr[i] = s;
         }
         if (nb % n != 0) {
@@ -57,9 +57,9 @@ export class GameBoard {
 
     public giveToPlayers(card: Array<Card>): Array<Stack> {
         let tmpArr = [];
-        for (let i = 0; i <= this.nbPlayers; i++) {
+        for (let i = 0; i < this.nbPlayers; i++) {
             let s = new Stack("PlayerHand" + i, StackType.PlayerHand);
-            s.addCollection(card.slice(4 * i, 4 * (i + 1) - 1));                // Transfert 4 carte à chaque joueur
+            s.addCollection(card.slice(4 * i, 4 * (i + 1)));                // Transfert 4 carte à chaque joueur
             tmpArr[i] = s;
         }
         if (card.length > this.nbPlayers * 4) {
@@ -68,16 +68,26 @@ export class GameBoard {
         return tmpArr;
     }
 
-    public comptAllCards(): void {
+    public comptAllCards() : void {
         console.log('=== Number of cards ===');
 
-        let a = this.mineStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+        let a = 0;
+        if (this.mineStack.length != 0) {
+            a = this.mineStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+        }
         console.log('Mine ' + a);
 
-        let b = this.playerHandStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+        let b = 0;
+        if (this.playerHandStack.length != 0) {
+            b = this.playerHandStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+        }
+        
         console.log('PlayerHand ' + b);
 
-        let c = this.discardStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+        let c = 0;
+        if (this.discardStack.length != 0) {
+            c = this.discardStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+        }
         console.log('Discard ' + c);
 
         let d = this.recruitCenter.collection.length;
@@ -87,8 +97,15 @@ export class GameBoard {
         console.log('Trophy ' + e);
 
         let f = this.unUsedCards.collection.length;
-        console.log('Unused ' + f);
+        console.log('UnUsed ' + f);
 
-        console.log('Total ' + a+b+c+d+e+f);
+        console.log('Total ' + (a+b+c+d+e+f));
+    }
+
+    public printPlayerHands() : void {
+        console.log('=== Players hands ===');
+        for (let i=0; i < this.nbPlayers; i++) {
+            console.log('Player ' + (i+1) + ' : ' + this.playerHandStack[i].collection.length);
+        }
     }
 }
