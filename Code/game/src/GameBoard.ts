@@ -1,14 +1,15 @@
-import { cpuUsage } from 'process';
 import { Card } from './Card/Card'
 import { Stack } from './Stack'
 import { StackType } from './StackType'
+import { Mine } from './Mine'
+import { threadId } from 'worker_threads';
 
 export class GameBoard {
 
     public id: number;
     public nbPlayers: number;
 
-    public mineStack: Array<Stack> = [];
+    public mines: Array<Mine> = [];
     public playerHandStack: Array<Stack> = [];
     public discardStack: Array<Stack> = [];
     public recruitCenter: Stack;
@@ -26,7 +27,7 @@ export class GameBoard {
         this.unUsedCards = new Stack("UnUsedCards", StackType.unUsedCards);
 
         this.playerHandStack = this.giveToPlayers(this.fisherYatesShuffle(dwarfs));
-        this.mineStack = this.divideBy(3, this.fisherYatesShuffle(enemyAndbonus), this.fisherYatesShuffle(endMine));
+        this.mines = this.divideBy(3, this.fisherYatesShuffle(enemyAndbonus), this.fisherYatesShuffle(endMine));
     }
 
     public fisherYatesShuffle(cards: Array<Card>): Array<Card> {
@@ -37,14 +38,14 @@ export class GameBoard {
         return cards;
     }
 
-    public divideBy(nb: number, cards: Array<Card>, endMine: Array<Card>): Array<Stack> {
+    public divideBy(nb: number, cards: Array<Card>, endMine: Array<Card>): Array<Mine> {
         const n = Math.floor(cards.length / nb);
         let tmpArr = [];
         for (let i = 0; i < nb; i++) {
             let s = new Stack("Mine" + i, StackType.Mine);
             s.addCard(endMine[i]);
             s.addCollection(cards.slice(n * i, n * (i + 1)));               // Transfert le nombre de carte total (- reste) / nombre de joueur pour chacun des joueurs
-            tmpArr[i] = s;
+            tmpArr[i] = new Mine(nb, s);
         }
         if (nb % n != 0) {
             this.unUsedCards.addCollection(cards.slice(n * nb, cards.length));
@@ -69,43 +70,43 @@ export class GameBoard {
     }
 
     public comptAllCards() : void {
-        console.log('=== Number of cards ===');
+        console.debug('=== Number of cards ===');
 
         let a = 0;
-        if (this.mineStack.length != 0) {
-            a = this.mineStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+        for (let i=0; i < this.nbPlayers; i++) {
+            a += this.mines[i].numberOfCards();
         }
-        console.log('Mine ' + a);
+        console.debug('Mine ' + a);
 
         let b = 0;
         if (this.playerHandStack.length != 0) {
             b = this.playerHandStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
         }
         
-        console.log('PlayerHand ' + b);
+        console.debug('PlayerHand ' + b);
 
         let c = 0;
         if (this.discardStack.length != 0) {
             c = this.discardStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
         }
-        console.log('Discard ' + c);
+        console.debug('Discard ' + c);
 
         let d = this.recruitCenter.collection.length;
-        console.log('RecuitCenter ' + d);
+        console.debug('RecuitCenter ' + d);
 
         let e = this.trophy.length;
-        console.log('Trophy ' + e);
+        console.debug('Trophy ' + e);
 
         let f = this.unUsedCards.collection.length;
-        console.log('UnUsed ' + f);
+        console.debug('UnUsed ' + f);
 
-        console.log('Total ' + (a+b+c+d+e+f));
+        console.debug('Total ' + (a+b+c+d+e+f));
     }
 
     public printPlayerHands() : void {
-        console.log('=== Players hands ===');
+        console.debug('=== Players hands ===');
         for (let i=0; i < this.nbPlayers; i++) {
-            console.log('Player ' + (i+1) + ' : ' + this.playerHandStack[i].collection.length);
+            console.debug('Player ' + (i+1) + ' : ' + this.playerHandStack[i].collection.length);
         }
     }
 }
