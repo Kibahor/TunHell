@@ -1,7 +1,7 @@
-import { cpuUsage } from 'process';
 import { Card } from './Card/Card'
 import { Stack } from './Card/Stack'
 import { StackType } from './Card/StackType'
+import { Mine } from './Mine';
 import { Player } from './Player';
 
 export class GameBoard {
@@ -41,14 +41,14 @@ export class GameBoard {
         return cards;
     }
 
-    public divideBy(nb: number, cards: Array<Card>, endMine: Array<Card>): Array<Stack> {
+    public divideBy(nb: number, cards: Array<Card>, endMine: Array<Card>): Array<Mine> {
         const n = Math.floor(cards.length / nb);
         let tmpArr = [];
         for (let i = 0; i < nb; i++) {
             let s = new Stack("Mine" + i, StackType.Mine);
             s.addCard(endMine[i]);
             s.addCollection(cards.slice(n * i, n * (i + 1)));               // Transfert le nombre de carte total (- reste) / nombre de joueur pour chacun des joueurs
-            tmpArr[i] = s;
+            tmpArr[i] = new Mine(nb, s);
         }
         if (nb % n != 0) {
             this.unUsedCards.addCollection(cards.slice(n * nb, cards.length));
