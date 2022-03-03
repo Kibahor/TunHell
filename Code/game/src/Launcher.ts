@@ -9,6 +9,7 @@ let deck = initDeck.generateDeck();
 
 //A METTRE DANS GAMEBOARD
 import { Treasure } from './Card/Treasure';
+import { Round } from './Round';
 
 let end_mine:Array<Card>=[]
 let trophy:Array<Card>=[]
@@ -47,3 +48,5 @@ if (true) {
 //let game:GameBoard = new GameBoard(0,4,deck)
 let game:GameBoard = new GameBoard(0, 4, deck.get('Dwarf'), deck.get('Enemy').concat(deck.get('Bonus')).concat(deck.get('Treasure')), end_mine, trophy)
 game.comptAllCards();
+let round = new Round(game);
+round.doRound();

@@ -1,4 +1,4 @@
-import { Card } from './Card/Card'
+import { Card } from './Card'
 import { StackType} from './StackType'
 
 export class Stack {
@@ -38,5 +38,10 @@ export class Stack {
     public moveCardToStack(card : Card, stack : Stack) : void {
         this.removeCard(card);
         stack.addCard(card);
+    }
+
+    public toString(){
+        for(let card of this.collection)
+            console.debug(`${card.typeName} - ${card.name}`)
     }
 }

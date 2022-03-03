@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const PATH_JSONS:string = path.resolve(path.join('./res','/Receipe/'));
+const PATH_JSONS:string = path.resolve(__dirname,'../../../res/Receipe/');
 
 function loadReceipes(map:Map<string,JSON>,folder:string){
     for(let file of fs.readdirSync(folder)){

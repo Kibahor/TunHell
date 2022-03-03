@@ -1,16 +1,17 @@
 import { cpuUsage } from 'process';
 import { Card } from './Card/Card'
-import { Stack } from './Stack'
-import { StackType } from './StackType'
+import { Stack } from './Card/Stack'
+import { StackType } from './Card/StackType'
+import { Player } from './Player';
 
 export class GameBoard {
 
     public id: number;
     public nbPlayers: number;
+    public players:Array<Player> = [];
 
-    public mineStack: Array<Stack> = [];
-    public playerHandStack: Array<Stack> = [];
-    public discardStack: Array<Stack> = [];
+    public mines: Array<Stack> = [];
+    public discards: Array<Stack> = [];
     public recruitCenter: Stack;
 
     public trophy: Array<Card> = [];
@@ -25,8 +26,11 @@ export class GameBoard {
         this.recruitCenter = new Stack("RecuitCenter", StackType.RecruitCenter);
         this.unUsedCards = new Stack("UnUsedCards", StackType.unUsedCards);
 
-        this.playerHandStack = this.giveToPlayers(this.fisherYatesShuffle(dwarfs));
-        this.mineStack = this.divideBy(3, this.fisherYatesShuffle(enemyAndbonus), this.fisherYatesShuffle(endMine));
+        for(let stack of this.getPlayersStack(this.fisherYatesShuffle(dwarfs))){
+            this.players.push(new Player(stack));
+        }
+
+        this.mines = this.divideBy(3, this.fisherYatesShuffle(enemyAndbonus), this.fisherYatesShuffle(endMine));
     }
 
     public fisherYatesShuffle(cards: Array<Card>): Array<Card> {
@@ -55,7 +59,7 @@ export class GameBoard {
         return tmpArr;
     }
 
-    public giveToPlayers(card: Array<Card>): Array<Stack> {
+    public getPlayersStack(card: Array<Card>): Array<Stack> {
         let tmpArr = [];
         for (let i = 0; i < this.nbPlayers; i++) {
             let s = new Stack("PlayerHand" + i, StackType.PlayerHand);
@@ -72,21 +76,21 @@ export class GameBoard {
         console.debug('=== Number of cards ===');
 
         let a = 0;
-        if (this.mineStack.length != 0) {
-            a = this.mineStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+        if (this.mines.length != 0) {
+            a = this.mines.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
         }
         console.debug('Mine ' + a);
 
         let b = 0;
-        if (this.playerHandStack.length != 0) {
-            b = this.playerHandStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+        if (this.players.length != 0) {
+            b = this.players.map(player => player.playerHand.collection.length).reduce( (acc, curr) => acc + curr);
         }
         
         console.debug('PlayerHand ' + b);
 
         let c = 0;
-        if (this.discardStack.length != 0) {
-            c = this.discardStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+        if (this.discards.length != 0) {
+            c = this.discards.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
         }
         console.debug('Discard ' + c);
 
@@ -105,7 +109,7 @@ export class GameBoard {
     public printPlayerHands() : void {
         console.debug('=== Players hands ===');
         for (let i=0; i < this.nbPlayers; i++) {
-            console.debug('Player ' + (i+1) + ' : ' + this.playerHandStack[i].collection.length);
+            console.debug('Player ' + (i+1) + ' : ' + this.players[i].playerHand.collection.length);
         }
     }
 }
