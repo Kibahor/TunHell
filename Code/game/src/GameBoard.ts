@@ -69,43 +69,43 @@ export class GameBoard {
     }
 
     public comptAllCards() : void {
-        console.log('=== Number of cards ===');
+        console.debug('=== Number of cards ===');
 
         let a = 0;
         if (this.mineStack.length != 0) {
             a = this.mineStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
         }
-        console.log('Mine ' + a);
+        console.debug('Mine ' + a);
 
         let b = 0;
         if (this.playerHandStack.length != 0) {
             b = this.playerHandStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
         }
         
-        console.log('PlayerHand ' + b);
+        console.debug('PlayerHand ' + b);
 
         let c = 0;
         if (this.discardStack.length != 0) {
             c = this.discardStack.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
         }
-        console.log('Discard ' + c);
+        console.debug('Discard ' + c);
 
         let d = this.recruitCenter.collection.length;
-        console.log('RecuitCenter ' + d);
+        console.debug('RecuitCenter ' + d);
 
         let e = this.trophy.length;
-        console.log('Trophy ' + e);
+        console.debug('Trophy ' + e);
 
         let f = this.unUsedCards.collection.length;
-        console.log('UnUsed ' + f);
+        console.debug('UnUsed ' + f);
 
-        console.log('Total ' + (a+b+c+d+e+f));
+        console.debug('=== Total ' + (a+b+c+d+e+f) + ' ===');
     }
 
     public printPlayerHands() : void {
-        console.log('=== Players hands ===');
+        console.debug('=== Players hands ===');
         for (let i=0; i < this.nbPlayers; i++) {
-            console.log('Player ' + (i+1) + ' : ' + this.playerHandStack[i].collection.length);
+            console.debug('Player ' + (i+1) + ' : ' + this.playerHandStack[i].collection.length);
         }
     }
 }
