@@ -2,7 +2,6 @@ import { Card } from './Card/Card'
 import { Stack } from './Stack'
 import { StackType } from './StackType'
 import { Mine } from './Mine'
-import { threadId } from 'worker_threads';
 
 export class GameBoard {
 
@@ -100,7 +99,7 @@ export class GameBoard {
         let f = this.unUsedCards.collection.length;
         console.debug('UnUsed ' + f);
 
-        console.debug('Total ' + (a+b+c+d+e+f));
+        console.debug('=== Total ' + (a+b+c+d+e+f) + ' ===');
     }
 
     public printPlayerHands() : void {
