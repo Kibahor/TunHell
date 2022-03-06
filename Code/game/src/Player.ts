@@ -6,7 +6,7 @@ export class Player {
     public playerHand : Stack;
     public mines : Array<Stack> = [];
     public trophy : Array<Card> = [];
-    //Treasure
+    public treasure : Stack;
 
     public constructor(playerHand: Stack, nbPlayers: Number) {
         this.playerHand = playerHand;

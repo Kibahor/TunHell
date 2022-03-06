@@ -10,9 +10,9 @@ const rl = readline.createInterface({
 const util = require('util');
 const question = util.promisify(rl.question).bind(rl);
 
-export class Round {
-    public gameboard:GameBoard;
-    public selectedPlayer:number;
+export class Game {
+    public gameboard : GameBoard;
+    public selectedPlayer : number;
 
     public constructor(gameboard: GameBoard){
         this.gameboard = gameboard;
@@ -24,6 +24,12 @@ export class Round {
           return answer;
         } catch (err) {
           console.error('Question rejected', err);
+        }
+    }
+
+    public playGame() : void {
+        while (true) {  // Compter le nombre de cartes restantes dans les mines (peut être une autre fin possible ?)
+            this.doRound();
         }
     }
 
