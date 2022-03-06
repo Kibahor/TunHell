@@ -1,5 +1,5 @@
-import { Stack } from './Stack'
-import { StackType } from './StackType'
+import { Stack } from './Card/Stack'
+import { StackType } from './Card/StackType'
 
 export class Mine {
 

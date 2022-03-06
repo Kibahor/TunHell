@@ -10,7 +10,7 @@ export class GameBoard {
     public nbPlayers: number;
     public players:Array<Player> = [];
 
-    public mines: Array<Stack> = [];
+    public mines: Array<Mine> = [];
     public discards: Array<Stack> = [];
     public recruitCenter: Stack;
 
@@ -76,8 +76,8 @@ export class GameBoard {
         console.debug('=== Number of cards ===');
 
         let a = 0;
-        if (this.mines.length != 0) {
-            a = this.mines.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+        for (let i=0; i < this.nbPlayers; i++) {
+            a += this.mines[i].numberOfCards();
         }
         console.debug('Mine ' + a);
 
