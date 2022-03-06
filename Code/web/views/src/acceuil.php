@@ -9,7 +9,6 @@
 	
 	
 	<body class="bg-fuchsia-200 flex flex-col font-Montserrat h-full m-0 p-0">
-		b 
 		<?php require_once("header.php") ?>
 		
 			<section class="main flex h-full items-stretch">

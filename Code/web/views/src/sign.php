@@ -12,7 +12,7 @@
                 <div class="hidden lg:flex">
                     <img class="h-96 w-96 2xl:h-32 2xl:w-32 object-cover rounded-l-lg" src="views/rsc/dragon.jpg" alt="">
                 </div>
-                <form class ="bg-white rounded-r-lg flex flex-col items-center justify-center h-96 w-96 2xl:h-32 2xl:w-32 2xl:gap-y-1" action="index.php?action=signup">
+                <form class ="bg-white rounded-r-lg flex flex-col items-center justify-center h-96 w-96 2xl:h-32 2xl:w-32 2xl:gap-y-1" action="index.php?action=signup" method="POST">
                     <h1 class="text-2xl font-bold">Create Account</h1>
 
                     <label for="pseudo" class="mt-3 text-xs">Pseudo : </label>
@@ -43,8 +43,8 @@
                                         - au moins un de ces caractères spéciaux: $ @ % * + - _ !</p>';
                             }
                     ?>
-                    <label for="password2" class="mt-3 text-xs">Password again : </label>
-                    <input name="password2" type="password">
+                    <label for="confirmpassword" class="mt-3 text-xs">Password again : </label>
+                    <input name="confirmpassword" type="password">
                     <?php
                             if(isset($w_cpassword) && $w_cpassword == true){
                                 echo '<pre class="com">le mot de passe de confirmation ne correspond pas</pre>';
