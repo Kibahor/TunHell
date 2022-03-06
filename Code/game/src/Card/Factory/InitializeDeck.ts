@@ -4,6 +4,7 @@ import { EnemyFactory } from './EnemyFactory';
 import { receipes, sortReceipes, getDeck  } from './ReceipeFunctions';
 import { BonusFactory } from './BonusFactory';
 import { TreasureFactory } from './TreasureFactory';
+import { Treasure } from '../Treasure';
 
 export class InitializeDeck{
     private receipes:Map<string,Map<string,JSON>>;
@@ -36,6 +37,28 @@ export class InitializeDeck{
                 }
             }
         }
-        return result;
+        return this.pickEndMineAndTrophy(result);
+    }
+
+    private pickEndMineAndTrophy(deck:Map<string,Array<Card>>):Map<string,Array<Card>>{
+        deck.set('End_Mine',[]);
+        deck.set('Trophy',[]);
+        for (let [type,cards] of deck.entries()) {
+            for(let card of [].concat(cards)) {
+                //est une fin de mine
+                if (card.end_mine) {
+                    deck.get('End_Mine').push(card);
+                    let tab = deck.get(type);
+                    tab.splice(tab.indexOf(card),1)
+                } else if(card.typeName === 'Treasure') { //est un trophée
+                    if ((card as Treasure).trophy) {
+                        deck.get('Trophy').push(card);
+                        let tab=deck.get(type);
+                        tab.splice(tab.indexOf(card),1);
+                    }
+                }
+            }
+        }
+        return deck;
     }
 }

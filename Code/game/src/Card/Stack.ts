@@ -40,8 +40,13 @@ export class Stack {
         stack.addCard(card);
     }
 
-    public toString(){
-        for(let card of this.collection)
-            console.debug(`${card.typeName} - ${card.name}`)
+    public toString():string {
+        let str:string = '';
+        let i = 0
+        for(let card of this.collection){
+            str+=`\n(${i}) ${card.typeName} - ${card.name}`
+            i++;
+        }
+        return str;
     }
 }
