@@ -9,13 +9,11 @@ $mdp = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; //voir lors la phase de pe
 //$mdp = 'root';
 
 $vues = array(
-    'acceuil' => 'views/acceuil.php',
-    'login' => 'views/login.php',
-    'sign' => 'views/sign.php',
-    'error' => 'views/error.php',
-    'documentation' => 'views/documentation.php',
-    'contact' => 'views/contact.php',
-    'hand' => 'views/handCode.php',
-    'rgpd' => 'views/rgpd.php'
+    'acceuil' => 'views/src/acceuil.php',
+    'login' => 'views/src/login.php',
+    'sign' => 'views/src/sign.php',
+    'documentation' => 'views/src/documentation.php',
+    'contact' => 'views/src/contact.php',
+    'rgpd' => 'views/src/rgpd.php'
 );
 ?>
