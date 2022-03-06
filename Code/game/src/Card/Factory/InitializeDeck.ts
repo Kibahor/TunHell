@@ -4,9 +4,6 @@ import { EnemyFactory } from './EnemyFactory';
 import { receipes, sortReceipes, getDeck  } from './ReceipeFunctions';
 import { BonusFactory } from './BonusFactory';
 import { TreasureFactory } from './TreasureFactory';
-import { Enemy } from '../Enemy';
-import { Treasure } from '../Treasure';
-import { CreateReadStreamOptions } from 'fs/promises';
 
 export class InitializeDeck{
     private receipes:Map<string,Map<string,JSON>>;
@@ -19,7 +16,7 @@ export class InitializeDeck{
     };
 
     public constructor(deckName:string){
-        this.deck=getDeck(deckName);
+        this.deck = getDeck(deckName);
         this.receipes = sortReceipes(receipes,this.deck);
     }
     
