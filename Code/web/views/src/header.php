@@ -25,7 +25,7 @@
                             }else{
                                 echo '
                                 <div class="hidden lg:flex items-center space-x-4">
-                                    <a href="index.php?action=viewSign" class="btn bg-slate-600">Register - Sign up</a>
+                                    <a href="index.php?action=viewLog" class="btn bg-slate-600">Register - Log in</a>
                                     <a href="index.php?action=viewDocumentation" class="btn bg-blue-700">Getting started</a>
                                 </div>
                                 ';
@@ -56,7 +56,7 @@
                                 ';
                                 } else{
                                     echo '
-                                        <a href="index.php?action=viewSign" class="block py-3 px-4 btn bg-slate-600">Register - Sign up</a>
+                                        <a href="index.php?action=viewLog" class="block py-3 px-4 btn bg-slate-600">Register - Log in</a>
                                         <a href="index.php?action=viewDocumentation" class="block py-3 px-4 btn bg-blue-700">Getting started</a>
                                     ';
                                 }
