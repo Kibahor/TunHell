@@ -1,4 +1,3 @@
-import { Card } from "./Card/Card";
 import { GameBoard } from "./GameBoard";
 import readline = require("readline");
 import { Player } from "./Player";
@@ -8,6 +7,9 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
   });
+
+const util = require('util');
+const question = util.promisify(rl.question).bind(rl);
 
 export class Game {
     public gameboard : GameBoard;
@@ -24,25 +26,26 @@ export class Game {
         /*while (true) {  // Compter le nombre de cartes restantes dans les mines (peut être une autre fin possible ?)
             this.doRound();
         }*/
+        //this.doRound();
+        
         this.doRound();
     }
 
+    
     private async doRound() {
         console.debug(`=======================================\n Turn ${this.turn} : Player ${this.selectedPlayer} it is at you turn !\n=======================================`);
-        rl.question('Pick a Card or Play a Card (0/1) ? ', (choice) => {
-            let noChoice = parseInt(choice)
-            switch (noChoice) {
-                case 0:
-                    this.recruitCard();
-                    break;
-                case 1:
-                    this.playCard();
-                    break;
-                default:
-                    this.doRound();
-                    return;
-            }
-        });
+        let choice = await this.prompt('Pick a Card or Play a Card (0/1) ? ');
+        switch (choice) {
+            case 0:
+                await this.recruitCard();
+                break;
+            case 1:
+               await this.playCard();
+                break;
+            default:
+               this.doRound();
+                return;
+        }
         if (this.selectedPlayer < this.gameboard.nbPlayers) {
             this.selectedPlayer++;
         }
@@ -51,58 +54,60 @@ export class Game {
             this.selectedPlayer = 1;
             this.turn++;
         }
+        this.doRound();
     }
 
     private async recruitCard() {
         let player = this.gameboard.players[this.selectedPlayer-1];
         console.debug('Recruit Center:', this.gameboard.recruitCenter.toStringFirstFive());
-        rl.question(`Wich Card do you want to pick (0 to ${this.gameboard.recruitCenter.lenghtMaxFive()-1}) ? `, (choice) => {
-            let noCard = parseInt(choice);
-            if (noCard >= 0 && noCard <= this.gameboard.recruitCenter.lenghtMaxFive()-1) {
-                this.moveCardtoHand(player, noCard);
-            }
-            else {
-                this.recruitCard();
-                return;
-            }
-        });
+        let noCard = await this.prompt(`Which Card do you want to pick (0 to ${this.gameboard.recruitCenter.lenghtMaxFive()-1}) ? `);
+        if (noCard >= 0 && noCard <= this.gameboard.recruitCenter.lenghtMaxFive()-1) {
+            this.moveCardtoHand(player, noCard);
+            console.log('Done !')
+            
+        }
+        else {
+           await this.recruitCard();
+            return;
+        }
     }
 
     private async playCard() {
         let player = this.gameboard.players[this.selectedPlayer-1];
         console.debug('Your Hand:', player.playerHand.toString());
-        rl.question(`What Card do you want to play (0 to ${player.playerHand.collection.length-1}) ? `,(choice) => {
-            let noCard = parseInt(choice);
-            if (noCard >= 0 && noCard <= player.playerHand.collection.length-1) {
-                this.moveCardtoMine(player, noCard)
-            }
-            else {
-                this.playCard();
-                return;
-            }
-        });
+        let noCard = await this.prompt(`What Card do you want to play (0 to ${player.playerHand.collection.length-1}) ? `);
+        if (noCard >= 0 && noCard <= player.playerHand.collection.length-1) {
+                await this.moveCardtoMine(player, noCard)
+        }
+        else {
+            await this.playCard();
+            return;
+        }
     }
 
     private moveCardtoHand(player: Player, noCard: number) : void {
-        player.playerHand.moveCardToStack(this.gameboard.recruitCenter.collection[noCard], player.playerHand);
+        this.gameboard.recruitCenter.moveCardToStack(this.gameboard.recruitCenter.collection[noCard], player.playerHand );
     }
 
     private async moveCardtoMine(player:Player, noCard:number) {
-        rl.question(`In which mine do you want to place the card : ${player.playerHand.collection[noCard].name} (0 to ${this.gameboard.mines.length-1}) ? `,(choice) => {
-            let noMines = parseInt(choice);
-            if (noMines >= 0 && noMines <= this.gameboard.mines.length-1){
-                player.moveCardToMine(noCard, noMines);
-                console.log('Move done !');
-            } 
-            else {
-                this.moveCardtoMine(player, noCard);
-            }
-        });
+        let noMines = await this.prompt(`In which mine do you want to place the card : ${player.playerHand.collection[noCard].name} (0 to ${this.gameboard.mines.length-1}) ? `);
+        if (noMines >= 0 && noMines <= this.gameboard.mines.length-1){
+            player.moveCardToMine(noCard, noMines);
+            console.log('Move done !');
+        } 
+        else {
+           await this.moveCardtoMine(player, noCard);
+        }
     }
 
-    /*public playEffect(card:Card){
-        if(card.typeName === 'Picker'){
-            
-        }
-    }*/
+
+    /* ---------------------------------------------------------------------------------- 
+    --------------------------------------- Affichage -----------------------------------
+    ---------------------------------------------------------------------------------- */
+
+    private async prompt(question_str:string){
+        const answer = await question(question_str);
+        let noChoice = parseInt(answer);
+        return noChoice;
+    }
 }
