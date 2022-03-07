@@ -13,6 +13,10 @@ class UtilisateurController{
                     $this->logout();
                     break;
 
+                case "viewProfil":
+                    $this->viewProfil();
+                    break;
+
                 default:
                     //gestion d'erreurs
                     break;
@@ -37,6 +41,17 @@ class UtilisateurController{
         $mdlUtilisateur->logout();
 
         require ($rep.$vues['acceuil']);
+    }
+
+    function viewProfil(){
+        global $rep, $vues;
+
+        $mdlUtilisateur = new ModelUtilisateur();
+        $accountDisplay = $mdlUtilisateur->getInfoUserForProfil(Validation::validateInt($_SESSION['userid']));
+
+        print_r($accountDisplay);
+
+        require($rep.$vues['profil']);
     }
 
 }

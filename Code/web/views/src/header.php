@@ -2,7 +2,7 @@
 
 			<!-- Responsive navbar -->
 
-			<nav class="">	
+			<nav class="">
 				<div class="w-auto">
 					<div class="flex justify-between px-4 py-4">
 						<!-- logo -->
@@ -17,6 +17,7 @@
                             if(isset($_SESSION['role']) && $_SESSION['role'] == 'user'){
                                 echo '
                                 <div class="hidden lg:flex items-center space-x-4">
+									<a href="index.php?action=viewProfil" class="btn bg-slate-600">Profil</a>
                                     <a href="index.php?action=logout" class="btn bg-slate-600">Logout</a>
                                     <a href="index.php?action=viewDocumentation" class="btn bg-blue-700">Getting started</a>
                                 </div>
@@ -30,14 +31,14 @@
                                 ';
                                 }
                         ?>
-						
+
 						<!-- mobile -->
 						<div class="lg:hidden flex items-center">
 							<button class="mobile-menu-button">
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
 								</svg>
-							</button> 
+							</button>
 						</div>
 					</div>
 
@@ -65,6 +66,3 @@
 				</div>
 			</nav>
 		</header>
-
-
-        

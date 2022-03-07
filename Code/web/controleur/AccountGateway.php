@@ -73,4 +73,11 @@ class AccountGateway extends Connection
         }
         return $account;
     }
+
+    public function FindByIdForProfil(string $id)
+    {
+        $account = $this->FindById($id);
+        $account->setPasswordHash("");
+        return $account;
+    }
 }
