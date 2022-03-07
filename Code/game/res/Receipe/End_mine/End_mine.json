@@ -8,5 +8,15 @@
         "fight_value":7,
         "gold_value":7,
         "end_mine":true
+    },
+    "Behind_door":{
+        "gold_value": 1,
+        "end_mine":true,
+        "trophy":false
+    },
+    "Throne_room":{
+        "gold_value": 3,
+        "end_mine":true,
+        "trophy":false
     }
 }
