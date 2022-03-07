@@ -28,7 +28,7 @@ export class Game {
     }
 
     private async doRound() {
-        console.debug(`=======================================\n Turn ${this.turn} : Player ${this.selectedPlayer} it is at you turn !\n=======================================`);
+        console.debug(`=======================================\n Turn ${this.turn} : Player ${this.selectedPlayer} it's you turn !\n=======================================`);
         rl.question('Pick a Card or Play a Card (0/1) ? ', (choice) => {
             let noChoice = parseInt(choice)
             switch (noChoice) {
@@ -56,7 +56,7 @@ export class Game {
     private async recruitCard() {
         let player = this.gameboard.players[this.selectedPlayer-1];
         console.debug('Recruit Center:', this.gameboard.recruitCenter.toStringFirstFive());
-        rl.question(`Wich Card do you want to pick (0 to ${this.gameboard.recruitCenter.lenghtMaxFive()-1}) ? `, (choice) => {
+        rl.question(`Which card do you want to pick (0 to ${this.gameboard.recruitCenter.lenghtMaxFive()-1}) ? `, (choice) => {
             let noCard = parseInt(choice);
             if (noCard >= 0 && noCard <= this.gameboard.recruitCenter.lenghtMaxFive()-1) {
                 this.moveCardtoHand(player, noCard);
@@ -71,7 +71,7 @@ export class Game {
     private async playCard() {
         let player = this.gameboard.players[this.selectedPlayer-1];
         console.debug('Your Hand:', player.playerHand.toString());
-        rl.question(`What Card do you want to play (0 to ${player.playerHand.collection.length-1}) ? `,(choice) => {
+        rl.question(`Which card do you want to play (0 to ${player.playerHand.collection.length-1}) ? `,(choice) => {
             let noCard = parseInt(choice);
             if (noCard >= 0 && noCard <= player.playerHand.collection.length-1) {
                 this.moveCardtoMine(player, noCard)
