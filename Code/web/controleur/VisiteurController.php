@@ -37,6 +37,11 @@ class VisiteurController{
                     $this->viewContact();
                     break;
 
+                case "viewTOS":
+                    $this->viewTOS();
+                    break;
+    
+
                 case "login":
                     $this->login();
                     break;
@@ -101,6 +106,10 @@ class VisiteurController{
         require($rep.$vues['rgpd']);
     }
 
+    function viewTOS(){
+        global $rep, $vues;
+        require($rep.$vues['tos']);
+    }
 
     function login(){
         global $rep, $vues;
