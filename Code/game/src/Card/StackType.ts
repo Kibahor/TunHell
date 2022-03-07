@@ -1,6 +1,6 @@
 export enum StackType {
-    PlayerHand = "PlayerHand",
     Mine = "Mine",
+    PlayerHand = "PlayerHand",
     PlayerMine = "PlayerMine",
     RecruitCenter = "RecruitCenter",
     unUsedCards = "UnUsedCards"

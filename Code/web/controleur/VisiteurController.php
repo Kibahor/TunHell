@@ -37,6 +37,11 @@ class VisiteurController{
                     $this->viewContact();
                     break;
 
+                case "viewTOS":
+                    $this->viewTOS();
+                    break;
+    
+
                 case "login":
                     $this->login();
                     break;
@@ -101,13 +106,19 @@ class VisiteurController{
         require($rep.$vues['rgpd']);
     }
 
+    function viewTOS(){
+        global $rep, $vues;
+        require($rep.$vues['tos']);
+    }
 
     function login(){
         global $rep, $vues;
 
+
         try {
             $mdlAccount = new ModelVisiteur();
             $utilisateur = $mdlAccount->logUser();
+            
         }
         catch(Exception $e){
             switch($e->getMessage()){
@@ -142,9 +153,10 @@ class VisiteurController{
             $utilisateur = $mdlVisiteur->createAUser();
         }
         catch(Exception $e) {
+            
             switch($e->getMessage()){
                 case "empty username": $empty_username = true; break;
-                case "invalid username": $invalid_username = true; break;
+                //case "invalid username": $invalid_username = true; break;
                 case "exist username": $exist_username = true; break;
                 case "empty password" : $empty_password = true; break;
                 case "invalid password" : $invalid_password = true; break;

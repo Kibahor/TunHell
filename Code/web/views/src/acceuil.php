@@ -8,8 +8,12 @@
 	</head>
 	
 	
+<<<<<<< HEAD
 	<body class="bg-slate-200 flex flex-col font-Montserrat h-full m-0 p-0">
 	
+=======
+	<body class="bg-fuchsia-200 flex flex-col font-Montserrat h-full m-0 p-0">
+>>>>>>> f95b2e87250c02b7033aae242fd1f82c6122ecf9
 		<?php require_once("header.php") ?>
 		
 			<section class="main flex p-4 h-full items-stretch">

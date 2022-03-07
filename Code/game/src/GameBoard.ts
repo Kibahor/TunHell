@@ -1,7 +1,6 @@
 import { Card } from './Card/Card'
 import { Stack } from './Card/Stack'
 import { StackType } from './Card/StackType'
-import { Mine } from './Mine';
 import { Player } from './Player';
 
 export class GameBoard {
@@ -10,7 +9,7 @@ export class GameBoard {
     public nbPlayers: number;
     public players:Array<Player> = [];
 
-    public mines: Array<Mine> = [];
+    public mines: Array<Stack> = [];
     public discards: Array<Stack> = [];
     public recruitCenter: Stack;
 
@@ -18,19 +17,18 @@ export class GameBoard {
     public unUsedCards: Stack;
 
 
-    public constructor(id: number, nbPlayers: number, dwarfs: Array<Card>, enemyAndbonus: Array<Card>, endMine: Array<Card>, trophy: Array<Card>) {
+    public constructor(id: number, nbPlayers: number, deck:Map<string,Array<Card>>) {
         this.id = id;
         this.nbPlayers = nbPlayers;
-        this.trophy = trophy;
+        this.trophy = deck.get('Trophy');
 
         this.recruitCenter = new Stack("RecuitCenter", StackType.RecruitCenter);
         this.unUsedCards = new Stack("UnUsedCards", StackType.unUsedCards);
 
-        for(let stack of this.getPlayersStack(this.fisherYatesShuffle(dwarfs))){
-            this.players.push(new Player(stack));
+        for (let stack of this.getPlayersStack(this.fisherYatesShuffle(deck.get('Dwarf')))) {
+            this.players.push(new Player(stack, nbPlayers));
         }
-
-        this.mines = this.divideBy(3, this.fisherYatesShuffle(enemyAndbonus), this.fisherYatesShuffle(endMine));
+        this.mines = this.divideBy(3, this.fisherYatesShuffle(deck.get('Mine')), this.fisherYatesShuffle(deck.get('End_mine')));
     }
 
     public fisherYatesShuffle(cards: Array<Card>): Array<Card> {
@@ -41,14 +39,14 @@ export class GameBoard {
         return cards;
     }
 
-    public divideBy(nb: number, cards: Array<Card>, endMine: Array<Card>): Array<Mine> {
+    public divideBy(nb: number, cards: Array<Card>, endMine: Array<Card>): Array<Stack> {
         const n = Math.floor(cards.length / nb);
         let tmpArr = [];
         for (let i = 0; i < nb; i++) {
             let s = new Stack("Mine" + i, StackType.Mine);
             s.addCard(endMine[i]);
             s.addCollection(cards.slice(n * i, n * (i + 1)));               // Transfert le nombre de carte total (- reste) / nombre de joueur pour chacun des joueurs
-            tmpArr[i] = new Mine(nb, s);
+            tmpArr[i] = s;
         }
         if (nb % n != 0) {
             this.unUsedCards.addCollection(cards.slice(n * nb, cards.length));
@@ -63,7 +61,7 @@ export class GameBoard {
         let tmpArr = [];
         for (let i = 0; i < this.nbPlayers; i++) {
             let s = new Stack("PlayerHand" + i, StackType.PlayerHand);
-            s.addCollection(card.slice(4 * i, 4 * (i + 1)));                // Transfert 4 carte à chaque joueur
+            s.addCollection(card.slice(6 * i, 6 * (i + 1)));                // Transfert 6 carte à chaque joueur
             tmpArr[i] = s;
         }
         if (card.length > this.nbPlayers * 4) {
@@ -76,8 +74,8 @@ export class GameBoard {
         console.debug('=== Number of cards ===');
 
         let a = 0;
-        for (let i=0; i < this.nbPlayers; i++) {
-            a += this.mines[i].numberOfCards();
+        if (this.mines.length != 0) {
+            a = this.mines.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
         }
         console.debug('Mine ' + a);
 
@@ -85,7 +83,6 @@ export class GameBoard {
         if (this.players.length != 0) {
             b = this.players.map(player => player.playerHand.collection.length).reduce( (acc, curr) => acc + curr);
         }
-        
         console.debug('PlayerHand ' + b);
 
         let c = 0;

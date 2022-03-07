@@ -9,16 +9,15 @@ Class ModelVisiteur
 
     public function createAUser(){
         $AccountGateway = new AccountGateway;
-
         $pseudo = Validation::validateName($_POST["pseudo"]);
         if($AccountGateway->FindByPseudo($pseudo) != NULL) throw new Exception("exist username");
-
         $password = Validation::validatePassword($_POST["password"]);
         $passwordconfirm = Validation::validateConfirmPassword($password, $_POST["confirmpassword"]);
+        
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $date = date("y-m-d");
         $AccountGateway->insert($pseudo, "avatar1", $hash, $date, 0, 0);
-
+        
         return $this->logUser();
     }
 

@@ -1,8 +1,7 @@
-import {receipes, sortReceipes, getDeck } from '../Card/Factory/ReceipeFunctions';
+import {receipes, getDeck } from '../Card/Factory/ReceipeFunctions';
 
 let deck=getDeck('Default');
-let sortedReceipes = sortReceipes(receipes,deck);
-let receipesDwarf:Map<string,JSON> = sortedReceipes.get('Dwarf')
+let receipesDwarf:Map<string,JSON> = receipes.get('Dwarf')
 describe(`Check Dwarf cards`, () => {
   for(let [type,map] of receipesDwarf.entries()){
     describe(`Check for ${type}`, () => {
