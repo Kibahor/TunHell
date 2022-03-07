@@ -5,7 +5,7 @@
         <title>&#128273; Login</title>
         <link href="views/dist/output.css" rel="stylesheet">
 	</head>
-    <body class="bg-fuchsia-200 flex flex-col font-Montserrat h-full m-0 p-0">
+    <body class="bg-slate-200 flex flex-col font-Montserrat h-full m-0 p-0">
         <?php require_once("header.php") ?>
         <section class="main flex h-full justify-center items-center">
             <div class="flex">
@@ -22,7 +22,7 @@
                                 echo '<pre class="com">le pseudo ne peut pas être vide</pre>';
                             }
                             if(isset($invalid_username) && $invalid_username == true){
-                                echo '<pre class="com">le pseudo est invalide, il doit contenir entre 1 et 25 charactères</pre>';
+                                echo '<pre class="com">les pseudo est invalide, il doit contenir entre 1 et 25 charactères</pre>';
                             }
                     ?>
                     <label for="password" class="mt-3 text-xs">Password : </label>
