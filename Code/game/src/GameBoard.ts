@@ -28,8 +28,7 @@ export class GameBoard {
         for (let stack of this.getPlayersStack(this.fisherYatesShuffle(deck.get('Dwarf')))) {
             this.players.push(new Player(stack, nbPlayers));
         }
-        let mines = deck.get('Enemy').concat(deck.get('Bonus')).concat(deck.get('Treasure'));
-        this.mines = this.divideBy(3, this.fisherYatesShuffle(mines), this.fisherYatesShuffle(deck.get('End_Mine')));
+        this.mines = this.divideBy(3, this.fisherYatesShuffle(deck.get('Mine')), this.fisherYatesShuffle(deck.get('End_mine')));
     }
 
     public fisherYatesShuffle(cards: Array<Card>): Array<Card> {

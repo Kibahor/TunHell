@@ -1,0 +1,17 @@
+{
+    "Machin":{
+        "first_value": 4,
+        "second_value": 0,
+        "up_symbol": false,
+        "stop_symbol": false,
+        "end_mine":false
+    },
+    "Dwarf_the_dog":{
+        "first_value":1,
+        "second_value":0,
+        "up_symbol":false,
+        "stop_symbol":false,
+        "end_mine":false
+    }
+}
+

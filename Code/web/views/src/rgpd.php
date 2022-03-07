@@ -8,7 +8,7 @@
 	</head>
 	
 	
-	<body class="bg-fuchsia-200 flex flex-col font-Montserrat h-full m-0 p-0">
+	<body class="bg-slate-200 flex flex-col font-Montserrat h-full m-0 p-0">
 		
 		<?php require_once("header.php") ?>
 		
