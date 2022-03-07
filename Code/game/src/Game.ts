@@ -23,14 +23,8 @@ export class Game {
     }
 
     public playGame() : void {
-        /*while (true) {  // Compter le nombre de cartes restantes dans les mines (peut être une autre fin possible ?)
-            this.doRound();
-        }*/
-        //this.doRound();
-        
         this.doRound();
     }
-
     
     private async doRound() {
         console.debug(`=======================================\n Turn ${this.turn} : Player ${this.selectedPlayer} it is at you turn !\n=======================================`);
@@ -62,10 +56,9 @@ export class Game {
         console.debug('Recruit Center:', this.gameboard.recruitCenter.toStringFirstFive());
         let noCard = await this.prompt(`Which Card do you want to pick (0 to ${this.gameboard.recruitCenter.lenghtMaxFive()-1}) ? `);
         if (noCard >= 0 && noCard <= this.gameboard.recruitCenter.lenghtMaxFive()-1) {
-            this.moveCardtoHand(player, noCard);
+            this.gameboard.recruitCenter.moveCardToStack(this.gameboard.recruitCenter.collection[noCard], player.playerHand );
             console.log('Done !')
-            
-        }
+        } 
         else {
            await this.recruitCard();
             return;
@@ -77,16 +70,12 @@ export class Game {
         console.debug('Your Hand:', player.playerHand.toString());
         let noCard = await this.prompt(`What Card do you want to play (0 to ${player.playerHand.collection.length-1}) ? `);
         if (noCard >= 0 && noCard <= player.playerHand.collection.length-1) {
-                await this.moveCardtoMine(player, noCard)
+            await this.moveCardtoMine(player, noCard)
         }
         else {
             await this.playCard();
             return;
         }
-    }
-
-    private moveCardtoHand(player: Player, noCard: number) : void {
-        this.gameboard.recruitCenter.moveCardToStack(this.gameboard.recruitCenter.collection[noCard], player.playerHand );
     }
 
     private async moveCardtoMine(player:Player, noCard:number) {
@@ -99,11 +88,6 @@ export class Game {
            await this.moveCardtoMine(player, noCard);
         }
     }
-
-
-    /* ---------------------------------------------------------------------------------- 
-    --------------------------------------- Affichage -----------------------------------
-    ---------------------------------------------------------------------------------- */
 
     private async prompt(question_str:string){
         const answer = await question(question_str);
