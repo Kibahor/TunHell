@@ -51,6 +51,7 @@
                             <?php
                                 if(isset($_SESSION['role']) && $_SESSION['role'] == 'user'){
                                     echo '
+									<a href="index.php?action=viewProfil" class="block py-3 px-4 btn bg-slate-600">Profil</a>
                                     <a href="index.php?action=logout" class="block py-3 px-4 btn bg-slate-600">Logout</a>
                                     <a href="index.php?action=viewDocumentation" class="block py-3 px-4 btn bg-blue-700">Getting started</a>
                                 ';
