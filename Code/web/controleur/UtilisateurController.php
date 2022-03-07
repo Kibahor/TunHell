@@ -49,8 +49,6 @@ class UtilisateurController{
         $mdlUtilisateur = new ModelUtilisateur();
         $accountDisplay = $mdlUtilisateur->getInfoUserForProfil(Validation::validateInt($_SESSION['userid']));
 
-        print_r($accountDisplay);
-
         require($rep.$vues['profil']);
     }
 

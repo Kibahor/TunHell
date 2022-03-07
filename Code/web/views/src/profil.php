@@ -12,20 +12,20 @@
                 <div class="hidden lg:flex">
                     <img class="h-96 w-96 2xl:h-32 2xl:w-32 object-cover rounded-l-lg" src="views/rsc/dragon.jpg" alt="">
                 </div>
-                <form class ="bg-white rounded-r-lg flex flex-col items-center justify-center h-96 w-96 2xl:h-32 2xl:w-32 2xl:gap-y-1" action="index.php?action=login" method="POST">
-                    <h1 class="text-2xl font-bold">Log-in</h1>
+                <div class ="bg-white rounded-r-lg flex flex-col items-center justify-center h-96 w-96 2xl:h-32 2xl:w-32 2xl:gap-y-1">
+                    <h1 class="text-2xl font-bold">Profil</h1>
+                    <ul>
+                        <?php
+                            echo '<li>avatar : '.$accountDisplay->getAvatar().'<il>';
+                            echo '<li>pseudo : '.$accountDisplay->getPseudo().'<il>';
+                            echo '<li>Date création compte : '.$accountDisplay->getCreationDate().'<il>';
+                            echo '<li>nombre de games jouées : '.$accountDisplay->getNumbrerGames().'<il>';
+                            echo '<li>nombre de victoires : '.$accountDisplay->getNumberVictoires().'<il>';
+                         ?>
+                    </ul>
+                </div>
 
-                    <label for="pseudo" class="mt-5 text-xs">Pseudo : </label>
-                    <input name="pseudo" type="text">
-                    <label for="password" class="mt-3 text-xs">Password : </label>
-                    <input name="password" type="password">
 
-                    <input class="btn bg-blue-700 mt-8" type="submit" value="Log-in">
-                    <p class="mt-2">
-                        Don't have an account ?
-                        <a href="index.php?action=viewSign">Sign in</a>
-                    </p>
-                </form>
             </div>
         </section>
         <?php require_once("footer.php") ?>
