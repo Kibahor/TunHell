@@ -3,8 +3,10 @@
 	<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>&#127968; Homepage</title>
+	<meta name="description" content="TunHell is an onlie card game, where the goal is to manage a team of dwarf for dig and collect sumptuous treasures but beware of the encounter you may have in the mine. Embark on the adventure and join a game of TunHell !">
+	<title>Homepage</title>
 	<link href="views/dist/output.css" rel="stylesheet">
+	<link rel="shortcut icon" type="image/png" href="views/rsc/favicon.png">
 	</head>
 	
 	

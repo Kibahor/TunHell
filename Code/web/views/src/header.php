@@ -9,9 +9,9 @@
 						<a href="index.php" class=""><img class="w-36" src="views/rsc/logo.png" alt=""></a>
 						<!-- primary nav -->
 						<div class="hidden lg:flex items-center space-x-6">
-							<a href="index.php?action=viewDocumentation" class="">Create a game room &#127793;</a>
+							<a href="index.php?action=viewUnderConstruction" class="">Create a game room &#127793;</a>
 							<a href="index.php?action=viewDocumentation" class="">Documentation &#10068;</a>
-							<a href="index.php?action=viewDocumentation" class="">Hand Code &#9995;</a>
+							<a href="index.php?action=viewUnderConstruction" class="">Hand Code &#9995;</a>
 						</div>
                         <?php
                             if(isset($_SESSION['role']) && $_SESSION['role'] == 'user'){
@@ -26,7 +26,7 @@
                                 echo '
                                 <div class="hidden lg:flex items-center space-x-4">
                                     <a href="index.php?action=viewLog" class="btn bg-slate-600">Register - Log in</a>
-                                    <a href="index.php?action=viewDocumentation" class="btn bg-blue-700">Getting started</a>
+                                    <a href="index.php?action=viewUnderConstruction" class="btn bg-blue-700">Getting started</a>
                                 </div>
                                 ';
                                 }

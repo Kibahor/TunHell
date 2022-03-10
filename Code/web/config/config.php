@@ -16,6 +16,7 @@ $vues = array(
     'contact' => 'views/src/contact.php',
     'rgpd' => 'views/src/rgpd.php',
     'profil' => 'views/src/profil.php',
-    'tos' => 'views/src/tos.php'
+    'tos' => 'views/src/tos.php',
+    'under_construction' => 'views/src/under_construction.php'
 );
 ?>

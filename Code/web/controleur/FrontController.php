@@ -6,7 +6,7 @@ class FrontController{
 
         $listeActions_Visiteur = array("viewAcceuil", "viewSign",
         "viewLog", "viewDocumentation", "viewHand", "viewTerms",
-        "viewContact", "login", "signup");
+        "viewContact","viewTOS","viewUnderConstruction", "login", "signup");
         $listeActions_Utilisateur = array("logout", "viewProfil");
 
         try{
