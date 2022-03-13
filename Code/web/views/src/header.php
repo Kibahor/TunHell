@@ -17,8 +17,10 @@
                             if(isset($_SESSION['role']) && $_SESSION['role'] == 'user'){
                                 echo '
                                 <div class="hidden lg:flex items-center space-x-4">
-									<a href="index.php?action=viewProfil" class="btn bg-slate-600">Profil</a>
-                                    <a href="index.php?action=logout" class="btn bg-slate-600">Logout</a>
+									<div class="flex">
+										<a href="index.php?action=viewProfil" class="half-btn-left rounded-l-lg bg-slate-600">Profil</a>
+										<a href="index.php?action=logout" class="half-btn-right rounded-r-lg bg-slate-500">Logout</a>
+									</div>
                                     <a href="index.php?action=viewDocumentation" class="btn bg-blue-700">Getting started</a>
                                 </div>
                                 ';

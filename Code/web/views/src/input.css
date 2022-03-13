@@ -8,6 +8,14 @@
     @apply py-2 px-4 text-white font-semibold rounded-full shadow-md hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300;
 }
 
+.half-btn-left{
+    @apply py-2 px-4 text-white font-semibold shadow-md hover:-translate-y-0.5 hover:-translate-x-0.5 hover:bg-indigo-500 duration-300;
+}
+
+.half-btn-right{
+    @apply py-2 px-4 text-white font-semibold shadow-md hover:translate-y-0.5 hover:translate-x-0.5 hover:bg-indigo-500 duration-300;
+}
+
 .btn-square{
     @apply py-2 px-4 text-white font-semibold rounded-lg shadow-md hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300;
 }
