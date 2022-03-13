@@ -13,8 +13,8 @@ $vues = array(
     'login' => 'views/src/login.php',
     'sign' => 'views/src/sign.php',
     'documentation' => 'views/src/documentation.php',
-    'contact' => 'views/src/contact.php',
-    'rgpd' => 'views/src/rgpd.php',
+    'contact' => 'views/src/contact.php', 
+    'rgpd' => 'views/src/tos.php',
     'profil' => 'views/src/profil.php',
     'tos' => 'views/src/tos.php'
 );

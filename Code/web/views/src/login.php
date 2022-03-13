@@ -7,8 +7,8 @@
 	</head>
     <body class="bg-slate-200 flex flex-col font-Montserrat h-full m-0 p-0">
         <?php require_once("header.php") ?>
-        <section class="main flex h-full justify-center items-center">
-            <div class="flex">
+        <section class="main flex flex-col h-full justify-center items-center">
+            <div class="flex mb-5">
                 <div class="hidden lg:flex">
                     <img class="h-96 w-96 2xl:h-32 2xl:w-32 object-cover rounded-l-lg" src="views/rsc/dragon.jpg" alt="">
                 </div>
@@ -17,42 +17,63 @@
 
                     <label for="pseudo" class="mt-5 text-xs">Pseudo : </label>
                     <input name="pseudo" type="text">
-                    <?php
-                            if(isset($empty_username) && $empty_username == true){
-                                echo '<pre class="com">le pseudo ne peut pas être vide</pre>';
-                            }
-                            if(isset($invalid_username) && $invalid_username == true){
-                                echo '<pre class="com">les pseudo est invalide, il doit contenir entre 1 et 25 charactères</pre>';
-                            }
-                    ?>
                     <label for="password" class="mt-3 text-xs">Password : </label>
                     <input name="password" type="password">
-                    <?php
-                            if(isset($empty_password) && $empty_password == true){
-                                echo '<p>le mot de passe ne peut pas être vide</p>';
-                            }
-                            if(isset($invalid_password) && $invalid_password == true){
-                                echo '<pre class="com">Un mot de passe valide aura<br>
-                                        - de 8 à 20 caractères<br>
-                                        - au moins une lettre minuscule<br>
-                                        - au moins une lettre majuscule<br>
-                                        - au moins un chiffre<br>
-                                        - au moins un de ces caractères spéciaux: $ @ % * + - _ !</p>';
-                            }
-                    ?>
-
                     <input class="btn bg-blue-700 mt-8" type="submit" value="Log-in">
-                    <?php
-                            if(isset($err) && $err == "err auth"){
-                                echo '<pre class="com">Erreur lors de la connexion, veuillez recommencer</pre>';
-                            }
-                    ?>
+                   
                     <p class="mt-2">
                         Don't have an account ?
                         <a href="index.php?action=viewSign">Sign in</a>
                     </p>
                 </form>
             </div>
+            <?php
+                if(isset($err) && $err == "err auth"){
+                    echo '  <div class="bg-red-500 rounded-lg p-2 flex gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="font-semibold text-white">Erreur lors de la connexion, veuillez recommencer</p>
+                            </div>';
+                }
+                if(isset($empty_password) && $empty_password == true){
+                    echo '  <div class="bg-red-500 rounded-lg p-2 flex gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="font-semibold text-white">Le mot de passe ne peut pas être vide</p>
+                            </div>';
+                }
+                if(isset($invalid_password) && $invalid_password == true){
+                    echo '  <div class="bg-red-500 rounded-lg p-2 flex gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            <p class="font-semibold text-white">
+                                            Le mots de passe doit avoir :<br>
+                                            • 8 à 20 caractères<br>
+                                            • Une lettre minuscule et une lettre majuscule<br>
+                                            • Un chiffre<br>
+                                            • Un de ces caractères spéciaux: $ @ % * + - _ !</p>
+                            </div>';
+                }
+                if(isset($empty_username) && $empty_username == true){
+                    echo '<div class="bg-red-500 rounded-lg p-2 flex gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="font-semibold text-white">Le pseudo ne peut pas être vide</p>
+                            </div>';
+                }
+                if(isset($invalid_username) && $invalid_username == true){
+                    echo '  <div class="bg-red-500 rounded-lg p-2 flex gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="font-semibold text-white">Le pseudo doit contenir entre 1 et 25 charactères</p>
+                            </div>';
+                }
+            ?>
         </section>
         <?php require_once("footer.php") ?>
     </body>

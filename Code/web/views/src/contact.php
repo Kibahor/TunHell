@@ -12,8 +12,8 @@
 	
 		<?php require_once("header.php") ?>
 		
-			<section class="main flex p-4 items-center justify-center">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+			<section class="main flex p-4 lg:mt justify-center">
+                <div class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     <div class="bg-slate-800 flex flex-col h-96 w-56 rounded-lg text-sm text-center text-slate-50">
                         <img src="views/rsc/dragon.jpg" class="object-cover w-64 h-64 rounded-t-lg flex-1" alt="">
                         <div class="flex-2 flex flex-col items-center p-3 mt-2 gap-y-3">
@@ -80,13 +80,11 @@
                             <p>Vonlonté d'aller vers du développement web</p>
                             <a href="https://github.com/Morel-Mathieu" class="mt-4" target="_blank">
                                 <img src="https://img.icons8.com/ios-glyphs/30/ffffff/github.png"/>
-                            </a>
-                            
+                            </a>                            
                         </div>
                     </div>
                 </div>
-                       
-			</section>
+		    </section>
 		
 		<?php require_once("footer.php") ?>
 		

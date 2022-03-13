@@ -1,4 +1,4 @@
-<header class="text-sm p-2">
+<header class="text-sm p-4">
 
 			<!-- Responsive navbar -->
 
