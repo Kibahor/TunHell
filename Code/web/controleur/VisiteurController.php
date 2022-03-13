@@ -40,7 +40,10 @@ class VisiteurController{
                 case "viewTOS":
                     $this->viewTOS();
                     break;
-    
+                
+                case "viewUnderConstruction":
+                    $this-> viewUnderConstruction();
+                    break;
 
                 case "login":
                     $this->login();
@@ -89,6 +92,12 @@ class VisiteurController{
         global $rep, $vues;
         // vue règles et informations
         require($rep.$vues['documentation']);
+    }
+
+    function viewUnderConstruction(){
+        global $rep, $vues;
+        // vue lorsqu'une page n'est pas encore écrite
+        require($rep.$vues['under_construction']);
     }
 
     function viewContact(){
