@@ -70,15 +70,18 @@
             <!-- Settings -->
             <div class="mt-8 flex justify-center flex-wrap">
                 <!-- Card -->
-                <div class="bg-gray-300 rounded-lg flex justify-center text-sm text-center flex-wrap p-8">
+                <div class="bg-gray-300 rounded-lg flex justify-center text-sm text-center flex-wrap p-6 md:p-8">
                     <div>
                         <h1 class="text-3xl font-bold mb-2 text-purple-700">Account</h1>                
                         <div class="w-full border-t border-gray-700 m-3"></div>
 
-                        <form class="gap-y-2 flex flex-col text-left" action="index.php?action=signup" method="POST">
+                        <form class="gap-y-2 flex flex-col text-left" action="" method="POST">
                             <h1 class="text-xl font-bold mb-2 text-stone-800">Profile</h1>
                             <h2 class="font-bold text-md text-sky-900">New pseudo : </h2>
                             <input name="pseudo" type="text">
+                            <input class="btn bg-blue-700 mt-6" type="submit" value="Register">
+                        </form>
+                        <form class="gap-y-2 flex flex-col text-left" action="" method="POST">
                             <div class="w-full border-t border-gray-700 m-3"></div>
                             <h1 class="text-xl font-bold mb-2 text-stone-800">Personal information</h1>
                             <div class="flex justify-center gap-5">
@@ -93,7 +96,8 @@
                             </div>
                             <input class="btn bg-blue-700 mt-6" type="submit" value="Register">
                         </form>
-                        <form class="gap-y-2 flex flex-col" action="">
+                        <div class="w-full border-t border-gray-700 m-3"></div>
+                        <form class="gap-y-2 flex flex-col" action=""  method="POST">
                             <input class="btn bg-red-700 mt-6" type="submit" value="Delete">
                         </form>
                     </div>

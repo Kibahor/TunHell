@@ -10,7 +10,7 @@ module.exports = {
         '32': '450px',
       },
       width: {
-        '450': '450px',
+        '32': '450px',
         '880': '880px'
       },
       maxWidth: {
