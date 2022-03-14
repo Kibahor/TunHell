@@ -41,13 +41,13 @@ export class Game {
                 break;
             default:
                 //Pour chaque carte du joueur sur chaque mine 
-                
                 /*
                 for(let [index,cards_mine] of this.gameboard.players[this.selectedPlayer-1].mines.entries()){
                     for(let card of cards_mine.collection){
                         this.cardAction(card,index);
                     }
                 }*/
+                this.gameboard.comptAllCards();
                 this.doRound();
                 return;
         }

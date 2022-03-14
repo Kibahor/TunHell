@@ -73,28 +73,43 @@ export class GameBoard {
     public comptAllCards() : void {
         console.debug('=== Number of cards ===');
 
-        let a = 0;
+        let nbCardMines = 0;
         if (this.mines.length != 0) {
-            a = this.mines.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
+            nbCardMines = this.mines.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
         }
-        console.debug('Mine ' + a);
+        console.debug('Mine ' + nbCardMines);
 
-        let b = 0;
+        let nbCardPlayerHands = 0;
         if (this.players.length != 0) {
-            b = this.players.map(player => player.playerHand.collection.length).reduce( (acc, curr) => acc + curr);
+            nbCardPlayerHands = this.players.map(player => player.playerHand.collection.length).reduce( (acc, curr) => acc + curr);
         }
-        console.debug('PlayerHand ' + b);
+        console.debug('PlayerHand ' + nbCardPlayerHands);
 
-        let d = this.recruitCenter.collection.length;
-        console.debug('RecuitCenter ' + d);
+        let nbCardPlayerMines = 0;
+        if (this.players.length != 0) {
+            nbCardPlayerMines = this.players.map(player => player.mines.map(mine => mine.collection.length).reduce( (acc, curr) => acc + curr)).reduce( (acc, curr) => acc + curr);
+        }
+        console.debug('PlayerMine ' + nbCardPlayerMines);
 
-        let e = this.trophy.length;
-        console.debug('Trophy ' + e);
+        let nbCardPlayerTreasure = 0;
+        if (this.players.length != 0) {
+            nbCardPlayerTreasure = this.players.map(player => player.treasure.collection.length).reduce( (acc, curr) => acc + curr);
+        }
+        console.debug('PlayerTreasure ' + nbCardPlayerTreasure);
 
-        let f = this.unUsedCards.collection.length;
-        console.debug('UnUsed ' + f);
+        let nbCardRecruitCenter = this.recruitCenter.collection.length;
+        console.debug('RecuitCenter ' + nbCardRecruitCenter);
 
-        console.debug('=== Total ' + (a+b+d+e+f) + ' ===');
+        let nbCardTrophy = this.trophy.length;
+        for (let i=0; i < this.nbPlayers; i++) {
+            nbCardTrophy += this.players[i].trophy.length;
+        }
+        console.debug('Trophy ' + nbCardTrophy);
+
+        let nbCardUnused = this.unUsedCards.collection.length;
+        console.debug('UnUsed ' + nbCardUnused);
+
+        console.debug('=== Total ' + (nbCardMines + nbCardPlayerHands + nbCardPlayerMines + nbCardPlayerTreasure + nbCardRecruitCenter + nbCardTrophy + nbCardUnused) + ' ===');
     }
 
     public printPlayerHands() : void {
