@@ -13,6 +13,7 @@ export class Player {
         for (let i=0; i<nbPlayers; i++) {
             this.mines[i] = new Stack("PlayerMine" + i, StackType.PlayerMine);
         }
+        this.treasure = new Stack("Treasure", StackType.Treasure);
     }
 
     public moveCardToMine(noCard:number, noMine:number) {

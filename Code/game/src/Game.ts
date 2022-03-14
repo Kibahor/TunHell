@@ -1,6 +1,9 @@
 import { GameBoard } from "./GameBoard";
-import readline = require("readline");
 import { Player } from "./Player";
+import { Card } from "./Card/Card";
+import readline = require("readline");
+import { exit } from "process";
+import { Dwarf } from "./Card/Dwarf";
 
 
 const rl = readline.createInterface({
@@ -37,7 +40,7 @@ export class Game {
                await this.playCard();
                 break;
             default:
-               this.doRound();
+                this.doRound();
                 return;
         }
         if (this.selectedPlayer < this.gameboard.nbPlayers) {
@@ -48,12 +51,24 @@ export class Game {
             this.selectedPlayer = 1;
             this.turn++;
         }
+        //Pour chaque carte du joueur sur chaque mine 
+            /*
+            for(let [index,cards_mine] of this.gameboard.players[this.selectedPlayer-1].mines.entries()){
+                for(let card of cards_mine.collection){
+                    this.cardAction(card,index);
+                }
+            }*/
+        this.gameboard.comptAllCards();
         this.doRound();
     }
 
     private async recruitCard() {
         let player = this.gameboard.players[this.selectedPlayer-1];
-        console.debug('Recruit Center:', this.gameboard.recruitCenter.toStringFirstFive());
+        if(player.playerHand.collection.length >=6) {
+            console.log('You have already 6 cards in your hand !'); 
+            this.playCard();
+        }
+        console.debug('Recruit Center:', this.gameboard.recruitCenter.toStringFirst(5));
         let noCard = await this.prompt(`Which Card do you want to pick (0 to ${this.gameboard.recruitCenter.lenghtMaxFive()-1}) ? `);
         if (noCard >= 0 && noCard <= this.gameboard.recruitCenter.lenghtMaxFive()-1) {
             this.gameboard.recruitCenter.moveCardToStack(this.gameboard.recruitCenter.collection[noCard], player.playerHand );
@@ -89,9 +104,45 @@ export class Game {
         }
     }
 
-    private async prompt(question_str:string){
+    private async prompt(question_str:string) {
         const answer = await question(question_str);
         let noChoice = parseInt(answer);
         return noChoice;
     }
+
+    private blastAction(blaster: Card, nMine: number) : void {
+        for (let i=1; i < this.gameboard.nbPlayers; i++) {
+            let mine = this.gameboard.players[i].mines[nMine];
+            for (let card of mine.collection) {
+                if (card.typeName === "warrior") {
+                    this.gameboard.recruitCenter.addCard(card);
+                    mine.removeCard(card);
+                }
+            }
+        }
+        this.gameboard.mines[nMine].removeCard(blaster);
+        this.gameboard.recruitCenter.addCard(blaster);
+    }
+
+    private scoutAction(scout: Card, nMine: number) : void {
+        console.log(this.gameboard.mines[nMine].toStringFirst((scout as Dwarf).first_value));
+        this.gameboard.mines[nMine].removeCard(scout);
+        this.gameboard.recruitCenter.addCard(scout);
+    }
+
+    private cardAction(card:Card, noMine:number){
+        if (card.typeName === 'picker') this.pickerAction(card,noMine);
+        else if(card.typeName === 'blast') this.blastAction(card, noMine);
+        else if(card.typeName === 'picker') this.pickerAction(card,noMine);
+        else if(card.typeName === 'scout') this.scoutAction(card,noMine);
+        else console.log(`action pour la carte ${card.typeName} non implémenter`)
+    }
+
+    private pickerAction(card:Card, mine_nb:number){
+        //for nb valeur picker
+        let mine_card = this.gameboard.mines[mine_nb].collection.shift();
+        console.log(`the picker "${card.name}" has mined a "${mine_card.name}" in the mine ${mine_nb}`);
+        this.cardAction(mine_card, mine_nb)
+    }
+
 }

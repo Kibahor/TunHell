@@ -1,4 +1,3 @@
-import { strictEqual } from 'assert';
 import { Card } from './Card'
 import { StackType} from './StackType'
 
@@ -49,6 +48,10 @@ export class Stack {
         stack.addCard(card);
     }
 
+    public clearStack() : void {
+        this.collection = [];
+    }
+
     public toString():string {
         let str:string = '';
         let i = 0;
@@ -59,13 +62,13 @@ export class Stack {
         return str;
     }
 
-    public toStringFirstFive() : string {
+    public toStringFirst(nb: number) : string {
         let str : string = '';
-        let i : number = 0;
+        let i : number = 1;
         for (let card of this.collection) {
             str+=`\n(${i}) ${card.typeName} - ${card.name}`;
             i++;
-            if (i > 4) {
+            if (i > nb) {
                 break;
             }
         }
