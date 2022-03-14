@@ -10,7 +10,11 @@ module.exports = {
         '32': '450px',
       },
       width: {
-        '32': '450px',
+        '450': '450px',
+        '880': '880px'
+      },
+      maxWidth: {
+        '880': '880px;'
       },
       colors: {
         'mth-yellow': '#ffff97',

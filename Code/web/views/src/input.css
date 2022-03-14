@@ -20,9 +20,7 @@
     @apply py-2 px-4 text-white font-semibold rounded-lg shadow-md hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300;
 }
 
-.com{
-    @apply text-sm text-orange-600 my-2;
-}
+
 
 * {-moz-box-sizing: border-box; box-sizing: border-box;}
 
