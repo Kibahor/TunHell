@@ -96,12 +96,15 @@ export class Game {
         return noChoice;
     }
 
-    private blast(blaster: Card, mine: number) : void {
+    private blast(blaster: Card, nMine: number) : void {
         for (let i=1; i < this.gameboard.nbPlayers; i++) {
-            for (let card of this.gameboard.players[i].mines[mine].collection) {
-                this.gameboard.recruitCenter.addCard(card);
+            let mine = this.gameboard.players[i].mines[nMine];
+            for (let card of mine.collection) {
+                if (card.typeName === "warrior") {
+                    this.gameboard.recruitCenter.addCard(card);
+                    mine.removeCard(card);
+                }
             }
-            this.gameboard.players[i].mines[mine].clearStack();
         }
     }
 }
