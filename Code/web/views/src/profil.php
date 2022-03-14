@@ -101,10 +101,9 @@
                             <input class="btn bg-red-700 mt-6" type="submit" value="Delete">
                         </form>
                     </div>
-                    <div></div>
                 </div>
             </div>
-            </div>
+            
         </section>
         <?php require_once("footer.php") ?>
     </body>
