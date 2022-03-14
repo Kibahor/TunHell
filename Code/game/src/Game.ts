@@ -40,7 +40,8 @@ export class Game {
                await this.playCard();
                 break;
             default:
-               this.doRound();
+                this.gameboard.comptAllCards();     // Debug
+                this.doRound();
                 return;
         }
         //Pour chaque carte du joueur sur chaque mine
@@ -108,7 +109,7 @@ export class Game {
         for (let i=1; i < this.gameboard.nbPlayers; i++) {
             let mine = this.gameboard.players[i].mines[nMine];
             for (let card of mine.collection) {
-                if (card.typeName === "warrior") {
+                if (card.typeName === "Warrior") {
                     this.gameboard.recruitCenter.addCard(card);
                     mine.removeCard(card);
                 }
