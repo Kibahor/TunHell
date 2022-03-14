@@ -1,6 +1,7 @@
 import { GameBoard } from "./GameBoard";
-import readline = require("readline");
 import { Player } from "./Player";
+import { Card } from "./Card/Card";
+import readline = require("readline");
 
 
 const rl = readline.createInterface({
@@ -89,9 +90,18 @@ export class Game {
         }
     }
 
-    private async prompt(question_str:string){
+    private async prompt(question_str:string) {
         const answer = await question(question_str);
         let noChoice = parseInt(answer);
         return noChoice;
+    }
+
+    private blast(blaster: Card, mine: number) : void {
+        for (let i=1; i < this.gameboard.nbPlayers; i++) {
+            for (let card of this.gameboard.players[i].mines[mine].collection) {
+                this.gameboard.recruitCenter.addCard(card);
+            }
+            this.gameboard.players[i].mines[mine].clearStack();
+        }
     }
 }

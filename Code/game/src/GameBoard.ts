@@ -10,7 +10,7 @@ export class GameBoard {
     public players:Array<Player> = [];
 
     public mines: Array<Stack> = [];
-    public discards: Array<Stack> = [];
+    public discards: Stack;
     public recruitCenter: Stack;
 
     public trophy: Array<Card> = [];
@@ -85,12 +85,6 @@ export class GameBoard {
         }
         console.debug('PlayerHand ' + b);
 
-        let c = 0;
-        if (this.discards.length != 0) {
-            c = this.discards.map(tab => tab.collection.length).reduce( (acc, curr) => acc + curr);
-        }
-        console.debug('Discard ' + c);
-
         let d = this.recruitCenter.collection.length;
         console.debug('RecuitCenter ' + d);
 
@@ -100,7 +94,7 @@ export class GameBoard {
         let f = this.unUsedCards.collection.length;
         console.debug('UnUsed ' + f);
 
-        console.debug('=== Total ' + (a+b+c+d+e+f) + ' ===');
+        console.debug('=== Total ' + (a+b+d+e+f) + ' ===');
     }
 
     public printPlayerHands() : void {

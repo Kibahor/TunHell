@@ -1,4 +1,3 @@
-import { strictEqual } from 'assert';
 import { Card } from './Card'
 import { StackType} from './StackType'
 
@@ -47,6 +46,10 @@ export class Stack {
     public moveCardToStack(card : Card, stack : Stack) : void {
         this.removeCard(card);
         stack.addCard(card);
+    }
+
+    public clearStack() : void {
+        this.collection = [];
     }
 
     public toString():string {
