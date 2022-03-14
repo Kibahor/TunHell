@@ -2,6 +2,7 @@ import { GameBoard } from "./GameBoard";
 import { Player } from "./Player";
 import { Card } from "./Card/Card";
 import readline = require("readline");
+import { exit } from "process";
 
 
 const rl = readline.createInterface({
@@ -40,6 +41,12 @@ export class Game {
             default:
                this.doRound();
                 return;
+        }
+        //Pour chaque carte du joueur sur chaque mine
+        for(let cards_mine of this.gameboard.players[this.selectedPlayer].mines){
+            for(let card of cards_mine.collection){
+                this.cardAction(card);
+            }
         }
         if (this.selectedPlayer < this.gameboard.nbPlayers) {
             this.selectedPlayer++;
@@ -107,4 +114,16 @@ export class Game {
             }
         }
     }
+    private cardAction(card:Card){
+        if(card.typeName === 'picker') this.pickerAction(card,1);
+        else console.log(`action pour la carte ${card.typeName} non implémenter`)
+    }
+
+    private pickerAction(card:Card, mine_nb:number){
+        //for nb valeur picker
+        let mine_card = this.gameboard.mines[mine_nb].collection.shift();
+        console.log(`the picker "${card.name}" has mined a "${mine_card.name}" in the mine ${mine_nb}`);
+        exit();
+    }
+
 }
