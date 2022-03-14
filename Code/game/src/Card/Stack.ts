@@ -62,13 +62,13 @@ export class Stack {
         return str;
     }
 
-    public toStringFirstFive() : string {
+    public toStringFirst(nb: number) : string {
         let str : string = '';
-        let i : number = 0;
+        let i : number = 1;
         for (let card of this.collection) {
             str+=`\n(${i}) ${card.typeName} - ${card.name}`;
             i++;
-            if (i > 4) {
+            if (i > nb) {
                 break;
             }
         }

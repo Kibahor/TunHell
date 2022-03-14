@@ -3,6 +3,7 @@ import { Player } from "./Player";
 import { Card } from "./Card/Card";
 import readline = require("readline");
 import { exit } from "process";
+import { Dwarf } from "./Card/Dwarf";
 
 
 const rl = readline.createInterface({
@@ -61,7 +62,7 @@ export class Game {
 
     private async recruitCard() {
         let player = this.gameboard.players[this.selectedPlayer-1];
-        console.debug('Recruit Center:', this.gameboard.recruitCenter.toStringFirstFive());
+        console.debug('Recruit Center:', this.gameboard.recruitCenter.toStringFirst(5));
         let noCard = await this.prompt(`Which Card do you want to pick (0 to ${this.gameboard.recruitCenter.lenghtMaxFive()-1}) ? `);
         if (noCard >= 0 && noCard <= this.gameboard.recruitCenter.lenghtMaxFive()-1) {
             this.gameboard.recruitCenter.moveCardToStack(this.gameboard.recruitCenter.collection[noCard], player.playerHand );
@@ -113,9 +114,18 @@ export class Game {
                 }
             }
         }
+        this.gameboard.mines[nMine].removeCard(blaster);
+        this.gameboard.recruitCenter.addCard(blaster);
     }
+
+    private scout(scout: Card, nMine: number) : void {
+        console.log(this.gameboard.mines[nMine].toStringFirst((scout as Dwarf).first_value));
+        this.gameboard.mines[nMine].removeCard(scout);
+        this.gameboard.recruitCenter.addCard(scout);
+    }
+
     private cardAction(card:Card){
-        if(card.typeName === 'picker') this.pickerAction(card,1);
+        if (card.typeName === 'picker') this.pickerAction(card,1);
         else console.log(`action pour la carte ${card.typeName} non implémenter`)
     }
 
