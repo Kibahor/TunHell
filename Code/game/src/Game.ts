@@ -40,15 +40,18 @@ export class Game {
                await this.playCard();
                 break;
             default:
-               this.doRound();
+                //Pour chaque carte du joueur sur chaque mine 
+                
+                /*
+                for(let [index,cards_mine] of this.gameboard.players[this.selectedPlayer-1].mines.entries()){
+                    for(let card of cards_mine.collection){
+                        this.cardAction(card,index);
+                    }
+                }*/
+                this.doRound();
                 return;
         }
-        //Pour chaque carte du joueur sur chaque mine
-        for(let cards_mine of this.gameboard.players[this.selectedPlayer].mines){
-            for(let card of cards_mine.collection){
-                this.cardAction(card);
-            }
-        }
+
         if (this.selectedPlayer < this.gameboard.nbPlayers) {
             this.selectedPlayer++;
         }
@@ -62,6 +65,10 @@ export class Game {
 
     private async recruitCard() {
         let player = this.gameboard.players[this.selectedPlayer-1];
+        if(player.playerHand.collection.length >=6) {
+            console.log('You have already 6 cards in your hand !'); 
+            this.playCard();
+        }
         console.debug('Recruit Center:', this.gameboard.recruitCenter.toStringFirst(5));
         let noCard = await this.prompt(`Which Card do you want to pick (0 to ${this.gameboard.recruitCenter.lenghtMaxFive()-1}) ? `);
         if (noCard >= 0 && noCard <= this.gameboard.recruitCenter.lenghtMaxFive()-1) {
@@ -104,7 +111,7 @@ export class Game {
         return noChoice;
     }
 
-    private blast(blaster: Card, nMine: number) : void {
+    private blastAction(blaster: Card, nMine: number) : void {
         for (let i=1; i < this.gameboard.nbPlayers; i++) {
             let mine = this.gameboard.players[i].mines[nMine];
             for (let card of mine.collection) {
@@ -118,14 +125,17 @@ export class Game {
         this.gameboard.recruitCenter.addCard(blaster);
     }
 
-    private scout(scout: Card, nMine: number) : void {
+    private scoutAction(scout: Card, nMine: number) : void {
         console.log(this.gameboard.mines[nMine].toStringFirst((scout as Dwarf).first_value));
         this.gameboard.mines[nMine].removeCard(scout);
         this.gameboard.recruitCenter.addCard(scout);
     }
 
-    private cardAction(card:Card){
-        if (card.typeName === 'picker') this.pickerAction(card,1);
+    private cardAction(card:Card, noMine:number){
+        if (card.typeName === 'picker') this.pickerAction(card,noMine);
+        else if(card.typeName === 'blast') this.blastAction(card, noMine);
+        else if(card.typeName === 'picker') this.pickerAction(card,noMine);
+        else if(card.typeName === 'scout') this.scoutAction(card,noMine);
         else console.log(`action pour la carte ${card.typeName} non implémenter`)
     }
 
@@ -133,7 +143,7 @@ export class Game {
         //for nb valeur picker
         let mine_card = this.gameboard.mines[mine_nb].collection.shift();
         console.log(`the picker "${card.name}" has mined a "${mine_card.name}" in the mine ${mine_nb}`);
-        exit();
+        this.cardAction(mine_card, mine_nb)
     }
 
 }
