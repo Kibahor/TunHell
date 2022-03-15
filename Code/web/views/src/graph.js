@@ -13,7 +13,7 @@ const barChart = new Chart(barCanvas, {
                 'rgb(66, 158, 166)',
                 'rgb(21, 59, 80)'
             ],
-            hoverOffset: 10,
+            hoverOffset: 6,
             data: [looses, victoires],
         }]
     },

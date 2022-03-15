@@ -50,21 +50,29 @@
                             </div>
                          </div>
                     </div> 
-                    <div class="flex text-sm text-center flex-wrap p-8 text-slate-50 gap-12">
-                        <!-- Graph -->
+                    <!-- Graph -->
                         <!-- Passage de valeurs au .JS -->
                         <?php 
-                            $games = 40;/*$accountDisplay->getNumbrerGames();*/
-                            $victoires = 10;/*$accountDisplay->getNumberVictoires();*/
+                            $games = $accountDisplay->getNumbrerGames();
+                            $victoires = $accountDisplay->getNumberVictoires();
                         ?>
                         <input type="hidden" id="games" value= <?php echo $games ?> />
                         <input type="hidden" id="victoires" value= <?php echo $victoires?> />
+                    
+                        
+                        
+                        <?php
+                            if($games != 0)
+                                echo ('
+                                    <div class="flex text-sm text-center flex-wrap p-8 text-slate-50 gap-12">
+                                        <canvas id="barCanvas" class="w-80 h-80"></canvas>
 
-                        <canvas id="barCanvas" class="w-80 h-80"></canvas>
-
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
-                        <script src="views/src/graph.js"></script>
-                    </div> 
+                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+                                        <script src="views/src/graph.js"></script>
+                                    </div> 
+                                ')
+                        ?>
+                    
                 </div>
             </div>
             <!-- Settings -->
@@ -84,7 +92,7 @@
                         <form class="gap-y-2 flex flex-col text-left" action="" method="POST">
                             <div class="w-full border-t border-gray-700 m-3"></div>
                             <h1 class="text-xl font-bold mb-2 text-stone-800">Personal information</h1>
-                            <div class="flex justify-center gap-5">
+                            <div class="flex justify-center gap-5 flex-wrap ">
                                 <div>
                                     <h2 class="font-bold text-md text-sky-900">New password : </h2>
                                     <input name="password" type="password">
