@@ -1,9 +1,8 @@
 import { GameBoard } from "./GameBoard";
 import { Player } from "./Player";
 import { Card } from "./Card/Card";
-import readline = require("readline");
-import { exit } from "process";
 import { Dwarf } from "./Card/Dwarf";
+import readline = require("readline");
 
 
 const rl = readline.createInterface({
@@ -30,6 +29,7 @@ export class Game {
     }
     
     private async doRound() {
+        this.gameboard.comptAllCards();
         console.debug(`=======================================\n Turn ${this.turn} : Player ${this.selectedPlayer} it is at you turn !\n=======================================`);
         let choice = await this.prompt('Pick a Card or Play a Card (0/1) ? ');
         switch (choice) {
@@ -58,15 +58,15 @@ export class Game {
                     this.cardAction(card,index);
                 }
             }*/
-        this.gameboard.comptAllCards();
         this.doRound();
     }
 
     private async recruitCard() {
         let player = this.gameboard.players[this.selectedPlayer-1];
-        if(player.playerHand.collection.length >=6) {
+        if (player.playerHand.collection.length >= 6) {
             console.log('You have already 6 cards in your hand !'); 
-            this.playCard();
+            await this.playCard();
+            return;
         }
         console.debug('Recruit Center:', this.gameboard.recruitCenter.toStringFirst(5));
         let noCard = await this.prompt(`Which Card do you want to pick (0 to ${this.gameboard.recruitCenter.lenghtMaxFive()-1}) ? `);
@@ -75,13 +75,18 @@ export class Game {
             console.log('Done !')
         } 
         else {
-           await this.recruitCard();
+            await this.recruitCard();
             return;
         }
     }
 
     private async playCard() {
-        let player = this.gameboard.players[this.selectedPlayer-1];
+        let player = this.gameboard.players[this.selectedPlayer-1];     // A approfondir !!
+        if (player.playerHand.collection.length == 0) {                 // Ne prend pas en compte le fais que le joueur peut avoir des cartes non jouables dans sa main !!
+            console.log('You have no card in your hand !');
+            await this.recruitCard();
+            return;
+        }
         console.debug('Your Hand:', player.playerHand.toString());
         let noCard = await this.prompt(`What Card do you want to play (0 to ${player.playerHand.collection.length-1}) ? `);
         if (noCard >= 0 && noCard <= player.playerHand.collection.length-1) {
@@ -138,11 +143,9 @@ export class Game {
         else console.log(`action pour la carte ${card.typeName} non implémenter`)
     }
 
-    private pickerAction(card:Card, mine_nb:number){
-        //for nb valeur picker
-        let mine_card = this.gameboard.mines[mine_nb].collection.shift();
+    private pickerAction(card:Card, mine_nb:number){   
+        let mine_card = this.gameboard.mines[mine_nb].collection.shift();       //for nb valeur picker
         console.log(`the picker "${card.name}" has mined a "${mine_card.name}" in the mine ${mine_nb}`);
         this.cardAction(mine_card, mine_nb)
     }
-
 }

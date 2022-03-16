@@ -61,7 +61,7 @@ export class GameBoard {
         let tmpArr = [];
         for (let i = 0; i < this.nbPlayers; i++) {
             let s = new Stack("PlayerHand" + i, StackType.PlayerHand);
-            s.addCollection(card.slice(6 * i, 6 * (i + 1)));                // Transfert 6 carte à chaque joueur
+            s.addCollection(card.slice(4 * i, 4 * (i + 1)));                // Transfert 4 carte à chaque joueur
             tmpArr[i] = s;
         }
         if (card.length > this.nbPlayers * 4) {
@@ -71,7 +71,7 @@ export class GameBoard {
     }
 
     public comptAllCards() : void {
-        console.debug('=== Number of cards ===');
+        console.debug('\n\n=== Number of cards ===');
 
         let nbCardMines = 0;
         if (this.mines.length != 0) {
@@ -109,7 +109,7 @@ export class GameBoard {
         let nbCardUnused = this.unUsedCards.collection.length;
         console.debug('UnUsed ' + nbCardUnused);
 
-        console.debug('=== Total ' + (nbCardMines + nbCardPlayerHands + nbCardPlayerMines + nbCardPlayerTreasure + nbCardRecruitCenter + nbCardTrophy + nbCardUnused) + ' ===');
+        console.debug('=== Total ' + (nbCardMines + nbCardPlayerHands + nbCardPlayerMines + nbCardPlayerTreasure + nbCardRecruitCenter + nbCardTrophy + nbCardUnused) + ' ===\n\n');
     }
 
     public printPlayerHands() : void {

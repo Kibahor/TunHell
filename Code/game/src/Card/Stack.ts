@@ -64,11 +64,11 @@ export class Stack {
 
     public toStringFirst(nb: number) : string {
         let str : string = '';
-        let i : number = 1;
+        let i : number = 0;
         for (let card of this.collection) {
             str+=`\n(${i}) ${card.typeName} - ${card.name}`;
             i++;
-            if (i > nb) {
+            if (i >= nb) {
                 break;
             }
         }
