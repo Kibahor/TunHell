@@ -12,11 +12,21 @@ You can find our website [here](https://tunhell.w4.websr.fr)
 
 ### Getting started
 
-Explain how to install nodejs, modules...
+> The following configuration is made for VSCode
 
-### Specifications
+- Install and run VSCode
+- Install [NodeJS](https://nodejs.org/en/download/) (this include NPM)
+- Install [TypeScript](https://www.typescriptlang.org) -> `npm install -g typescript`
+- Make your way to the folder `./src/VsCodeIntegration` and copy its content in the folder `./Code/game`
+- Build the project (F5) and then stop the execution
+- Open a new Terminal and type `node ./out/Launcher.js`
+- Enjoy the game!
 
-Yeah..
+
+### How to play
+
+Yeah.. maybe a day..
+In deed just read ;)
 
 ## Credits
 
@@ -25,3 +35,5 @@ Yeah..
 - Co-author: [Mathieu Morel](https://github.com/Morel-Mathieu)
 - Co-author: [Pedro Mezquita Fernandez](https://github.com/PedroMezquita)
 - Co-author: [Valentin Clergue](https://github.com/HandyS11)
+  
+- Profesor : [Chafik Samir]()
