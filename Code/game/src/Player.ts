@@ -13,13 +13,17 @@ export class Player {
         for (let i=0; i<nbPlayers; i++) {
             this.mines[i] = new Stack("PlayerMine" + i, StackType.PlayerMine);
         }
-        this.treasure = new Stack("Treasure", StackType.Treasure);
+        this.treasure = new Stack("PlayerTreasure", StackType.PlayerTreasure);
     }
 
-    public moveCardToMine(noCard:number, noMine:number) {
+    public moveCardToMine(noCard:number, noMine:number) : void {
         if (noMine > this.mines.length) {
             throw new Error("Mine number is too higher !");
         }     
         this.playerHand.moveCardToStack(this.playerHand.collection[noCard],this.mines[noMine]);
+    }
+
+    public promptHand() : void {
+        console.log("Votre main :" + this.playerHand.toString() + "\n");
     }
 }

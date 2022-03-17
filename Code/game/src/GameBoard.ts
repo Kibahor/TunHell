@@ -44,8 +44,8 @@ export class GameBoard {
         let tmpArr = [];
         for (let i = 0; i < nb; i++) {
             let s = new Stack("Mine" + i, StackType.Mine);
-            s.addCard(endMine[i]);
             s.addCollection(cards.slice(n * i, n * (i + 1)));               // Transfert le nombre de carte total (- reste) / nombre de joueur pour chacun des joueurs
+            s.addCard(endMine[i]);
             tmpArr[i] = s;
         }
         if (nb % n != 0) {

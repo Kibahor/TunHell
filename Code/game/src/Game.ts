@@ -31,18 +31,27 @@ export class Game {
     private async doRound() {
         this.gameboard.comptAllCards();
         console.debug(`=======================================\n Turn ${this.turn} : Player ${this.selectedPlayer} it is at you turn !\n=======================================`);
-        let choice = await this.prompt('Pick a Card or Play a Card (0/1) ? ');
+        this.gameboard.players[this.selectedPlayer-1].promptHand();
+        let choice = await this.prompt('Pick a Card or Play a Card (1/2) ? ');
         switch (choice) {
-            case 0:
+            case 1:
                 await this.recruitCard();
                 break;
-            case 1:
+            case 2:
                await this.playCard();
                 break;
             default:
                 this.doRound();
                 return;
         }
+
+        // Attention !!
+        for (let [index, cards_mine] of this.gameboard.players[this.selectedPlayer-1].mines.entries()) {
+            for (let card of cards_mine.collection) {
+                this.cardAction(card, index);
+            }
+        }
+
         if (this.selectedPlayer < this.gameboard.nbPlayers) {
             this.selectedPlayer++;
         }
@@ -51,13 +60,6 @@ export class Game {
             this.selectedPlayer = 1;
             this.turn++;
         }
-        //Pour chaque carte du joueur sur chaque mine 
-            /*
-            for(let [index,cards_mine] of this.gameboard.players[this.selectedPlayer-1].mines.entries()){
-                for(let card of cards_mine.collection){
-                    this.cardAction(card,index);
-                }
-            }*/
         this.doRound();
     }
 
@@ -69,8 +71,8 @@ export class Game {
             return;
         }
         console.debug('Recruit Center:', this.gameboard.recruitCenter.toStringFirst(5));
-        let noCard = await this.prompt(`Which Card do you want to pick (0 to ${this.gameboard.recruitCenter.lenghtMaxFive()-1}) ? `);
-        if (noCard >= 0 && noCard <= this.gameboard.recruitCenter.lenghtMaxFive()-1) {
+        let noCard = await this.prompt(`Which Card do you want to pick (1 to ${this.gameboard.recruitCenter.lenghtMaxFive()}) ? `);
+        if (noCard > 0 && noCard <= this.gameboard.recruitCenter.lenghtMaxFive()) {
             this.gameboard.recruitCenter.moveCardToStack(this.gameboard.recruitCenter.collection[noCard], player.playerHand );
             console.log('Done !')
         } 
@@ -87,9 +89,8 @@ export class Game {
             await this.recruitCard();
             return;
         }
-        console.debug('Your Hand:', player.playerHand.toString());
-        let noCard = await this.prompt(`What Card do you want to play (0 to ${player.playerHand.collection.length-1}) ? `);
-        if (noCard >= 0 && noCard <= player.playerHand.collection.length-1) {
+        let noCard = await this.prompt(`What Card do you want to play (1 to ${player.playerHand.collection.length}) ? `);
+        if (noCard > 0 && noCard <= player.playerHand.collection.length) {
             await this.moveCardtoMine(player, noCard)
         }
         else {
@@ -98,28 +99,35 @@ export class Game {
         }
     }
 
-    private async moveCardtoMine(player:Player, noCard:number) {
-        let noMines = await this.prompt(`In which mine do you want to place the card : ${player.playerHand.collection[noCard].name} (0 to ${this.gameboard.mines.length-1}) ? `);
-        if (noMines >= 0 && noMines <= this.gameboard.mines.length-1){
+    private async moveCardtoMine(player: Player, noCard: number) {
+        let noMines = await this.prompt(`In which mine do you want to place the card : ${player.playerHand.collection[noCard].name} (1 to ${this.gameboard.mines.length}) ? `);
+        if (noMines > 0 && noMines <= this.gameboard.mines.length) {
             player.moveCardToMine(noCard, noMines);
             console.log('Move done !');
         } 
         else {
-           await this.moveCardtoMine(player, noCard);
+            await this.moveCardtoMine(player, noCard);
         }
     }
 
-    private async prompt(question_str:string) {
+    private async prompt(question_str: string) {
         const answer = await question(question_str);
         let noChoice = parseInt(answer);
         return noChoice;
+    }
+
+    private cardAction(card: Card, noMine: number) : void {
+        if (card.typeName === 'Picker') this.pickerAction(card, noMine);
+        else if (card.typeName === 'Blast') this.blastAction(card, noMine);
+        else if (card.typeName === 'Scout') this.scoutAction(card, noMine);
+        else console.log(`Action pour la carte ${card.typeName} non implémentée ;(`)
     }
 
     private blastAction(blaster: Card, nMine: number) : void {
         for (let i=1; i < this.gameboard.nbPlayers; i++) {
             let mine = this.gameboard.players[i].mines[nMine];
             for (let card of mine.collection) {
-                if (card.typeName === "warrior") {
+                if (card.typeName === "Warrior") {
                     this.gameboard.recruitCenter.addCard(card);
                     mine.removeCard(card);
                 }
@@ -135,17 +143,9 @@ export class Game {
         this.gameboard.recruitCenter.addCard(scout);
     }
 
-    private cardAction(card:Card, noMine:number){
-        if (card.typeName === 'picker') this.pickerAction(card,noMine);
-        else if(card.typeName === 'blast') this.blastAction(card, noMine);
-        else if(card.typeName === 'picker') this.pickerAction(card,noMine);
-        else if(card.typeName === 'scout') this.scoutAction(card,noMine);
-        else console.log(`action pour la carte ${card.typeName} non implémenter`)
-    }
-
-    private pickerAction(card:Card, mine_nb:number){   
+    private pickerAction(card:Card, mine_nb: number) : void {   
         let mine_card = this.gameboard.mines[mine_nb].collection.shift();       //for nb valeur picker
-        console.log(`the picker "${card.name}" has mined a "${mine_card.name}" in the mine ${mine_nb}`);
+        console.log(`The picker "${card.name}" has mined a "${mine_card.name}" in the mine ${mine_nb}!`);
         this.cardAction(mine_card, mine_nb)
     }
 }

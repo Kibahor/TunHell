@@ -17,9 +17,9 @@ export class Dwarf extends Card {
 
     public printCard(): void {
         super.printCard();
-        console.log('1st value : '+this.first_value);
-        console.log('2nd value : '+this.second_value);
-        console.log('UP Symbole : '+this.up_symbol);
-        console.log('STOP Symbole : '+this.stop_symbol);
+        console.log('1st value : ' + this.first_value);
+        console.log('2nd value : ' + this.second_value);
+        console.log('UP Symbole : ' + this.up_symbol);
+        console.log('STOP Symbole : ' + this.stop_symbol);
     }
 }

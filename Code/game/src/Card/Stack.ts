@@ -54,7 +54,7 @@ export class Stack {
 
     public toString():string {
         let str:string = '';
-        let i = 0;
+        let i = 1;
         for(let card of this.collection) {
             str+=`\n(${i}) ${card.typeName} - ${card.name}`;
             i++;
@@ -66,7 +66,7 @@ export class Stack {
         let str : string = '';
         let i : number = 0;
         for (let card of this.collection) {
-            str+=`\n(${i}) ${card.typeName} - ${card.name}`;
+            str+=`\n(${i+1}) ${card.typeName} - ${card.name}`;
             i++;
             if (i >= nb) {
                 break;
