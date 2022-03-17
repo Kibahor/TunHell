@@ -117,15 +117,16 @@ export class Game {
     }
 
     private cardAction(card: Card, noMine: number) : void {
-        if (card.typeName === 'Picker') this.pickerAction(card, noMine);
-        else if (card.typeName === 'Blast') this.blastAction(card, noMine);
-        else if (card.typeName === 'Scout') this.scoutAction(card, noMine);
-        else console.log(`Action pour la carte ${card.typeName} non implémentée ;(`)
+        if (card.typeName === 'Blast') { this.blasterAction(card, noMine); }
+        else if (card.typeName === 'Scout') { this.scoutAction(card, noMine); }
+        else if (card.typeName === 'Picker') { this.pickerAction(card, noMine); }
+        //else if (card.typeName === 'Warrior') { this.warriorAction(card, noMine); }
+        else { console.log(`Action pour la carte ${card.typeName} non implémentée ;(`); }
     }
 
-    private blastAction(blaster: Card, nMine: number) : void {
+    private blasterAction(blaster: Card, noMine: number) : void {
         for (let i=1; i < this.gameboard.nbPlayers; i++) {
-            let mine = this.gameboard.players[i].mines[nMine];
+            let mine = this.gameboard.players[i].mines[noMine];
             for (let card of mine.collection) {
                 if (card.typeName === "Warrior") {
                     this.gameboard.recruitCenter.addCard(card);
@@ -133,19 +134,33 @@ export class Game {
                 }
             }
         }
-        this.gameboard.mines[nMine].removeCard(blaster);
+        this.gameboard.mines[noMine].removeCard(blaster);
         this.gameboard.recruitCenter.addCard(blaster);
     }
 
-    private scoutAction(scout: Card, nMine: number) : void {
-        console.log(this.gameboard.mines[nMine].toStringFirst((scout as Dwarf).first_value));
-        this.gameboard.mines[nMine].removeCard(scout);
+    private scoutAction(scout: Card, noMine: number) : void {
+        console.log(this.gameboard.mines[noMine].toStringFirst((scout as Dwarf).first_value));
+        this.gameboard.mines[noMine].removeCard(scout);
         this.gameboard.recruitCenter.addCard(scout);
     }
 
-    private pickerAction(card:Card, mine_nb: number) : void {   
-        let mine_card = this.gameboard.mines[mine_nb].collection.shift();       //for nb valeur picker
-        console.log(`The picker "${card.name}" has mined a "${mine_card.name}" in the mine ${mine_nb}!`);
-        this.cardAction(mine_card, mine_nb)
+    private pickerAction(card:Card, noMine: number) : void {   
+        let mine_card = this.gameboard.mines[noMine].collection.shift();       //for nb valeur picker
+        console.log(`The picker "${card.name}" has mined a "${mine_card.name}" in the mine ${noMine}!`);
+        this.cardMineAction(mine_card, noMine)
+    }
+
+    private warriorAction(card: Card, nMine: number) : void {
+        // . . .
+    }
+
+    private cardMineAction(card: Card, nMine: number) {
+        if (false) {}
+        else if (false) {}
+        else { 
+            console.log(`Action pour la carte minée ${card.typeName} non implémentée ;(`); 
+            console.log('La carte a été ajouté à la pile des cartes non utilisé (solution temporaire pour éviter les fuites).')
+            this.gameboard.unUsedCards.addCard(card);
+        }
     }
 }
