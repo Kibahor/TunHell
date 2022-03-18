@@ -20,7 +20,7 @@ class ModelUtilisateur{
     public function changePseudo()
     {
         $accountGateway = new AccountGateway();
-        if(!isset($_POST['Pseudo'])) throw new Exception("empty username");
+        if(!isset($_POST['pseudo'])) throw new Exception("empty username");
         $pseudo = Validation::validateName($_POST['pseudo']);
         if($accountGateway->FindByPseudo($pseudo) != null) throw new Exception("username already use");
 
