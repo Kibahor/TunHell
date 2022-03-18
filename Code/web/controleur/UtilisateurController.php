@@ -20,10 +20,15 @@ class UtilisateurController{
                 case "changePseudo":
                     $this->changePseudo();
                     break;
-                
+
                 case "deleteAccount":
                     $this->deleteAccount();
                     break;
+
+                case "changePassword":
+                    $this->changePassword();
+                    break;
+
                 default:
                     //gestion d'erreurs
                     break;
@@ -80,13 +85,39 @@ class UtilisateurController{
         require($rep.$vues['profil']);
     }
 
-    function deleteAccount(){
+    function deleteAccount()
+    {
         global $rep, $vues;
+
+        $mdlUtilisateur = new ModelUtilisateur();
+        $mdlUtilisateur->deleteAccount();
+        $mdlUtilisateur->logout();
+
+        require($rep.$vues['acceuil']);
+    }
+
+    function changePassword()
+    {
+        global $rep, $vues;
+
+        try {
             $mdlUtilisateur = new ModelUtilisateur();
-            $mdlUtilisateur->deleteAccount();
-            $mdlUtilisateur->logout();
+            $mdlUtilisateur->changePassword();
         }
-    
+        catch(Exception $e) {
+            switch($e->getMessage()){
+                case "empty password" : echo "empty password"; break;
+                case "invalid password" : echo "invalid password"; break;
+                case "wrong confirmpassord" : echo "wrong confirmpassord"; break;
+                default: break;
+            }
+        }
+
+        $accountDisplay = $mdlUtilisateur->getInfoUserForProfil(Validation::validateInt($_SESSION['userid']));
+
+        require($rep.$vues['profil']);
+    }
+
 
 }
 

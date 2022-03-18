@@ -20,7 +20,7 @@ function loadReceipes(map:Map<string,Map<string,JSON>>,folder:string){
     return map
 }
 
-export function json2map(json):Map<any,any>{
+export function json2map(json:JSON):Map<any,any>{
     return new Map(Object.entries(json))
 }
 
