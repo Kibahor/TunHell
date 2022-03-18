@@ -105,8 +105,8 @@
                             <input class="btn bg-blue-700 mt-6" type="submit" value="Register">
                         </form>
                         <div class="w-full border-t border-gray-700 m-3"></div>
-                        <form class="gap-y-2 flex flex-col" action=""  method="POST">
-                            <input class="btn bg-red-700 mt-6" type="submit" value="Delete">
+                        <form class="gap-y-2 flex flex-col" action="index.php?action=deleteAccount"  method="POST">
+                            <input class="btn bg-red-700 mt-6" type="submit" value="Delete" name="delete">
                         </form>
                     </div>
                 </div>

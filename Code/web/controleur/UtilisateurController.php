@@ -20,7 +20,10 @@ class UtilisateurController{
                 case "changePseudo":
                     $this->changePseudo();
                     break;
-
+                
+                case "deleteAccount":
+                    $this->deleteAccount();
+                    break;
                 default:
                     //gestion d'erreurs
                     break;
@@ -76,6 +79,14 @@ class UtilisateurController{
 
         require($rep.$vues['profil']);
     }
+
+    function deleteAccount(){
+        global $rep, $vues;
+            $mdlUtilisateur = new ModelUtilisateur();
+            $mdlUtilisateur->deleteAccount();
+            $mdlUtilisateur->logout();
+        }
+    
 
 }
 
