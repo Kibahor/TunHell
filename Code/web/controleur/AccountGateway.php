@@ -36,7 +36,7 @@ class AccountGateway extends Connection
         return $results[0]['Pseudo'];
     }
 
-    public function delete(int $id): int
+    public function delete(int $id)
     {
         $query = 'DELETE FROM account WHERE id=:id';
         $this->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT)));

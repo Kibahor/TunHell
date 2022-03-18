@@ -45,12 +45,12 @@ class Validation{
 
     public static function validateString(string $chaine){
         if(filter_var($chaine, FILTER_SANITIZE_STRING) != $chaine) return null;
-        return $chaine;
+            return $chaine;
     }
 
     public static function validateInt(string $int){
         if(filter_var($int, FILTER_SANITIZE_NUMBER_INT) != $int) return null;
-        return $int;
+            return $int;
     }
 }
 ?>

@@ -27,6 +27,13 @@ class ModelUtilisateur{
         $oldPseudo = Validation::validateName($accountGateway->pseudoById($_SESSION['userid']));
         $accountGateway->changePseudo($oldPseudo, $pseudo);
     }
+
+    public function deleteAccount(){
+        $accountGateway = new AccountGateway();
+        $account = Validation::validateInt($_SESSION['userid']);
+        $accountGateway->delete($account);
+    }
+
 }
 
  ?>
