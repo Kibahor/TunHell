@@ -9,9 +9,9 @@
     <body class="bg-slate-200 flex flex-col font-Montserrat h-full m-0 p-0">
         <?php require_once("header.php") ?>
         <section class="main p-4 flex flex-col items-center justify-center">
-            
+
             <!-- Dashboard -->
-            <div class="flex justify-center flex-wrap">                
+            <div class="flex justify-center flex-wrap">
                 <!-- Card -->
                 <div class="bg-gray-300 rounded-lg flex justify-center text-sm text-center flex-wrap p-8 gap-12">
                     <!-- Left -->
@@ -39,28 +39,28 @@
                                 <h4>Victories</h4>
                             </div>
                             <div class="bg-slate-500 rounded-lg p-4">
-                                <h2 class="font-bold text-4xl mt-2"><?php 
+                                <h2 class="font-bold text-4xl mt-2"><?php
                                         if ($accountDisplay->getNumbrerGames() == 0){
                                             echo 'N/A';
-                                        }   
+                                        }
                                         else{
-                                            echo $accountDisplay->getNumberVictoires()/$accountDisplay->getNumbrerGames();} 
+                                            echo $accountDisplay->getNumberVictoires()/$accountDisplay->getNumbrerGames();}
                                     ?></h2>
                                 <h4>Ratio</h4>
                             </div>
                          </div>
-                    </div> 
+                    </div>
                     <!-- Graph -->
                         <!-- Passage de valeurs au .JS -->
-                        <?php 
+                        <?php
                             $games = $accountDisplay->getNumbrerGames();
                             $victoires = $accountDisplay->getNumberVictoires();
                         ?>
                         <input type="hidden" id="games" value= <?php echo $games ?> />
                         <input type="hidden" id="victoires" value= <?php echo $victoires?> />
-                    
-                        
-                        
+
+
+
                         <?php
                             if($games != 0)
                                 echo ('
@@ -69,10 +69,10 @@
 
                                         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
                                         <script src="views/src/graph.js"></script>
-                                    </div> 
+                                    </div>
                                 ')
                         ?>
-                    
+
                 </div>
             </div>
             <!-- Settings -->
@@ -80,11 +80,11 @@
                 <!-- Card -->
                 <div class="bg-gray-300 rounded-lg flex justify-center text-sm text-center flex-wrap p-6 md:p-8">
                     <div>
-                        <h1 class="text-3xl font-bold mb-2 text-purple-700">Account</h1>                
+                        <h1 class="text-3xl font-bold mb-2 text-purple-700">Account</h1>
                         <div class="w-full border-t border-gray-700 m-3"></div>
 
-                        <form class="gap-y-2 flex flex-col text-left" action="" method="POST">
-                            <h1 class="text-xl font-bold mb-2 text-stone-800">Profile</h1>
+                        <form class="gap-y-2 flex flex-col text-left" action="index.php?action=changePseudo" method="POST">
+                            <h1 class="text-xl font-bold mb-2 text-stone-800">Profil</h1>
                             <h2 class="font-bold text-md text-sky-900">New pseudo : </h2>
                             <input name="pseudo" type="text">
                             <input class="btn bg-blue-700 mt-6" type="submit" value="Register">
@@ -111,7 +111,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </section>
         <?php require_once("footer.php") ?>
     </body>

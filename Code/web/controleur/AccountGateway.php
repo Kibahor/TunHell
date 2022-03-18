@@ -27,11 +27,19 @@ class AccountGateway extends Connection
         return $results[0]['ID'];
     }
 
+    public function pseudoById($id)
+    {
+        $query = 'SELECT Pseudo FROM account WHERE ID=:id';
+        $param = array(':id' => array($id, PDO::PARAM_INT));
+        $this->executeQuery($query, $param);
+        $results = $this->getResults();
+        return $results[0]['Pseudo'];
+    }
+
     public function delete(int $id): int
     {
         $query = 'DELETE FROM account WHERE id=:id';
         $this->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT)));
-        return $this->lastInsertId();
     }
 
     public function FindByPseudo(string $pseudo)
@@ -79,5 +87,13 @@ class AccountGateway extends Connection
         $account = $this->FindById($id);
         $account->setPasswordHash("");
         return $account;
+    }
+
+    public function changePseudo(string $oldPseudo, string $pseudo)
+    {
+        $query = 'UPDATE account SET Pseudo=:pseudo WHERE Pseudo=:oldpseudo';
+        $param = array(':pseudo' => array($pseudo, PDO::PARAM_STR),
+                       ':oldpseudo' => array($oldPseudo, PDO::PARAM_STR));
+        $this->executeQuery($query, $param);
     }
 }

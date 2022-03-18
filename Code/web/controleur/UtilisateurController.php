@@ -17,6 +17,10 @@ class UtilisateurController{
                     $this->viewProfil();
                     break;
 
+                case "changePseudo":
+                    $this->changePseudo();
+                    break;
+
                 default:
                     //gestion d'erreurs
                     break;
@@ -47,6 +51,27 @@ class UtilisateurController{
         global $rep, $vues;
 
         $mdlUtilisateur = new ModelUtilisateur();
+        $accountDisplay = $mdlUtilisateur->getInfoUserForProfil(Validation::validateInt($_SESSION['userid']));
+
+        require($rep.$vues['profil']);
+    }
+
+    function changePseudo(){
+        global $rep, $vues;
+
+        try {
+            $mdlUtilisateur = new ModelUtilisateur();
+            $mdlUtilisateur->changePseudo();
+        }
+        catch(Exception $e){
+            switch($e->getMessage()){
+                case "invalid username": echo "invalid username"; break;
+                case "username already use": echo "username already use"; break;
+                case "empty username": echo "empty username"; break;
+                default: break;
+            }
+        }
+
         $accountDisplay = $mdlUtilisateur->getInfoUserForProfil(Validation::validateInt($_SESSION['userid']));
 
         require($rep.$vues['profil']);

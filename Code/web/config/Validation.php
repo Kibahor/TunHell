@@ -6,7 +6,7 @@ class Validation{
 			throw new Exception("Le mail ne peut être vide");
 		} else {
 			if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-				throw new Exception("L'email '".$mail."' n'est pas valide");
+				throw new Exception("L'email n'est pas valide");
 			}
 		}
 		return $mail;

@@ -16,6 +16,17 @@ class ModelUtilisateur{
         $accountGateway = new AccountGateway();
         return $accountGateway->FindByIdForProfil($id);
     }
+
+    public function changePseudo()
+    {
+        $accountGateway = new AccountGateway();
+        if(!isset($_POST['Pseudo'])) throw new Exception("empty username");
+        $pseudo = Validation::validateName($_POST['pseudo']);
+        if($accountGateway->FindByPseudo($pseudo) != null) throw new Exception("username already use");
+
+        $oldPseudo = Validation::validateName($accountGateway->pseudoById($_SESSION['userid']));
+        $accountGateway->changePseudo($oldPseudo, $pseudo);
+    }
 }
 
  ?>

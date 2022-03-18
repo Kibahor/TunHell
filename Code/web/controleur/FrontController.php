@@ -7,7 +7,7 @@ class FrontController{
         $listeActions_Visiteur = array("viewAcceuil", "viewSign",
         "viewLog", "viewDocumentation", "viewHand", "viewTerms",
         "viewContact","viewTOS","viewUnderConstruction", "login", "signup");
-        $listeActions_Utilisateur = array("logout", "viewProfil");
+        $listeActions_Utilisateur = array("logout", "viewProfil", "changePseudo");
 
         try{
             $MdlAccount = new ModelVisiteur();
