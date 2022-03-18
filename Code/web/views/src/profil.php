@@ -105,9 +105,14 @@
                             <input class="btn bg-blue-700 mt-6" type="submit" value="Register">
                         </form>
                         <div class="w-full border-t border-gray-700 m-3"></div>
-                        <form class="gap-y-2 flex flex-col" action="index.php?action=deleteAccount"  method="POST">
-                            <input class="btn bg-red-700 mt-6" type="submit" value="Delete" name="delete">
-                        </form>
+                        <button class="btn bg-red-700 mt-6 w-full" type="button" name="delete" onclick="confirmDelete()">Delete</button>
+                        <script>
+                            function confirmDelete(){
+                                if(confirm("Êtes vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.")){
+                                    window.location.replace("index.php?action=deleteAccount");
+                                }
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
