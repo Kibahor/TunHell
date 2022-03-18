@@ -34,6 +34,18 @@ class ModelUtilisateur{
         $accountGateway->delete($account);
     }
 
+    public function changePassword()
+    {
+        $accountGateway = new AccountGateway();
+
+        $password = Validation::validatePassword($_POST["password"]);
+        $passwordconfirm = Validation::validateConfirmPassword($password, $_POST["confirmpassword"]);
+
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+
+        $accountGateway->changePassword(Validation::validateInt($_SESSION['userid']), $hash);
+    }
+
 }
 
  ?>

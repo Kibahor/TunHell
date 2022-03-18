@@ -96,4 +96,12 @@ class AccountGateway extends Connection
                        ':oldpseudo' => array($oldPseudo, PDO::PARAM_STR));
         $this->executeQuery($query, $param);
     }
+
+    public function changePassword(string $id, string $password)
+    {
+        $query = 'UPDATE account SET Password=:password WHERE ID=:id';
+        $param = array(':password' => array($password, PDO::PARAM_STR),
+                       ':id' => array($id, PDO::PARAM_INT));
+        $this->executeQuery($query, $param);
+    }
 }
