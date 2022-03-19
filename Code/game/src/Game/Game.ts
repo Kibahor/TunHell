@@ -92,7 +92,7 @@ export class Game {
         let noCard = await this.prompt(`Which Card do you want to pick (1 to ${this.gameboard.recruitCenter.lenghtMaxFive()})? `);
         if (noCard > 0 && noCard <= this.gameboard.recruitCenter.lenghtMaxFive()) {
             this.gameboard.recruitCenter.moveCardToStack(this.gameboard.recruitCenter.collection[noCard-1], player.playerHand );
-            console.log('Done!')
+            console.log('Done!\n')
         } 
         else {
             await this.recruitCard();
@@ -107,7 +107,7 @@ export class Game {
             await this.recruitCard();
             return;
         }
-        let noCard = await this.prompt(`What Card do you want to play (1 to ${player.playerHand.collection.length})? `);
+        let noCard = await this.prompt(`Whitch Card do you want to play (1 to ${player.playerHand.collection.length})? `);
         if (noCard > 0 && noCard <= player.playerHand.collection.length) {
             await this.moveCardtoMine(player, noCard-1)
         }
@@ -121,7 +121,7 @@ export class Game {
         let noMines = await this.prompt(`In which mine do you want to place the card : ${player.playerHand.collection[noCard].name} (1 to ${this.gameboard.mines.length})? `);
         if (noMines > 0 && noMines <= this.gameboard.mines.length) {
             player.moveCardToMine(noCard, noMines);
-            console.log('Move done!');
+            console.log('Move done!\n');
         } 
         else {
             await this.moveCardtoMine(player, noCard);
@@ -142,6 +142,7 @@ export class Game {
             console.log(`Action of the card ${card.typeName} not implemented ;(`);
             console.log('The card has been add to the unUsedCard stack (temporary solution).');
             this.gameboard.unUsedCards.addCard(card);
+            this.gameboard.players[this.selectedPlayer-1].mines[noMine].removeCard(card);
         }
     }
 }
