@@ -4,11 +4,11 @@ import { GameBoard } from './Game/GameBoard';
 
 //Je ne veux pas voir un seul "" car contrairement au '', il y a une interpretation par JS (=> donc execution plus longue)
 
-let debug = true;
+export let debugValue = true;
 let initDeck = new InitializeDeck('Default'); //La façon de générer le jeu va pas, il faut le faire par tas et non type (pb :la carte machin se retrouve dans les carte du joueur)
 let deck = initDeck.generateDeck();
 
-if (debug) {
+if (debugValue) {
     //Vérifie le compte
     let i = 0
     for (let [type, card] of deck.entries()) {
