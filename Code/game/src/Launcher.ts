@@ -1,6 +1,6 @@
-import { Game } from './Game';
+import { Game } from './Game/Game';
 import { InitializeDeck } from './Card/Factory/InitializeDeck';
-import { GameBoard } from './GameBoard';
+import { GameBoard } from './Game/GameBoard';
 
 //Je ne veux pas voir un seul "" car contrairement au '', il y a une interpretation par JS (=> donc execution plus longue)
 

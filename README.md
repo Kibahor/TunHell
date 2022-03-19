@@ -36,4 +36,4 @@ In deed just read ;)
 - Co-author: [Pedro Mezquita Fernandez](https://github.com/PedroMezquita)
 - Co-author: [Valentin Clergue](https://github.com/HandyS11)
   
-- Profesor : [Chafik Samir]()
+- Professor : [Chafik Samir]()

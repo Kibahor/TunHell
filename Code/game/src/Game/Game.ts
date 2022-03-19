@@ -1,7 +1,13 @@
 import { GameBoard } from "./GameBoard";
 import { Player } from "./Player";
-import { Card } from "./Card/Card";
-import { Dwarf } from "./Card/Dwarf";
+
+import { Card } from "../Card/Card";
+
+import { Scout } from "../Action/Scout";
+import { Blaster } from "../Action/Blaster";
+import { Picker } from "../Action/Picker";
+
+
 import readline = require("readline");
 
 
@@ -18,10 +24,18 @@ export class Game {
     public selectedPlayer : number;
     public turn : number;
 
+    private scout: Scout;
+    private blaster: Blaster;
+    private picker: Picker;
+
     public constructor(gameboard: GameBoard){
         this.gameboard = gameboard;
         this.selectedPlayer = 1;
         this.turn = 1;
+
+        this.scout = new Scout();
+        this.blaster = new Blaster();
+        this.picker = new Picker();
     }
 
     public playGame() : void {
@@ -29,7 +43,7 @@ export class Game {
     }
     
     private async doRound() {
-        this.gameboard.comptAllCards();
+        this.gameboard.comptAllCards(); // DEBUG
         console.debug(`=======================================\n Turn ${this.turn} : Player ${this.selectedPlayer} it is at you turn !\n=======================================`);
         this.gameboard.players[this.selectedPlayer-1].promptHand();
         let choice = await this.prompt('Pick a Card or Play a Card (1/2) ? ');
@@ -45,9 +59,11 @@ export class Game {
                 return;
         }
 
-        // Attention !!
+        console.log('choix primaire fait')
+        // Attention, ce module n'est pas complet !!
         for (let [index, cards_mine] of this.gameboard.players[this.selectedPlayer-1].mines.entries()) {
             for (let card of cards_mine.collection) {
+                console.log(`Action en cours pour la carte ${card.name}`)
                 this.cardAction(card, index);
             }
         }
@@ -73,7 +89,7 @@ export class Game {
         console.debug('Recruit Center:', this.gameboard.recruitCenter.toStringFirst(5));
         let noCard = await this.prompt(`Which Card do you want to pick (1 to ${this.gameboard.recruitCenter.lenghtMaxFive()}) ? `);
         if (noCard > 0 && noCard <= this.gameboard.recruitCenter.lenghtMaxFive()) {
-            this.gameboard.recruitCenter.moveCardToStack(this.gameboard.recruitCenter.collection[noCard], player.playerHand );
+            this.gameboard.recruitCenter.moveCardToStack(this.gameboard.recruitCenter.collection[noCard-1], player.playerHand );
             console.log('Done !')
         } 
         else {
@@ -91,7 +107,7 @@ export class Game {
         }
         let noCard = await this.prompt(`What Card do you want to play (1 to ${player.playerHand.collection.length}) ? `);
         if (noCard > 0 && noCard <= player.playerHand.collection.length) {
-            await this.moveCardtoMine(player, noCard)
+            await this.moveCardtoMine(player, noCard-1)
         }
         else {
             await this.playCard();
@@ -117,50 +133,18 @@ export class Game {
     }
 
     private cardAction(card: Card, noMine: number) : void {
-        if (card.typeName === 'Blast') { this.blasterAction(card, noMine); }
-        else if (card.typeName === 'Scout') { this.scoutAction(card, noMine); }
-        else if (card.typeName === 'Picker') { this.pickerAction(card, noMine); }
+        if (card.typeName === 'Blast') { this.blaster.blasterAction(card, noMine, this.gameboard); }
+        else if (card.typeName === 'Scout') { this.scout.scoutAction(card, noMine, this.gameboard); }
+        else if (card.typeName === 'Picker') { this.picker.pickerAction(card, noMine, this.gameboard); }
         //else if (card.typeName === 'Warrior') { this.warriorAction(card, noMine); }
-        else { console.log(`Action pour la carte ${card.typeName} non implémentée ;(`); }
-    }
-
-    private blasterAction(blaster: Card, noMine: number) : void {
-        for (let i=1; i < this.gameboard.nbPlayers; i++) {
-            let mine = this.gameboard.players[i].mines[noMine];
-            for (let card of mine.collection) {
-                if (card.typeName === "Warrior") {
-                    this.gameboard.recruitCenter.addCard(card);
-                    mine.removeCard(card);
-                }
-            }
+        else { 
+            console.log(`Action pour la carte ${card.typeName} non implémentée ;(`);
+            console.log('La carte a été ajouté à la pile des cartes non utilisé (solution temporaire pour éviter les fuites).')
+            this.gameboard.unUsedCards.addCard(card);
         }
-        this.gameboard.mines[noMine].removeCard(blaster);
-        this.gameboard.recruitCenter.addCard(blaster);
-    }
-
-    private scoutAction(scout: Card, noMine: number) : void {
-        console.log(this.gameboard.mines[noMine].toStringFirst((scout as Dwarf).first_value));
-        this.gameboard.mines[noMine].removeCard(scout);
-        this.gameboard.recruitCenter.addCard(scout);
-    }
-
-    private pickerAction(card:Card, noMine: number) : void {   
-        let mine_card = this.gameboard.mines[noMine].collection.shift();       //for nb valeur picker
-        console.log(`The picker "${card.name}" has mined a "${mine_card.name}" in the mine ${noMine}!`);
-        this.cardMineAction(mine_card, noMine)
     }
 
     private warriorAction(card: Card, nMine: number) : void {
         // . . .
-    }
-
-    private cardMineAction(card: Card, nMine: number) {
-        if (false) {}
-        else if (false) {}
-        else { 
-            console.log(`Action pour la carte minée ${card.typeName} non implémentée ;(`); 
-            console.log('La carte a été ajouté à la pile des cartes non utilisé (solution temporaire pour éviter les fuites).')
-            this.gameboard.unUsedCards.addCard(card);
-        }
     }
 }
