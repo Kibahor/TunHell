@@ -56,11 +56,11 @@ export class Stack {
         this.collection = [];
     }
 
-    public toString():string {
+    public toString(): string {
         let str:string = '';
         let i = 1;
-        for(let card of this.collection) {
-            str+=`\n(${i}) ${card.typeName} - ${card.name}`;
+        for (let card of this.collection) {
+            str+=`(${i}) ${card.typeName} - ${card.name}\n`;
             i++;
         }
         return str;

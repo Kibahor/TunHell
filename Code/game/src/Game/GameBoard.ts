@@ -69,8 +69,60 @@ export class GameBoard {
         return tmpArr;
     }
 
+    public showAllCards() : void {
+        console.debug('\n\n[DEBUG]');
+        console.debug('===== All cards =====');
+        this.showMineCards();
+        this.showPlayerCards();
+        this.showRecruitCenterCards();
+        this.showTrophyCards();
+        this.showUnUsedCards();
+        console.debug('\n=====================\n');
+    }
+
+    public showMineCards() : void {
+        console.debug('\n==== Mines ====\n');
+        for (let i=0; i<3; i++) {
+            console.debug(`==== Mines ${i+1} ====`);
+            console.log(this.mines[i].toString());
+        }
+    }
+
+    public showPlayerCards() : void {
+        console.debug('\n==== Players ====\n');
+        for (let i=0; i<this.nbPlayers; i++) {
+            console.debug(`==== Hand player ${i+1} ====`);
+            console.log(this.players[i].playerHand.toString());
+            console.debug(`==== Mines player ${i+1} ====`);
+            for (let j=0; j<3; j++) {
+                console.debug(`==== Mines ${j+1} ====`);
+                console.log(this.players[i].mines[j].toString());
+            }
+            console.debug(`==== Treasure player ${i+1} ====`);
+            console.log(this.players[i].treasure.toString());
+            console.debug(`==== Trophy player ${i+1} ====`);
+            console.log(this.players[i].trophy.toString());
+        }
+    }
+
+    public showRecruitCenterCards() : void {
+        console.debug('\n==== RecruitCenter ====\n');
+        console.log(this.recruitCenter.toString());
+    }
+
+    public showTrophyCards() : void {
+        console.debug('\n==== Trophy ====\n');
+        console.log(this.trophy.toString());
+    }
+
+    public showUnUsedCards() : void {
+        console.debug('\n==== UnUsed ====\n');
+        console.log(this.unUsedCards.toString());
+    }
+
     public comptAllCards() : void {
-        console.debug('\n=== Number of cards ===');
+        console.debug('\n[DEBUG]');
+        console.debug('=== Number of cards ===');
 
         let nbCardMines = 0;
         if (this.mines.length != 0) {
