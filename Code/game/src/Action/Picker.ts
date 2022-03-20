@@ -235,8 +235,8 @@ export class Picker {
                     }
                     break; 
                 /*case 'Grödur_ghost':
-                // Je refuse d'implémenter cette merde
-                break;*/
+                    // Je refuse d'implémenter cette merde
+                    break;*/
                 default:
                     this.dispNotImplemented(cardName, cardType, gameboard, card);
             }
