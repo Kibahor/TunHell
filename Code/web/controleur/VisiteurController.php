@@ -53,6 +53,11 @@ class VisiteurController{
                     $this-> signup();
                     break;
 
+                case 'viewGetting':
+                    $this->viewGetting();
+                    break;
+
+
                 default:
                     //gestion d'erreurs
                     break;
@@ -74,6 +79,11 @@ class VisiteurController{
         global $rep, $vues;
         //vue principale
         require ($rep.$vues['acceuil']);
+    }
+
+    function viewGetting(){
+        global $rep, $vues;
+        require($rep.$vues['getting']);
     }
 
     function viewSign(){

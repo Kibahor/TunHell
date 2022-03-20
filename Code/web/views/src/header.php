@@ -20,14 +20,14 @@
 								<a href="index.php?action=viewProfil" class="half-btn-left rounded-l-lg bg-slate-600">Profil</a>
 								<a href="index.php?action=logout" class="half-btn-right rounded-r-lg bg-slate-500">Logout</a>
 							</div>
-							<a href="index.php?action=viewDocumentation" class="btn bg-blue-700">Getting started</a>
+							<a href="index.php?action=viewGetting" class="btn bg-blue-700">Getting started</a>
 						</div>
 						';
 					}else{
 						echo '
 						<div class="hidden lg:flex items-center space-x-4">
 							<a href="index.php?action=viewLog" class="btn bg-slate-600">Register - Log in</a>
-							<a href="index.php?action=viewUnderConstruction" class="btn bg-blue-700">Getting started</a>
+							<a href="index.php?action=viewGetting" class="btn bg-blue-700">Getting started</a>
 						</div>
 						';
 						}
@@ -53,12 +53,12 @@
 							echo '
 							<a href="index.php?action=viewProfil" class="block py-3 px-4 btn bg-slate-600">Profil</a>
 							<a href="index.php?action=logout" class="block py-3 px-4 btn bg-slate-600">Logout</a>
-							<a href="index.php?action=viewUnderConstruction" class="block py-3 px-4 btn bg-blue-700">Getting started</a>
+							<a href="index.php?action=viewGetting" class="block py-3 px-4 btn bg-blue-700">Getting started</a>
 						';
 						} else{
 							echo '
 								<a href="index.php?action=viewLog" class="block py-3 px-4 btn bg-slate-600">Register - Log in</a>
-								<a href="index.php?action=viewUnderConstruction" class="block py-3 px-4 btn bg-blue-700">Getting started</a>
+								<a href="index.php?action=viewGetting" class="block py-3 px-4 btn bg-blue-700">Getting started</a>
 							';
 						}
 					?>
