@@ -63,7 +63,7 @@ export class Stack {
     }
 
     public toStringFirst(nb: number) : string {
-        let str : string = '';
+        let str : string = 'The next cards are:';
         let i : number = 0;
         for (let card of this.collection) {
             str+=`\n(${i+1}) ${card.typeName} - ${card.name}`;

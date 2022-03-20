@@ -44,9 +44,12 @@ export class Game {
     }
     
     private async doRound() {
+        // Rajouter la condition d'arrêt de la partie
         if (debugValue) { this.gameboard.comptAllCards(); }
-        console.debug(`=======================================\n Turn ${this.turn} : Player ${this.selectedPlayer} it is at you turn!\n=======================================`);
+
+        console.debug(`\n=====================================\n| Turn ${this.turn}: Player ${this.selectedPlayer}, it's your turn! |\n=====================================`);
         this.gameboard.players[this.selectedPlayer-1].promptHand();
+
         let choice = await this.prompt('Pick a Card or Play a Card (1/2)? ');
         switch (choice) {
             case 1:
@@ -62,7 +65,8 @@ export class Game {
 
         if (debugValue) { console.log('[DEBUG] Primary choice done!') }
         // Attention, ce module n'est pas complet !!
-        // C'est pas la bonne méthode
+        // Ce n'est pas la bonne méthode
+        // Il ne faut regarder que le piocheur si il est joué
         for (let [index, cards_mine] of this.gameboard.players[this.selectedPlayer-1].mines.entries()) {
             for (let card of cards_mine.collection) {
                 if (debugValue) { console.log(`[DEBUG] Action going on for ${card.name}`); }
@@ -91,8 +95,8 @@ export class Game {
         console.debug('Recruit Center:', this.gameboard.recruitCenter.toStringFirst(5));
         let noCard = await this.prompt(`Which Card do you want to pick (1 to ${this.gameboard.recruitCenter.lenghtMaxFive()})? `);
         if (noCard > 0 && noCard <= this.gameboard.recruitCenter.lenghtMaxFive()) {
+            console.log(`You choose the ${this.gameboard.recruitCenter.collection[noCard-1].name}!\n`)
             this.gameboard.recruitCenter.moveCardToStack(this.gameboard.recruitCenter.collection[noCard-1], player.playerHand );
-            console.log('Done!\n')
         } 
         else {
             await this.recruitCard();
@@ -120,8 +124,8 @@ export class Game {
     private async moveCardtoMine(player: Player, noCard: number) {
         let noMines = await this.prompt(`In which mine do you want to place the card : ${player.playerHand.collection[noCard].name} (1 to ${this.gameboard.mines.length})? `);
         if (noMines > 0 && noMines <= this.gameboard.mines.length) {
-            player.moveCardToMine(noCard, noMines);
-            console.log('Move done!\n');
+            console.log(`The ${player.playerHand.collection[noCard].name} has been moved to the mine n°${noMines}`);
+            player.moveCardToMine(noCard, noMines-1);
         } 
         else {
             await this.moveCardtoMine(player, noCard);
@@ -135,14 +139,24 @@ export class Game {
     }
 
     private cardAction(card: Card, noMine: number) : void {
-        if (card.typeName === 'Blast') { this.blaster.blasterAction(card, noMine, this.gameboard); }
-        else if (card.typeName === 'Scout') { this.scout.scoutAction(card, noMine, this.gameboard); }
-        else if (card.typeName === 'Picker') { this.picker.pickerAction(card, noMine, this.gameboard, this.selectedPlayer-1); }
-        else { 
-            console.log(`Action of the card ${card.typeName} not implemented ;(`);
-            console.log('The card has been add to the unUsedCard stack (temporary solution).');
-            this.gameboard.unUsedCards.addCard(card);
-            this.gameboard.players[this.selectedPlayer-1].mines[noMine].removeCard(card);
+        let cardTypeName = card.typeName;
+        switch (cardTypeName) {
+            case 'Blaster':
+                this.blaster.blasterAction(card, noMine, this.gameboard, this.selectedPlayer-1);
+                break;
+            case 'Scout':
+                this.scout.scoutAction(card, noMine, this.gameboard, this.selectedPlayer-1);
+                break;
+            case 'Picker':
+                this.picker.pickerAction(card, noMine, this.gameboard, this.selectedPlayer-1);
+                break;
+            case 'Warrior':
+                break;
+            default:
+                console.log(`Action of the card ${card.typeName} not implemented ;(`);
+                console.log('The card has been add to the unUsedCard stack (temporary solution).');
+                this.gameboard.unUsedCards.addCard(card);
+                this.gameboard.players[this.selectedPlayer-1].mines[noMine].removeCard(card);
         }
     }
 }

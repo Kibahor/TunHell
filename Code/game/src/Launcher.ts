@@ -2,14 +2,12 @@ import { Game } from './Game/Game';
 import { InitializeDeck } from './Card/Factory/InitializeDeck';
 import { GameBoard } from './Game/GameBoard';
 
-//Je ne veux pas voir un seul "" car contrairement au '', il y a une interpretation par JS (=> donc execution plus longue)
-
 export let debugValue = true;
-let initDeck = new InitializeDeck('Default'); //La façon de générer le jeu va pas, il faut le faire par tas et non type (pb :la carte machin se retrouve dans les carte du joueur)
+
+let initDeck = new InitializeDeck('Default');
 let deck = initDeck.generateDeck();
 
-if (debugValue) {
-    //Vérifie le compte
+if (debugValue) {   //Vérifie le compte des cartes  
     let i = 0
     for (let [type, card] of deck.entries()) {
         console.debug(type, card.length);

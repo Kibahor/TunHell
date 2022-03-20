@@ -4,9 +4,9 @@ import { Dwarf } from "../Card/Dwarf";
 
 export class Scout {
 
-    public scoutAction(scout: Card, noMine: number, gameboard: GameBoard) : void {
+    public scoutAction(scout: Card, noMine: number, gameboard: GameBoard, player: number) : void {
         console.log(gameboard.mines[noMine].toStringFirst((scout as Dwarf).first_value));
-        gameboard.mines[noMine].removeCard(scout);
+        gameboard.players[player].mines[noMine].removeCard(scout);
         gameboard.recruitCenter.addCard(scout);
     }
 }

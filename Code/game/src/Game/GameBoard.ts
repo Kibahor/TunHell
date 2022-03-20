@@ -70,7 +70,7 @@ export class GameBoard {
     }
 
     public comptAllCards() : void {
-        console.debug('\n\n=== Number of cards ===');
+        console.debug('=== Number of cards ===');
 
         let nbCardMines = 0;
         if (this.mines.length != 0) {
@@ -108,7 +108,7 @@ export class GameBoard {
         let nbCardUnused = this.unUsedCards.collection.length;
         console.debug('UnUsed ' + nbCardUnused);
 
-        console.debug('=== Total ' + (nbCardMines + nbCardPlayerHands + nbCardPlayerMines + nbCardPlayerTreasure + nbCardRecruitCenter + nbCardTrophy + nbCardUnused) + ' ===\n\n');
+        console.debug('=== Total ' + (nbCardMines + nbCardPlayerHands + nbCardPlayerMines + nbCardPlayerTreasure + nbCardRecruitCenter + nbCardTrophy + nbCardUnused) + ' ===');
     }
 
     public printPlayerHands() : void {

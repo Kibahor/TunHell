@@ -11,6 +11,9 @@ export class Picker {
 
     public pickerAction(card:Card, noMine: number, gameboard: GameBoard, player: number) : void {  
         if (debugValue) { console.log('[DEBUG] Begining of the picker action'); }
+
+        // Mettre la condition de puissance de guerrier supérieur à celle des autres joueurs
+
         while (true) {
             if (debugValue) { console.log('[DEBUG] Begin of the loop'); }
             let mine_card = gameboard.mines[noMine].collection.shift();
@@ -30,14 +33,14 @@ export class Picker {
 
     private pickerActionEnemy(card: Card, mine_card: Card, noMine: number, gameboard: GameBoard, player: number) : boolean {
         if (mine_card.typeName == 'Other') {
-            console.log(`The picker "${card.name}" has mined a "${mine_card.name}" in the mine ${noMine}!`);
+            console.log(`The picker "${card.name}" has mined a "${mine_card.name}" in the mine ${noMine+1}!`);
             return this.cardMinedAction(mine_card, noMine, gameboard, player);
         }
         else if (mine_card.typeName == 'Meetings') {
-            console.log(`The picker "${card.name}" has found a "${mine_card.name}" in the mine ${noMine}!`);
+            console.log(`The picker "${card.name}" has found a "${mine_card.name}" in the mine ${noMine+1}!`);
             return this.cardMinedAction(mine_card, noMine, gameboard, player);
         }
-        console.log(`The picker "${card.name}" is not enough strong to mine "${mine_card.name}" in the mine ${noMine}!`);
+        console.log(`The picker "${card.name}" is not enough strong to mine "${mine_card.name}" in the mine ${noMine+1}!`);
         return false;
     }
 
@@ -46,7 +49,7 @@ export class Picker {
             console.log(`The picker "${card.name}" has mined a "${mine_card.name}" in the mine ${noMine}!`);
             return this.cardMinedAction(mine_card, noMine, gameboard, player);
         }
-        console.log(`The picker "${card.name}" is not enough strong to mine "${mine_card.name}" in the mine ${noMine}!`);
+        console.log(`The picker "${card.name}" is not enough strong to mine "${mine_card.name}" in the mine ${noMine+1}!`);
         return false;
     }
 
@@ -63,6 +66,12 @@ export class Picker {
                 console.log(`The card ${card.name} from mine n°${nMine+1} has been added to the "Tresasure collection" of player ${player+1}`)
                 gameboard.players[player].treasure.addCard(card);
                 break;
+            /*case 'Rat':
+            case 'Gobelin':
+            case 'Orc':
+            case 'Troll':
+            case 'Dragon':
+                break;*/
             default:
                 console.log(`Action for the mined card ${card.name} not implemented ;(`); 
                 console.log('The card has been add to the unUsedCard stack (temporary solution).');
