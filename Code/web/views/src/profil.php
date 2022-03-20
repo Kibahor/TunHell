@@ -2,7 +2,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>&#128273; Login</title>
+        <title>TunHell - Profil</title>
         <link href="views/dist/output.css" rel="stylesheet">
         <link rel="shortcut icon" type="image/png" href="views/rsc/favicon.png">
 	</head>

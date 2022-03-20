@@ -11,7 +11,6 @@
 						<div class="hidden lg:flex items-center space-x-6">
 							<a href="index.php?action=viewUnderConstruction" class="">Create a game room &#127793;</a>
 							<a href="index.php?action=viewDocumentation" class="">Documentation &#10068;</a>
-							<a href="index.php?action=viewUnderConstruction" class="">Hand Code &#9995;</a>
 						</div>
                         <?php
                             if(isset($_SESSION['role']) && $_SESSION['role'] == 'user'){
@@ -47,20 +46,19 @@
 					<!-- mobile menu -->
 					<div class="mobile-menu hidden flex justify-center text-xl lg:hidden">
 						<div class="justify-start space-y-8">
-							<a href="index.php?action=viewDocumentation" class="block py-3 px-4 mt-12">Create a game room &#127793;</a>
+							<a href="index.php?action=viewUnderConstruction" class="block py-3 px-4 mt-12">Create a game room &#127793;</a>
 							<a href="index.php?action=viewDocumentation" class="block py-3 px-4">Documentation &#10068;</a>
-							<a href="index.php?action=viewDocumentation" class="block py-3 px-4">Hand Code &#9995;</a>
                             <?php
                                 if(isset($_SESSION['role']) && $_SESSION['role'] == 'user'){
                                     echo '
 									<a href="index.php?action=viewProfil" class="block py-3 px-4 btn bg-slate-600">Profil</a>
                                     <a href="index.php?action=logout" class="block py-3 px-4 btn bg-slate-600">Logout</a>
-                                    <a href="index.php?action=viewDocumentation" class="block py-3 px-4 btn bg-blue-700">Getting started</a>
+                                    <a href="index.php?action=viewUnderConstruction" class="block py-3 px-4 btn bg-blue-700">Getting started</a>
                                 ';
                                 } else{
                                     echo '
                                         <a href="index.php?action=viewLog" class="block py-3 px-4 btn bg-slate-600">Register - Log in</a>
-                                        <a href="index.php?action=viewDocumentation" class="block py-3 px-4 btn bg-blue-700">Getting started</a>
+                                        <a href="index.php?action=viewUnderConstruction" class="block py-3 px-4 btn bg-blue-700">Getting started</a>
                                     ';
                                 }
                             ?>
