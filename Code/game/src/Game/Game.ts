@@ -9,17 +9,9 @@ import { Picker } from "../Action/Picker";
 import { Scout } from "../Action/Scout";
 
 import { debugValue } from "../Launcher";
+import { debugExtremeValue } from "../Launcher";
 
-import readline = require("readline");
-
-
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
-
-const util = require('util');
-const question = util.promisify(rl.question).bind(rl);
+import { prompt } from "../Module/Question";
 
 export class Game {
     public gameboard : GameBoard;
@@ -46,13 +38,13 @@ export class Game {
     
     private async doRound() {
         // Rajouter la condition d'arrêt de la partie
-        if (debugValue) { this.gameboard.showAllCards(); }
+        if (debugExtremeValue) { this.gameboard.showAllCards(); }
         if (debugValue) { this.gameboard.comptAllCards(); }
 
         console.debug(`\n=====================================\n| Turn ${this.turn}: Player ${this.selectedPlayer}, it's your turn! |\n=====================================`);
         this.gameboard.players[this.selectedPlayer-1].promptHand();
 
-        let choice = await this.prompt('Pick a Card or Play a Card (1/2)? ');
+        let choice = await prompt('Pick a Card or Play a Card (1/2)? ');
         switch (choice) {
             case 1:
                 await this.recruitCard();
@@ -70,7 +62,7 @@ export class Game {
         for (let [index, cards_mine] of this.gameboard.players[this.selectedPlayer-1].mines.entries()) {
             for (let card of cards_mine.collection) {
                 if (debugValue) { console.log(`[DEBUG] Action going on for ${card.name}`); }
-                this.cardAction(card, index);   // ne traitera que les piocheurs
+                await this.cardAction(card, index);   // ne traitera que les piocheurs
             }
         }
 
@@ -93,7 +85,7 @@ export class Game {
             return;
         }
         console.debug('Recruit Center:', this.gameboard.recruitCenter.toStringFirst(5));
-        let noCard = await this.prompt(`Which Card do you want to pick (1 to ${this.gameboard.recruitCenter.lenghtMaxFive()})? `);
+        let noCard = await prompt(`Which Card do you want to pick (1 to ${this.gameboard.recruitCenter.lenghtMaxFive()})? `);
         if (noCard > 0 && noCard <= this.gameboard.recruitCenter.lenghtMaxFive()) {
             console.log(`You choose the ${this.gameboard.recruitCenter.collection[noCard-1].name}!\n`)
             this.gameboard.recruitCenter.moveCardToStack(this.gameboard.recruitCenter.collection[noCard-1], player.playerHand );
@@ -111,7 +103,7 @@ export class Game {
             await this.recruitCard();
             return;
         }
-        let noCard = await this.prompt(`Whitch Card do you want to play (1 to ${player.playerHand.collection.length})? `);
+        let noCard = await prompt(`Whitch Card do you want to play (1 to ${player.playerHand.collection.length})? `);
         if (noCard > 0 && noCard <= player.playerHand.collection.length) {
             let card = player.playerHand.collection[noCard-1];
             if (card.typeName == 'Picker') {
@@ -130,7 +122,7 @@ export class Game {
     }
 
     private async moveCardtoMine(player: Player, noCard: number) {
-        let noMines = await this.prompt(`In which mine do you want to place the card ${player.playerHand.collection[noCard].name} (1 to ${this.gameboard.mines.length})? `);
+        let noMines = await prompt(`In which mine do you want to place the card ${player.playerHand.collection[noCard].name} (1 to ${this.gameboard.mines.length})? `);
         if (noMines > 0 && noMines <= this.gameboard.mines.length) {
             let card = player.playerHand.collection[noCard];
             if (card.typeName == 'Picker') {
@@ -158,13 +150,7 @@ export class Game {
         return true;
     }
 
-    private async prompt(question_str: string) {
-        const answer = await question(question_str);
-        let noChoice = parseInt(answer);
-        return noChoice;
-    }
-
-    private cardAction(card: Card, noMine: number) : void {
+    private async cardAction(card: Card, noMine: number) {
         let cardTypeName = card.typeName;
         switch (cardTypeName) {
             case 'Blaster':
@@ -174,12 +160,12 @@ export class Game {
                 this.scout.scoutAction(card, noMine, this.gameboard, this.selectedPlayer-1);
                 break;
             case 'Picker':
-                this.picker.pickerAction(card, noMine, this.gameboard, this.selectedPlayer-1);
+                await this.picker.pickerAction(card, noMine, this.gameboard, this.selectedPlayer-1);
                 break;
             case 'Warrior':
                 break;
             default:
-                console.log(`Action of the card ${card.typeName} not implemented ;(`);
+                console.log(`Action of the card ${card.name} of the type ${card.typeName} not implemented ;(`);
                 console.log('The card has been add to the unUsedCard stack (temporary solution)');
                 this.gameboard.unUsedCards.addCard(card);
                 this.gameboard.players[this.selectedPlayer-1].mines[noMine].removeCard(card);
