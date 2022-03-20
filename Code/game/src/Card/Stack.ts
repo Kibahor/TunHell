@@ -15,6 +15,10 @@ export class Stack {
         this.collection.push(card);
     }
 
+    public addCardToBegin(card: Card) : void {
+        this.collection.unshift(card);
+    }
+
     public removeCard(card : Card) : void {
         const index = this.collection.indexOf(card, 0);
         if (index > -1) {

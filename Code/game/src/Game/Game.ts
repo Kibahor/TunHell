@@ -65,13 +65,11 @@ export class Game {
         }
 
         if (debugValue) { console.log('[DEBUG] Primary choice done!'); }
-        // Attention, ce module n'est pas complet !!
-        // Ce n'est pas la bonne méthode
-        // Il ne faut regarder que le piocheur si il est joué
+
         for (let [index, cards_mine] of this.gameboard.players[this.selectedPlayer-1].mines.entries()) {
             for (let card of cards_mine.collection) {
                 if (debugValue) { console.log(`[DEBUG] Action going on for ${card.name}`); }
-                this.cardAction(card, index);
+                this.cardAction(card, index);   // ne traitera que les piocheurs
             }
         }
 
@@ -106,7 +104,7 @@ export class Game {
     }
 
     private async playCard() {                                          // Peut boucler à l'infini si le joueur ne peux jouer que des piocheurs (après il fait pas d'effort quoi ..)
-        let player = this.gameboard.players[this.selectedPlayer-1];     // A approfondir !!
+        let player = this.gameboard.players[this.selectedPlayer-1];     
         if (player.playerHand.collection.length == 0) {                 // Ne prend pas en compte le fais que le joueur peut avoir des cartes non jouables dans sa main !!
             console.log('You have no card in your hand!');
             await this.recruitCard();
@@ -150,26 +148,13 @@ export class Game {
     }
 
     private isPossible(player: number, noMine: number) : boolean {
-        let combatValuePlayer: number = this.combatValue(player, noMine);
+        let combatValuePlayer: number = this.picker.combatValue(player, noMine, this.gameboard);
         for (let i=0; i < this.gameboard.nbPlayers; i++) {
-            if (combatValuePlayer < this.combatValue(i, noMine)) {
+            if (combatValuePlayer < this.picker.combatValue(i, noMine, this.gameboard)) {
                 return false;
             }
         }
         return true;
-    }
-
-    private combatValue(player: number, noMine: number) : number {
-        let combatValue: number = 0;
-        for (let card of this.gameboard.players[player].mines[noMine].collection) {
-            if (card.typeName = 'Warrior') {
-                combatValue += (card as Dwarf).first_value;       
-            }
-            else if (card.typeName == 'Picker') {
-                combatValue += (card as Dwarf).second_value;
-            }
-        }
-        return combatValue;
     }
 
     private async prompt(question_str: string) {
