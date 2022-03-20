@@ -20,6 +20,9 @@ export class Picker {
             if (mine_card instanceof Bonus) {
                 this.pickerActionBonus(card, mine_card, noMine, gameboard, player);
             }
+            /*else if (mine_card instanceof Dwarf) {
+                if (!this.pickerActionDwarf(card, mine_card, noMine, gameboard, player)) { gameboard.recruitCenter.addCard(card); gameboard.players[player].mines[noMine].removeCard(card); return; }
+            }*/
             else if (mine_card instanceof Enemy) { 
                 if (!this.pickerActionEnemy(card, mine_card, noMine, gameboard, player)) { 
                     gameboard.recruitCenter.addCard(card); 
@@ -29,14 +32,9 @@ export class Picker {
             }
             /*else if (mine_card instanceof Treasure) {
                 if (!this.pickerActionTreasure(card, mine_card, noMine, gameboard, player)) { gameboard.recruitCenter.addCard(card); gameboard.players[player].mines[noMine].removeCard(card); return; }
-            }
-            else if (mine_card instanceof Dwarf) {
-                if (!this.pickerActionDwarf(card, mine_card, noMine, gameboard, player)) { gameboard.recruitCenter.addCard(card); gameboard.players[player].mines[noMine].removeCard(card); return; }
-            }*/
+            }*/ 
             else {
-                console.log(`Action for the mined card ${mine_card.name} not implemented ;(`); 
-                console.log('The card has been add to the unUsedCard stack (temporary solution)');
-                gameboard.unUsedCards.addCard(card);
+                this.promtNotImplemented(mine_card.name, mine_card.typeName, gameboard, card);
             }        
         }  
         gameboard.recruitCenter.addCard(card); 
@@ -61,9 +59,7 @@ export class Picker {
                 console.log(`The "${card.name}" has found a "${mine_card.name}" in the mine ${noMine+1}!`);
                 return this.cardMinedAction(mine_card, noMine, gameboard, player);
             default:
-                console.log(`Action for the mined card ${card.name} not implemented ;(`); 
-                console.log('The card has been add to the unUsedCard stack (temporary solution)');
-                gameboard.unUsedCards.addCard(card);
+                this.promtNotImplemented(mine_card.name, mine_card.typeName, gameboard, card);
         }
         return true;
     }
@@ -98,38 +94,68 @@ export class Picker {
 
     private cardMinedAction(card: Card, nMine: number, gameboard: GameBoard, player: number) : boolean {
         if (debugValue) { console.log('[DEBUG] cardMinedAction'); }
-        switch (card.name) {
-            case 'Dirt':
-            case 'Treasure':
-                console.log(`The card ${card.name} from mine n°${nMine+1} has been added to the "Tresasure collection" of player ${player+1}`);
-                gameboard.players[player].treasure.addCard(card);
-                break;
-            case 'Rat':
-            case 'Gobelin':
-            case 'Orc':
-            case 'Troll':
-            case 'Dragon':
-                let playerCombatValue = this.combatValue(player, nMine, gameboard);
-                let monsterCombatValue = (card as Enemy).fight_value;
+        let cardType = card.typeName;
+        let cardName = card.name;
+        if (debugValue) { console.log(`[DEBUG] cardType ${cardType}`); }
+        if (debugValue) { console.log(`[DEBUG] cardName ${cardName}`); }
 
-                if (debugValue) { console.log(`[DEBUG] Player combat value ${playerCombatValue}`); }
-                if (debugValue) { console.log(`[DEBUG] Monster combat value ${monsterCombatValue}`); }
-
-                if (playerCombatValue >= monsterCombatValue) {   
-                    console.log(`The card ${card.name} from mine n°${nMine+1} has been defeat and added to the "Tresasure collection" of player ${player+1}`);
+        if (card instanceof Enemy) {
+            if (debugValue) { console.log('[DEBUG] case Enemy'); }
+            switch (cardName) {
+                case 'Dirt':
+                case 'Treasure':
+                    console.log(`The card ${cardName} from mine n°${nMine+1} has been added to the "Tresasure collection" of player ${player+1}`);
                     gameboard.players[player].treasure.addCard(card);
-                }
-                else {
-                    console.log(`The card ${card.name} from mine n°${nMine+1} is too strong for the player ${player+1}`);
-                    gameboard.mines[nMine].addCardToBegin(card);
-                    return false;
-                }
-                break;
-            default:
-                console.log(`Action for the mined card ${card.name} not implemented ;(`); 
+                    break;
+                case 'Rat':
+                case 'Gobelin':
+                case 'Orc':
+                case 'Troll':
+                case 'Dragon':
+                    let playerCombatValue = this.combatValue(player, nMine, gameboard);
+                    let monsterCombatValue = (card as Enemy).fight_value;
+        
+                    if (debugValue) { console.log(`[DEBUG] Player combat value ${playerCombatValue}`); }
+                    if (debugValue) { console.log(`[DEBUG] Monster combat value ${monsterCombatValue}`); }
+        
+                    if (playerCombatValue >= monsterCombatValue) {   
+                        console.log(`The card ${cardName} from mine n°${nMine+1} has been defeat and added to the "Tresasure collection" of player ${player+1}`);
+                        gameboard.players[player].treasure.addCard(card);
+                    }
+                    else {
+                        console.log(`The card ${cardName} from mine n°${nMine+1} is too strong for the player ${player+1}`);
+                        gameboard.mines[nMine].addCardToBegin(card);
+                        return false;
+                    }
+                    break;         
+                default:
+                    this.promtNotImplemented(cardName, cardType, gameboard, card);
+            }
+        }
+        else if (card instanceof Bonus) {
+            if (debugValue) { console.log('[DEBUG] case Bonus'); }
+            switch (cardName) {
+                case 'Beer_of_bravery':
+                case 'Nawak_sword':
+                case 'Old_pickaxe':
+                    if (gameboard.players[player].playerHand.collection.length < 6) {
+                        console.log(`The card ${cardName} from mine°${nMine+1} has been added to the "Hand" of player ${player+1}`);
+                        gameboard.players[player].playerHand.addCard(card);
+                    }
+                    else {
+                        console.log(`You haven\'t enough place to store the card ${cardName}, the card has been discarded`);
+                        gameboard.recruitCenter.addCard(card);
+                    }
+                    break;
+                default:
+                    this.promtNotImplemented(cardName, cardType, gameboard, card);
+            }
+        }
+    }
+
+    private promtNotImplemented(cardName: string, cardType: string, gameboard: GameBoard, card: Card) : void {
+        console.log(`Action for the mine card ${cardName} of type ${cardType} not implemented ;(`); 
                 console.log('The card has been add to the unUsedCard stack (temporary solution)');
                 gameboard.unUsedCards.addCard(card);
-        }
-        return true;
     }
 }
