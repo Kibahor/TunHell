@@ -73,9 +73,9 @@ class UtilisateurController{
         }
         catch(Exception $e){
             switch($e->getMessage()){
-                case "invalid username": echo "invalid username"; break;
-                case "username already use": echo "username already use"; break;
-                case "empty username": echo "empty username"; break;
+                case "invalid username": $invalid_username = true; break;
+                case "username already use": $username_already_use = true; break;
+                case "empty username": $empty_username = true; break;
                 default: break;
             }
         }
@@ -106,9 +106,9 @@ class UtilisateurController{
         }
         catch(Exception $e) {
             switch($e->getMessage()){
-                case "empty password" : echo "empty password"; break;
-                case "invalid password" : echo "invalid password"; break;
-                case "wrong confirmpassord" : echo "wrong confirmpassord"; break;
+                case "empty password" : $empty_password = true; break;
+                case "invalid password" : $invalid_password = true; break;
+                case "wrong confirmpassord" : $wrong_confirmpassord = true; break;
                 default: break;
             }
         }
@@ -117,8 +117,6 @@ class UtilisateurController{
 
         require($rep.$vues['profil']);
     }
-
-
 }
 
  ?>
