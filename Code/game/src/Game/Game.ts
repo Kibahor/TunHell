@@ -46,6 +46,7 @@ export class Game {
     
     private async doRound() {
         // Rajouter la condition d'arrêt de la partie
+        if (debugValue) { this.gameboard.showAllCards(); }
         if (debugValue) { this.gameboard.comptAllCards(); }
 
         console.debug(`\n=====================================\n| Turn ${this.turn}: Player ${this.selectedPlayer}, it's your turn! |\n=====================================`);
@@ -129,7 +130,7 @@ export class Game {
     }
 
     private async moveCardtoMine(player: Player, noCard: number) {
-        let noMines = await this.prompt(`In which mine do you want to place the card : ${player.playerHand.collection[noCard].name} (1 to ${this.gameboard.mines.length})? `);
+        let noMines = await this.prompt(`In which mine do you want to place the card ${player.playerHand.collection[noCard].name} (1 to ${this.gameboard.mines.length})? `);
         if (noMines > 0 && noMines <= this.gameboard.mines.length) {
             let card = player.playerHand.collection[noCard];
             if (card.typeName == 'Picker') {
