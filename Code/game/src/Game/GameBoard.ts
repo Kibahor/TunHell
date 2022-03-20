@@ -1,6 +1,6 @@
-import { Card } from './Card/Card'
-import { Stack } from './Card/Stack'
-import { StackType } from './Card/StackType'
+import { Card } from '../Card/Card'
+import { Stack } from '../Card/Stack'
+import { StackType } from '../Card/StackType'
 import { Player } from './Player';
 
 export class GameBoard {
@@ -10,7 +10,6 @@ export class GameBoard {
     public players:Array<Player> = [];
 
     public mines: Array<Stack> = [];
-    public discards: Stack;
     public recruitCenter: Stack;
 
     public trophy: Array<Card> = [];
@@ -31,7 +30,7 @@ export class GameBoard {
         this.mines = this.divideBy(3, this.fisherYatesShuffle(deck.get('Mine')), this.fisherYatesShuffle(deck.get('End_mine')));
     }
 
-    public fisherYatesShuffle(cards: Array<Card>): Array<Card> {
+    private fisherYatesShuffle(cards: Array<Card>): Array<Card> {
         for (let i = cards.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
             [cards[i], cards[j]] = [cards[j], cards[i]];
@@ -39,7 +38,7 @@ export class GameBoard {
         return cards;
     }
 
-    public divideBy(nb: number, cards: Array<Card>, endMine: Array<Card>): Array<Stack> {
+    private divideBy(nb: number, cards: Array<Card>, endMine: Array<Card>): Array<Stack> {
         const n = Math.floor(cards.length / nb);
         let tmpArr = [];
         for (let i = 0; i < nb; i++) {
@@ -71,7 +70,7 @@ export class GameBoard {
     }
 
     public comptAllCards() : void {
-        console.debug('\n\n=== Number of cards ===');
+        console.debug('\n=== Number of cards ===');
 
         let nbCardMines = 0;
         if (this.mines.length != 0) {
@@ -109,7 +108,7 @@ export class GameBoard {
         let nbCardUnused = this.unUsedCards.collection.length;
         console.debug('UnUsed ' + nbCardUnused);
 
-        console.debug('=== Total ' + (nbCardMines + nbCardPlayerHands + nbCardPlayerMines + nbCardPlayerTreasure + nbCardRecruitCenter + nbCardTrophy + nbCardUnused) + ' ===\n\n');
+        console.debug('==== Total ' + (nbCardMines + nbCardPlayerHands + nbCardPlayerMines + nbCardPlayerTreasure + nbCardRecruitCenter + nbCardTrophy + nbCardUnused) + ' ====');
     }
 
     public printPlayerHands() : void {

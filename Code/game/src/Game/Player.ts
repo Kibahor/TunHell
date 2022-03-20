@@ -1,6 +1,6 @@
-import { Card } from "./Card/Card";
-import { Stack } from "./Card/Stack";
-import { StackType } from "./Card/StackType";
+import { Card } from "../Card/Card";
+import { Stack } from "../Card/Stack";
+import { StackType } from "../Card/StackType";
 
 export class Player {
     public playerHand : Stack;
