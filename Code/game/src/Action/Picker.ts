@@ -7,9 +7,12 @@ import { Treasure } from "../Card/Treasure";
 
 import { debugValue } from "../Launcher";
 
-export class Picker {
+import { prompt } from "../Module/Question";
 
-    public pickerAction(card:Card, noMine: number, gameboard: GameBoard, player: number) : void {  
+export class Picker {
+    private isShut: boolean = false;
+
+    public async pickerAction(card:Card, noMine: number, gameboard: GameBoard, player: number) {  
         if (debugValue) { console.log('[DEBUG] Begining of the picker action'); }
 
         for (let i=0; i < (card as Dwarf).first_value; i++) {
@@ -20,9 +23,9 @@ export class Picker {
             if (mine_card instanceof Bonus) {
                 this.pickerActionBonus(card, mine_card, noMine, gameboard, player);
             }
-            /*else if (mine_card instanceof Dwarf) {
-                if (!this.pickerActionDwarf(card, mine_card, noMine, gameboard, player)) { gameboard.recruitCenter.addCard(card); gameboard.players[player].mines[noMine].removeCard(card); return; }
-            }*/
+            else if (mine_card instanceof Dwarf) {
+                this.pickerActionDwarf(card, mine_card, noMine, gameboard, player);
+            }
             else if (mine_card instanceof Enemy) { 
                 if (!this.pickerActionEnemy(card, mine_card, noMine, gameboard, player)) { 
                     gameboard.recruitCenter.addCard(card); 
@@ -30,11 +33,15 @@ export class Picker {
                     return 
                 }
             }
-            /*else if (mine_card instanceof Treasure) {
-                if (!this.pickerActionTreasure(card, mine_card, noMine, gameboard, player)) { gameboard.recruitCenter.addCard(card); gameboard.players[player].mines[noMine].removeCard(card); return; }
-            }*/ 
+            else if (mine_card instanceof Treasure) {
+                await this.pickerActionTreasure(card, mine_card, noMine, gameboard, player)
+                if (this.isShut) { 
+                    gameboard.recruitCenter.addCard(card); 
+                    gameboard.players[player].mines[noMine].removeCard(card); 
+                    return; }
+            }
             else {
-                this.promtNotImplemented(mine_card.name, mine_card.typeName, gameboard, card);
+                this.dispNotImplemented(mine_card.name, mine_card.typeName, gameboard, card);
             }        
         }  
         gameboard.recruitCenter.addCard(card); 
@@ -59,18 +66,20 @@ export class Picker {
                 console.log(`The "${card.name}" has found a "${mine_card.name}" in the mine ${noMine+1}!`);
                 return this.cardMinedAction(mine_card, noMine, gameboard, player);
             default:
-                this.promtNotImplemented(mine_card.name, mine_card.typeName, gameboard, card);
+                this.dispNotImplemented(mine_card.name, mine_card.typeName, gameboard, card);
         }
         return true;
     }
 
-    private pickerActionTreasure(card: Card, mine_card: Card, noMine: number, gameboard: GameBoard, player: number) {
+    private async pickerActionTreasure(card: Card, mine_card: Card, noMine: number, gameboard: GameBoard, player: number) {
         if (debugValue) { console.log('[DEBUG] pickerActionTreasure'); }
-        this.cardMinedAction(mine_card, noMine, gameboard, player);
+        console.log(`The "${card.name}" has found a "${mine_card.name}" in the mine ${noMine+1}!`);
+        await this.cardMineActionTreasure(mine_card, noMine, gameboard, player);
     }
 
     private pickerActionDwarf(card: Card, mine_card: Card, noMine: number, gameboard: GameBoard, player: number) {
         if (debugValue) { console.log('[DEBUG] pickerActionDwarf'); }
+        console.log(`The "${card.name}" has found a "${mine_card.name}" in the mine ${noMine+1}!`);
         this.cardMinedAction(mine_card, noMine, gameboard, player);
     }
 
@@ -94,24 +103,39 @@ export class Picker {
 
     private cardMinedAction(card: Card, nMine: number, gameboard: GameBoard, player: number) : boolean {
         if (debugValue) { console.log('[DEBUG] cardMinedAction'); }
+
         let cardType = card.typeName;
         let cardName = card.name;
+
         if (debugValue) { console.log(`[DEBUG] cardType ${cardType}`); }
         if (debugValue) { console.log(`[DEBUG] cardName ${cardName}`); }
 
-        if (card instanceof Enemy) {
+
+        if (card instanceof Bonus || card instanceof Dwarf) {
+            if (debugValue) { console.log('[DEBUG] case Bonus or Dwarf'); }
+
+            if (cardType == 'Bonus' || cardType == 'Dwarf') {
+                if (gameboard.players[player].playerHand.collection.length < 6) {
+                    console.log(`The card ${cardName} from mine°${nMine+1} has been added to the "Hand" of player ${player+1}`);
+                    gameboard.players[player].playerHand.addCard(card);
+                }
+                else {
+                    console.log(`You haven\'t enough place to store the card ${cardName}, the card has been discarded`);
+                    gameboard.recruitCenter.addCard(card);
+                }
+            }
+            else {
+                this.dispNotImplemented(cardName, cardType, gameboard, card);
+            }
+        }
+        else if (card instanceof Enemy) {
             if (debugValue) { console.log('[DEBUG] case Enemy'); }
-            switch (cardName) {
-                case 'Dirt':
-                case 'Treasure':
+            switch (cardType) {
+                case 'Other':
                     console.log(`The card ${cardName} from mine n°${nMine+1} has been added to the "Tresasure collection" of player ${player+1}`);
                     gameboard.players[player].treasure.addCard(card);
                     break;
-                case 'Rat':
-                case 'Gobelin':
-                case 'Orc':
-                case 'Troll':
-                case 'Dragon':
+                case 'Meetings':
                     let playerCombatValue = this.combatValue(player, nMine, gameboard);
                     let monsterCombatValue = (card as Enemy).fight_value;
         
@@ -123,39 +147,108 @@ export class Picker {
                         gameboard.players[player].treasure.addCard(card);
                     }
                     else {
-                        console.log(`The card ${cardName} from mine n°${nMine+1} is too strong for the player ${player+1}`);
+                        console.log(`The ${cardName} from mine n°${nMine+1} is too strong for the player ${player+1}`);
+                        console.log(`The ${cardName} came back to the mine`);
                         gameboard.mines[nMine].addCardToBegin(card);
                         return false;
                     }
                     break;         
                 default:
-                    this.promtNotImplemented(cardName, cardType, gameboard, card);
+                    this.dispNotImplemented(cardName, cardType, gameboard, card);
             }
         }
-        else if (card instanceof Bonus) {
-            if (debugValue) { console.log('[DEBUG] case Bonus'); }
+        else {
+            this.dispNotImplemented(cardName, cardType, gameboard, card);  
+        }
+        return true;
+    }
+
+    private async cardMineActionTreasure(card: Card, nMine: number, gameboard: GameBoard, player: number) {
+        if (debugValue) { console.log('[DEBUG] case Treasure'); }
+
+        let cardType = card.typeName;
+        let cardName = card.name;
+
+        if (cardType == 'Special_treasure') {
             switch (cardName) {
-                case 'Beer_of_bravery':
-                case 'Nawak_sword':
-                case 'Old_pickaxe':
+                case 'Unique_rings':
                     if (gameboard.players[player].playerHand.collection.length < 6) {
                         console.log(`The card ${cardName} from mine°${nMine+1} has been added to the "Hand" of player ${player+1}`);
                         gameboard.players[player].playerHand.addCard(card);
                     }
                     else {
-                        console.log(`You haven\'t enough place to store the card ${cardName}, the card has been discarded`);
-                        gameboard.recruitCenter.addCard(card);
+                        let array = [];
+                        for (let cardPicked of gameboard.players[player].playerHand.collection) {
+                            if (cardPicked.name != 'Unique_rings') {    // Rajouter des cartes interdites
+                                if (debugValue) { console.log(`[DEBUG] ajout de la carte ${cardPicked.name} au tableau temporaire`) }
+                                array.push(cardPicked);
+                            }
+                        }
+                        if (array.length > 0) {
+                            console.log('This are yours cards:');
+                            for (let i=0; i<array.length; i++) {
+                                console.log(`(${i+1}) ${array[i].typeName} - ${array[i].name}\n`);
+                            }
+                            let noCard = await prompt(`Wich card do you want to peak? (1 to ${array.length}) `);
+                            while (noCard <= 0 || noCard > array.length) {
+                                noCard = await prompt(`Wich card do you want to peak? (1 to ${array.length}) `);
+                                break;
+                            }
+                            console.log(`You choose to sacrifice the ${array[noCard-1].name}`);
+                            gameboard.recruitCenter.addCard(array[noCard-1]);
+                            gameboard.players[player].playerHand.removeCard(array[noCard-1]);
+                            gameboard.players[player].treasure.addCard(card);
+                        }
+                        else {
+                            console.log(`You haven\'t enough place to store the card ${cardName}, the card has been discarded`);
+                            gameboard.recruitCenter.addCard(card);
+                        }
                     }
-                    break;
+                   break;
+                case 'Hearth_gold':
+                    let array = [];
+                    for (let cardPicked of gameboard.players[player].playerHand.collection) {
+                        if (cardPicked.typeName == 'Picker') {
+                            if (debugValue) { console.log(`[DEBUG] ajout de la carte ${cardPicked.name} au tableau temporaire`) }
+                            array.push(cardPicked);
+                        }
+                    }
+                    if (array.length > 0) {
+                        console.log('This are yours "Pickers":');
+                        for (let i=0; i<array.length; i++) {
+                            console.log(`(${i+1}) ${array[i].typeName} - ${array[i].name}\n`);
+                        }
+                        let noCard = await prompt(`Wich card do you want to peak? (1 to ${array.length}) `);
+                        while (noCard <= 0 || noCard > array.length) {
+                            noCard = await prompt(`Wich card do you want to peak? (1 to ${array.length}) `);
+                            break;
+                        }
+                        console.log(`You choose to sacrifice the ${array[noCard-1].name}`);
+                        gameboard.recruitCenter.addCard(array[noCard-1]);
+                        gameboard.players[player].playerHand.removeCard(array[noCard-1]);
+                        gameboard.players[player].treasure.addCard(card);
+                    }
+                    else {
+                        console.log(`You haven\'t any picker to discard, the ${cardName} came back to the mine`);
+                        gameboard.mines[nMine].addCardToBegin(card);
+                        this.isShut = true;
+                    }
+                    break; 
+                /*case 'Grödur_ghost':
+                // Je refuse d'implémenter cette merde
+                break;*/
                 default:
-                    this.promtNotImplemented(cardName, cardType, gameboard, card);
+                    this.dispNotImplemented(cardName, cardType, gameboard, card);
             }
+        }
+        else {
+            this.dispNotImplemented(cardName, cardType, gameboard, card);
         }
     }
 
-    private promtNotImplemented(cardName: string, cardType: string, gameboard: GameBoard, card: Card) : void {
+    private dispNotImplemented(cardName: string, cardType: string, gameboard: GameBoard, card: Card) : void {
         console.log(`Action for the mine card ${cardName} of type ${cardType} not implemented ;(`); 
-                console.log('The card has been add to the unUsedCard stack (temporary solution)');
-                gameboard.unUsedCards.addCard(card);
+        console.log('The card has been add to the unUsedCard stack (temporary solution)');
+        gameboard.unUsedCards.addCard(card);
     }
 }

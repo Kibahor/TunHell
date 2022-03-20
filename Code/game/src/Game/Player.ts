@@ -24,6 +24,6 @@ export class Player {
     }
 
     public promptHand() : void {
-        console.log("Votre main :" + this.playerHand.toString() + "\n");
+        console.log("Your hand:\n" + this.playerHand.toString() + "\n");
     }
 }

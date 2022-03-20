@@ -3,8 +3,9 @@ import { InitializeDeck } from './Card/Factory/InitializeDeck';
 import { GameBoard } from './Game/GameBoard';
 
 export let debugValue = true;
+export let debugExtremeValue = true;
 
-let initDeck = new InitializeDeck('Default');
+let initDeck = new InitializeDeck('Test');
 let deck = initDeck.generateDeck();
 
 if (debugValue) {   //Vérifie le compte des cartes  
