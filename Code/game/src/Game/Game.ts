@@ -10,6 +10,7 @@ import { Picker } from "../Action/Picker";
 import { debugValue } from "../Launcher";
 
 import readline = require("readline");
+import { Dwarf } from "../Card/Dwarf";
 
 
 const rl = readline.createInterface({
@@ -56,14 +57,14 @@ export class Game {
                 await this.recruitCard();
                 break;
             case 2:
-               await this.playCard();
+                await this.playCard();
                 break;
             default:
                 this.doRound();
                 return;
         }
 
-        if (debugValue) { console.log('[DEBUG] Primary choice done!') }
+        if (debugValue) { console.log('[DEBUG] Primary choice done!'); }
         // Attention, ce module n'est pas complet !!
         // Ce n'est pas la bonne méthode
         // Il ne faut regarder que le piocheur si il est joué
@@ -104,7 +105,7 @@ export class Game {
         }
     }
 
-    private async playCard() {
+    private async playCard() {                                          // Peut boucler à l'infini si le joueur ne peux jouer que des piocheurs (après il fait pas d'effort quoi ..)
         let player = this.gameboard.players[this.selectedPlayer-1];     // A approfondir !!
         if (player.playerHand.collection.length == 0) {                 // Ne prend pas en compte le fais que le joueur peut avoir des cartes non jouables dans sa main !!
             console.log('You have no card in your hand!');
@@ -113,7 +114,15 @@ export class Game {
         }
         let noCard = await this.prompt(`Whitch Card do you want to play (1 to ${player.playerHand.collection.length})? `);
         if (noCard > 0 && noCard <= player.playerHand.collection.length) {
-            await this.moveCardtoMine(player, noCard-1)
+            let card = player.playerHand.collection[noCard-1];
+            if (card.typeName == 'Picker') {
+                if (!this.isPossible(this.selectedPlayer-1, 0) && !this.isPossible(this.selectedPlayer-1, 1) && !this.isPossible(this.selectedPlayer-1, 2)) {
+                    console.log(`You shouldn't place the card ${card.name} in any mine because you haven't enough "warriors power"!`);
+                    await this.playCard();
+                    return;
+                }
+            }
+            await this.moveCardtoMine(player, noCard-1);        
         }
         else {
             await this.playCard();
@@ -124,12 +133,43 @@ export class Game {
     private async moveCardtoMine(player: Player, noCard: number) {
         let noMines = await this.prompt(`In which mine do you want to place the card : ${player.playerHand.collection[noCard].name} (1 to ${this.gameboard.mines.length})? `);
         if (noMines > 0 && noMines <= this.gameboard.mines.length) {
+            let card = player.playerHand.collection[noCard];
+            if (card.typeName == 'Picker') {
+                if (!this.isPossible(this.selectedPlayer-1, noMines-1)) { 
+                    console.log(`You shouldn't place the card ${card.name} in the mine n°${noMines} because you haven't enough "warriors power"!`);
+                    await this.moveCardtoMine(player, noCard);
+                    return;
+                } 
+            }
             console.log(`The ${player.playerHand.collection[noCard].name} has been moved to the mine n°${noMines}`);
             player.moveCardToMine(noCard, noMines-1);
         } 
         else {
             await this.moveCardtoMine(player, noCard);
         }
+    }
+
+    private isPossible(player: number, noMine: number) : boolean {
+        let combatValuePlayer: number = this.combatValue(player, noMine);
+        for (let i=0; i < this.gameboard.nbPlayers; i++) {
+            if (combatValuePlayer < this.combatValue(i, noMine)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private combatValue(player: number, noMine: number) : number {
+        let combatValue: number = 0;
+        for (let card of this.gameboard.players[player].mines[noMine].collection) {
+            if (card.typeName = 'Warrior') {
+                combatValue += (card as Dwarf).first_value;       
+            }
+            else if (card.typeName == 'Picker') {
+                combatValue += (card as Dwarf).second_value;
+            }
+        }
+        return combatValue;
     }
 
     private async prompt(question_str: string) {

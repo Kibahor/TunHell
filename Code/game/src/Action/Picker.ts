@@ -12,8 +12,6 @@ export class Picker {
     public pickerAction(card:Card, noMine: number, gameboard: GameBoard, player: number) : void {  
         if (debugValue) { console.log('[DEBUG] Begining of the picker action'); }
 
-        // Mettre la condition de puissance de guerrier supérieur à celle des autres joueurs
-
         while (true) {
             if (debugValue) { console.log('[DEBUG] Begin of the loop'); }
             let mine_card = gameboard.mines[noMine].collection.shift();
