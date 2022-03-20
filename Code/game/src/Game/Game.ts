@@ -3,14 +3,14 @@ import { Player } from "./Player";
 
 import { Card } from "../Card/Card";
 
-import { Scout } from "../Action/Scout";
 import { Blaster } from "../Action/Blaster";
+import { Dwarf } from "../Card/Dwarf";
 import { Picker } from "../Action/Picker";
+import { Scout } from "../Action/Scout";
 
 import { debugValue } from "../Launcher";
 
 import readline = require("readline");
-import { Dwarf } from "../Card/Dwarf";
 
 
 const rl = readline.createInterface({
@@ -87,7 +87,7 @@ export class Game {
     private async recruitCard() {
         let player = this.gameboard.players[this.selectedPlayer-1];
         if (player.playerHand.collection.length >= 6) {
-            console.log('You have already 6 cards in your hand !'); 
+            console.log('You have already 6 cards in your hand!'); 
             await this.playCard();
             return;
         }
@@ -139,7 +139,7 @@ export class Game {
                     return;
                 } 
             }
-            console.log(`The ${player.playerHand.collection[noCard].name} has been moved to the mine n°${noMines}`);
+            console.log(`The ${player.playerHand.collection[noCard].name} has been moved to the mine n°${noMines}\n`);
             player.moveCardToMine(noCard, noMines-1);
         } 
         else {
@@ -179,7 +179,7 @@ export class Game {
                 break;
             default:
                 console.log(`Action of the card ${card.typeName} not implemented ;(`);
-                console.log('The card has been add to the unUsedCard stack (temporary solution).');
+                console.log('The card has been add to the unUsedCard stack (temporary solution)');
                 this.gameboard.unUsedCards.addCard(card);
                 this.gameboard.players[this.selectedPlayer-1].mines[noMine].removeCard(card);
         }
