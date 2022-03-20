@@ -59,8 +59,6 @@
                         <input type="hidden" id="games" value= <?php echo $games ?> />
                         <input type="hidden" id="victoires" value= <?php echo $victoires?> />
 
-
-
                         <?php
                             if($games != 0)
                                 echo ('
@@ -76,7 +74,7 @@
                 </div>
             </div>
             <!-- Settings -->
-            <div class="mt-8 flex justify-center flex-wrap">
+            <div class="mt-8 mb-8 flex justify-center flex-wrap">
                 <!-- Card -->
                 <div class="bg-gray-300 rounded-lg flex justify-center text-sm text-center flex-wrap p-6 md:p-8">
                     <div>
@@ -116,15 +114,62 @@
                     </div>
                 </div>
             </div>
-
+            <?php
+                if(isset($invalid_username) && $invalid_username == true){
+                    echo '  <div class="bg-red-500 rounded-lg p-2 flex gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="font-semibold text-white">Le nom est pas valide</p>
+                            </div>';
+                }
+                if(isset($username_already_use) && $username_already_use == true){
+                    echo '  <div class="bg-red-500 rounded-lg p-2 flex gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="font-semibold text-white">Le nom est déjà utilisé</p>
+                            </div>';
+                }
+                if(isset($empty_username) && $empty_username == true){
+                    echo '  <div class="bg-red-500 rounded-lg p-2 flex gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="font-semibold text-white">Le nom est vide</p>
+                            </div>';
+                }
+                if(isset($empty_password) && $empty_password == true){
+                    echo '  <div class="bg-red-500 rounded-lg p-2 flex gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="font-semibold text-white">Le mot de passe est vide</p>
+                            </div>';
+                }
+                if(isset($invalid_password) && $invalid_password == true){
+                    echo '  <div class="bg-red-500 rounded-lg p-2 flex gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="font-semibold text-white">
+                                            Le mots de passe doit avoir :<br>
+                                            • 8 à 20 caractères<br>
+                                            • Une lettre minuscule et une lettre majuscule<br>
+                                            • Un chiffre<br>
+                                            • Un de ces caractères spéciaux: $ @ % * + - _ !</p>
+                            </div>';
+                }
+                if(isset($wrong_confirmpassord) && $wrong_confirmpassord == true){
+                    echo '  <div class="bg-red-500 rounded-lg p-2 flex gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="font-semibold text-white">Les mots de passes ne correspondent pas</p>
+                            </div>';
+                }
+            ?>
         </section>
         <?php require_once("footer.php") ?>
     </body>
 </html>
-
-
-<!-- echo '<li>avatar : '.$accountDisplay->getAvatar().'<il>';
-echo '<li>pseudo : '.$accountDisplay->getPseudo().'<il>';
-echo '<li>Date création compte : '.$accountDisplay->getCreationDate().'<il>';
-echo '<li>nombre de games jouées : '.$accountDisplay->getNumbrerGames().'<il>';
-echo '<li>nombre de victoires : '.$accountDisplay->getNumberVictoires().'<il>'; -->

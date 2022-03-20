@@ -11,7 +11,7 @@
         <section class="main flex flex-col h-full justify-center items-center">
             <div class="flex mb-5">
                 <div class="hidden lg:flex">
-                    <img class="h-96 w-96 2xl:h-32 2xl:w-32 object-cover rounded-l-lg" src="views/rsc/dragon.jpg" alt="">
+                    <img class="h-96 w-96 2xl:h-32 2xl:w-32 object-cover rounded-l-lg" src="views/rsc/dragon_compress.jpg" alt="">
                 </div>
                 <form class ="bg-white rounded-r-lg flex flex-col items-center justify-center h-96 w-96 2xl:h-32 2xl:w-32 2xl:gap-y-1" action="index.php?action=signup" method="POST">
                     <h1 class="text-2xl font-bold">Create Account</h1>
