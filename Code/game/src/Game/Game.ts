@@ -42,6 +42,8 @@ export class Game {
         if (debugValue) { this.gameboard.comptAllCards(); }
 
         console.debug(`\n=====================================\n| Turn ${this.turn}: Player ${this.selectedPlayer}, it's your turn! |\n=====================================`);
+
+        // Rajouter une question pour savoir ce que le joueur veut voir (main, plateau etc..)
         this.gameboard.players[this.selectedPlayer-1].promptHand();
 
         let choice = await prompt('Pick a Card or Play a Card (1/2)? ');
@@ -74,6 +76,7 @@ export class Game {
             this.selectedPlayer = 1;
             this.turn++;
         }
+        await prompt('\nPress a key a end your turn ');
         this.doRound();
     }
 

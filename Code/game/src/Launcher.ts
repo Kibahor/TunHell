@@ -2,10 +2,10 @@ import { Game } from './Game/Game';
 import { InitializeDeck } from './Card/Factory/InitializeDeck';
 import { GameBoard } from './Game/GameBoard';
 
-export let debugValue = true;
-export let debugExtremeValue = true;
+export let debugValue = false;
+export let debugExtremeValue = false;
 
-let initDeck = new InitializeDeck('Test');
+let initDeck = new InitializeDeck('Default');
 let deck = initDeck.generateDeck();
 
 if (debugValue) {   //Vérifie le compte des cartes  
