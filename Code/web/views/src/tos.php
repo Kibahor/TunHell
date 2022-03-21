@@ -44,7 +44,9 @@
                         <h2 class="font-bold text-lg text-purple-400">7. Site Terms of Use Modifications</h2>
                             <p class="m-4">Tunhell may revise these Terms of Use for its Website at any time without prior notice. By using this Website, you are agreeing to be bound by the current version of these Terms and Conditions of Use.</p>
                         <h2 class="font-bold text-lg text-purple-400">8. Your Privacy</h2>
-                            <p class="m-4">Please read our Privacy Policy.</p>
+                            <p class="m-4">When you accessing our website, only information you gave during your inscription and statistic when you played a game of tunhell is stored in our server (pseudo, avatar, password, number of games played and number of victories). We don’t collect any other sort of data like IP, location or cookie.</p>
+                        <h2 class="font-bold text-lg text-purple-400">8. Manage your data</h2>
+                            <p class="m-4">If you have any question on how we manage your data, please contact the support at contact@tunhell.w4.websr.fr </p>
                         <h2 class="font-bold text-lg text-purple-400">9. Governing Law</h2>
                             <p class="m-4">Any claim related to Tunhell's Website shall be governed by the laws of fr without regards to its conflict of law provisions.</p>
                     </div>
