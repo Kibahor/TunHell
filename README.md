@@ -28,6 +28,9 @@ You can find our website [here](https://tunhell.w4.websr.fr)
 Yeah.. maybe a day..
 In deed just read ;)
 
+### You want more details about the project ?
+You can read our [detailed report](https://github.com/Kibahor/TunHell/blob/main/doc/rapport/Rapport%20TunHell.pdf), that explain all the project from the beginning 
+
 ## Credits
 
 - Co-author: [Antoine Imbert](https://github.com/AntoineBBR)
